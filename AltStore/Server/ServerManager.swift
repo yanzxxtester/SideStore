@@ -38,7 +38,7 @@ class ServerManager: NSObject
 
 extension ServerManager
 {
-    func startDiscovering()
+    func startDiscovering() // TODO: 1 - add server to mutex (???)
     {
         guard !self.isDiscovering else { return }
         self.isDiscovering = true
@@ -46,6 +46,12 @@ extension ServerManager
         self.serviceBrowser.searchForServices(ofType: ALTServerServiceType, inDomain: "")
         
         self.startListeningForWiredConnections()
+        
+        let ianTestService = NetService(domain: 69.69.0.1, type: "???", name: "SideStore", port: 7676)
+        if let txtData = ianTestService.txtRecordData(), let server = Server(service: ianTestService, txtData: txtData)
+        {
+            self.addDiscoveredServer(server)
+        }
     }
     
     func stopDiscovering()
@@ -101,7 +107,7 @@ extension ServerManager
                     finish(.failure(ALTServerError(.connectionFailed)))
                 }
                 
-            case .wireless:
+            case .wireless: // TODO: 3 - Once it's in the mutex of found servers (idk if mutex is a term in Swift), it should just connect here through the IP in the server struct (class?)
                 guard let service = server.service else { return finish(.failure(ALTServerError(.connectionFailed))) }
                 
                 print("Connecting to service:", service)
@@ -115,7 +121,7 @@ extension ServerManager
 
 private extension ServerManager
 {
-    func addDiscoveredServer(_ server: Server)
+    func addDiscoveredServer(_ server: Server) // TODO: 2 - It can be replicated something like this, just use the IP address of 69.69.0.1
     {
         var server = server
         server.isPreferred = (server.identifier == UserDefaults.standard.preferredServerID)

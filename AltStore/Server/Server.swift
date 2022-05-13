@@ -48,7 +48,7 @@ struct Server: Equatable
 extension Server
 {
     // Defined in extension so we can still use the automatically synthesized initializer.
-    init?(service: NetService, txtData: Data)
+    init?(service: NetService, txtData: Data) // TODO: this is all that's needed for a server connection
     {
         let txtDictionary = NetService.dictionary(fromTXTRecord: txtData)
         guard let identifierData = txtDictionary["serverID"], let identifier = String(data: identifierData, encoding: .utf8) else { return nil }
