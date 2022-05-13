@@ -47,7 +47,7 @@ extension ServerManager
         
         self.startListeningForWiredConnections()
         
-        let ianTestService = NetService(domain: 69.69.0.1, type: "???", name: "SideStore", port: 7676)
+        let ianTestService = NetService(domain: "69.69.0.1", type: "???", name: "SideStore", port: 7676)
         if let txtData = ianTestService.txtRecordData(), let server = Server(service: ianTestService, txtData: txtData)
         {
             self.addDiscoveredServer(server)
