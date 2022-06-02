@@ -17,6 +17,7 @@ enum AuthenticationError: LocalizedError
 {
     case noTeam
     case noCertificate
+    case teamSelectorError
     
     case missingPrivateKey
     case missingCertificate
@@ -24,6 +25,7 @@ enum AuthenticationError: LocalizedError
     var errorDescription: String? {
         switch self {
         case .noTeam: return NSLocalizedString("Developer team could not be found.", comment: "")
+        case .teamSelectorError: return NSLocalizedString("Error presenting team selector view.", comment: "")
         case .noCertificate: return NSLocalizedString("Developer certificate could not be found.", comment: "")
         case .missingPrivateKey: return NSLocalizedString("The certificate's private key could not be found.", comment: "")
         case .missingCertificate: return NSLocalizedString("The certificate could not be found.", comment: "")
@@ -49,6 +51,7 @@ class AuthenticationOperation: ResultOperation<(ALTTeam, ALTCertificate, ALTAppl
     
     private lazy var storyboard = UIStoryboard(name: "Authentication", bundle: nil)
     
+    private var appleIDEmailAddress: String?
     private var appleIDPassword: String?
     private var shouldShowInstructions = false
     
@@ -174,6 +177,13 @@ class AuthenticationOperation: ResultOperation<(ALTTeam, ALTCertificate, ALTAppl
                 }
                 
                 account.update(account: altTeam.account)
+                
+                if let providedEmailAddress = self.appleIDEmailAddress
+                {
+                    // Save the user's provided email address instead of the one associated with their account (which may be outdated).
+                    account.appleID = providedEmailAddress
+                }
+                
                 team.update(team: altTeam)
                                 
                 try context.save()
@@ -242,7 +252,7 @@ class AuthenticationOperation: ResultOperation<(ALTTeam, ALTCertificate, ALTAppl
                 try context.save()
                 
                 // Update keychain
-                Keychain.shared.appleIDEmailAddress = altTeam.account.appleID
+                Keychain.shared.appleIDEmailAddress = self.appleIDEmailAddress ?? altTeam.account.appleID // Prefer the user's provided email address over the one associated with their account (which may be outdated).
                 Keychain.shared.appleIDPassword = self.appleIDPassword
                 
                 Keychain.shared.signingCertificate = altCertificate.p12Data()
@@ -359,6 +369,8 @@ private extension AuthenticationOperation
     
     func authenticate(appleID: String, password: String, completionHandler: @escaping (Result<(ALTAccount, ALTAppleAPISession), Swift.Error>) -> Void)
     {
+        self.appleIDEmailAddress = appleID
+        
         let fetchAnisetteDataOperation = FetchAnisetteDataOperation(context: self.context)
         fetchAnisetteDataOperation.resultHandler = { (result) in
             switch result
@@ -431,24 +443,27 @@ private extension AuthenticationOperation
     func fetchTeam(for account: ALTAccount, session: ALTAppleAPISession, completionHandler: @escaping (Result<ALTTeam, Swift.Error>) -> Void)
     {
         func selectTeam(from teams: [ALTTeam])
-        {
-            if let team = teams.first(where: { $0.type == .free })
-            {
-                return completionHandler(.success(team))
-            }
-            else if let team = teams.first(where: { $0.type == .individual })
-            {
-                return completionHandler(.success(team))
-            }
-            else if let team = teams.first
-            {
-                return completionHandler(.success(team))
-            }
-            else
-            {
-                return completionHandler(.failure(AuthenticationError.noTeam))
-            }
-        }
+         {
+             if teams.count <= 1 {
+                 if let team = teams.first {
+                     return completionHandler(.success(team))
+                 } else {
+                     return completionHandler(.failure(AuthenticationError.noTeam))
+                 }
+             } else {
+                 DispatchQueue.main.async {
+                     let selectTeamViewController = self.storyboard.instantiateViewController(withIdentifier: "selectTeamViewController") as! SelectTeamViewController
+
+                     selectTeamViewController.teams = teams
+                     selectTeamViewController.completionHandler = completionHandler
+
+                     if !self.present(selectTeamViewController)
+                     {
+                         return completionHandler(.failure(AuthenticationError.noTeam))
+                     }
+                 }
+             }
+         }
 
         ALTAppleAPI.shared.fetchTeams(for: account, session: session) { (teams, error) in
             switch Result(teams, error)
@@ -507,7 +522,7 @@ private extension AuthenticationOperation
         
         func replaceCertificate(from certificates: [ALTCertificate])
         {
-            guard let certificate = certificates.first else { return completionHandler(.failure(AuthenticationError.noCertificate)) }
+            guard let certificate = certificates.first(where: { $0.machineName?.starts(with: "AltStore") == true }) ?? certificates.first else { return completionHandler(.failure(AuthenticationError.noCertificate)) }
             
             ALTAppleAPI.shared.revoke(certificate, for: team, session: session) { (success, error) in
                 if let error = error, !success
@@ -582,7 +597,7 @@ private extension AuthenticationOperation
             return completionHandler(.failure(OperationError.unknownUDID))
         }
         
-        ALTAppleAPI.shared.fetchDevices(for: team, session: session) { (devices, error) in
+        ALTAppleAPI.shared.fetchDevices(for: team, types: [.iphone, .ipad], session: session) { (devices, error) in
             do
             {
                 let devices = try Result(devices, error).get()
@@ -593,7 +608,7 @@ private extension AuthenticationOperation
                 }
                 else
                 {
-                    ALTAppleAPI.shared.registerDevice(name: UIDevice.current.name, identifier: udid, team: team, session: session) { (device, error) in
+                    ALTAppleAPI.shared.registerDevice(name: UIDevice.current.name, identifier: udid, type: .iphone, team: team, session: session) { (device, error) in
                         completionHandler(Result(device, error))
                     }
                 }
