@@ -415,34 +415,6 @@ extension AppManager
         return fetchTrustedSourcesOperation
     }
     
-    func updatePatronsIfNeeded()
-    {
-        guard self.operationQueue.operations.allSatisfy({ !($0 is UpdatePatronsOperation) }) else {
-            // There's already an UpdatePatronsOperation running.
-            return
-        }
-        
-        self.updatePatronsResult = nil
-        
-        let updatePatronsOperation = UpdatePatronsOperation()
-        updatePatronsOperation.resultHandler = { (result) in
-            do
-            {
-                try result.get()
-                self.updatePatronsResult = .success(())
-            }
-            catch
-            {
-                print("Error updating Friend Zone Patrons:", error)
-                self.updatePatronsResult = .failure(error)
-            }
-            
-            NotificationCenter.default.post(name: AppManager.didUpdatePatronsNotification, object: self)
-        }
-        
-        self.run([updatePatronsOperation], context: nil)
-    }
-    
     @discardableResult
     func install<T: AppProtocol>(_ app: T, presentingViewController: UIViewController?, context: AuthenticatedOperationContext = AuthenticatedOperationContext(), completionHandler: @escaping (Result<InstalledApp, Error>) -> Void) -> RefreshGroup
     {

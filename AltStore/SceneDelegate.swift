@@ -40,8 +40,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate
         
         AppManager.shared.update()
         ServerManager.shared.startDiscovering()
-        
-        PatreonAPI.shared.refreshPatreonAccount()
     }
     
     func sceneDidEnterBackground(_ scene: UIScene)

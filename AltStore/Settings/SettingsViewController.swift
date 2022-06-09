@@ -20,7 +20,6 @@ extension SettingsViewController
     {
         case signIn
         case account
-        case patreon
         case appRefresh
         case instructions
         case credits
@@ -79,8 +78,6 @@ class SettingsViewController: UITableViewController
     required init?(coder aDecoder: NSCoder)
     {
         super.init(coder: aDecoder)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(SettingsViewController.openPatreonSettings(_:)), name: AppDelegate.openPatreonSettingsDeepLinkNotification, object: nil)
     }
     
     override func viewDidLoad()
@@ -170,17 +167,7 @@ private extension SettingsViewController
             {
                 settingsHeaderFooterView.secondaryLabel.text = NSLocalizedString("Sign in with your Apple ID to download apps from AltStore.", comment: "")
             }
-            
-        case .patreon:
-            if isHeader
-            {
-                settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("PATREON", comment: "")
-            }
-            else
-            {
-                settingsHeaderFooterView.secondaryLabel.text = NSLocalizedString("Receive access to beta versions of AltStore, Delta, and more by becoming a patron.", comment: "")
-            }
-            
+
         case .account:
             settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("ACCOUNT", comment: "")
             
@@ -328,18 +315,6 @@ private extension SettingsViewController
     }
 }
 
-private extension SettingsViewController
-{
-    @objc func openPatreonSettings(_ notification: Notification)
-    {
-        guard self.presentedViewController == nil else { return }
-                
-        UIView.performWithoutAnimation {
-            self.navigationController?.popViewController(animated: false)
-            self.performSegue(withIdentifier: "showPatreon", sender: nil)
-        }
-    }
-}
 
 extension SettingsViewController
 {
@@ -390,7 +365,7 @@ extension SettingsViewController
         {
         case .signIn where self.activeTeam != nil: return nil
         case .account where self.activeTeam == nil: return nil
-        case .signIn, .account, .patreon, .appRefresh, .credits, .debug:
+        case .signIn, .account, .appRefresh, .credits, .debug:
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderFooterView") as! SettingsHeaderFooterView
             self.prepare(headerView, for: section, isHeader: true)
             return headerView
@@ -405,7 +380,7 @@ extension SettingsViewController
         switch section
         {
         case .signIn where self.activeTeam != nil: return nil
-        case .signIn, .patreon, .appRefresh:
+        case .signIn, .appRefresh:
             let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderFooterView") as! SettingsHeaderFooterView
             self.prepare(footerView, for: section, isHeader: false)
             return footerView
@@ -421,7 +396,7 @@ extension SettingsViewController
         {
         case .signIn where self.activeTeam != nil: return 1.0
         case .account where self.activeTeam == nil: return 1.0
-        case .signIn, .account, .patreon, .appRefresh, .credits, .debug:
+        case .signIn, .account, .appRefresh, .credits, .debug:
             let height = self.preferredHeight(for: self.prototypeHeaderFooterView, in: section, isHeader: true)
             return height
             
@@ -436,7 +411,7 @@ extension SettingsViewController
         {
         case .signIn where self.activeTeam != nil: return 1.0
         case .account where self.activeTeam == nil: return 1.0            
-        case .signIn, .patreon, .appRefresh:
+        case .signIn, .appRefresh:
             let height = self.preferredHeight(for: self.prototypeHeaderFooterView, in: section, isHeader: false)
             return height
             

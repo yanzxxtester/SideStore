@@ -45,9 +45,6 @@ public class Source: NSManagedObject, Fetchable, Decodable
     
     @NSManaged public var error: NSError?
     
-    /* Non-Core Data Properties */
-    public var userInfo: [ALTSourceUserInfoKey: String]?
-    
     /* Relationships */
     @objc(apps) @NSManaged public private(set) var _apps: NSOrderedSet
     @objc(newsItems) @NSManaged public private(set) var _newsItems: NSOrderedSet
@@ -101,7 +98,6 @@ public class Source: NSManagedObject, Fetchable, Decodable
             self.identifier = try container.decode(String.self, forKey: .identifier)
             
             let userInfo = try container.decodeIfPresent([String: String].self, forKey: .userInfo)
-            self.userInfo = userInfo?.reduce(into: [:]) { $0[ALTSourceUserInfoKey($1.key)] = $1.value }
             
             let apps = try container.decodeIfPresent([StoreApp].self, forKey: .apps) ?? []
             let appsByID = Dictionary(apps.map { ($0.bundleIdentifier, $0) }, uniquingKeysWith: { (a, b) in return a })

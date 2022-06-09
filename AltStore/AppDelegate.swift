@@ -86,8 +86,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     {
         AppManager.shared.update()
         ServerManager.shared.startDiscovering()
-        
-        PatreonAPI.shared.refreshPatreonAccount()
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool
