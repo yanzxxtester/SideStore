@@ -8,6 +8,7 @@
 
 import UIKit
 import AltStoreCore
+import SwiftUI
 
 extension TabBarController
 {
@@ -40,6 +41,15 @@ class TabBarController: UITabBarController
         super.viewDidAppear(animated)
         
         _viewDidAppear = true
+        
+        // manually override the tab bar's view controllers with our own
+        if var otherControllers = self.viewControllers {
+            let testView = UIHostingController(rootView: TestView())
+            testView.tabBarItem = .init(title: "Settings", image: UIImage(named: "Settings"), tag: 0)
+            otherControllers.remove(at: Tab.settings.rawValue)
+            otherControllers.insert(testView, at: Tab.settings.rawValue)
+            self.viewControllers = otherControllers
+        }
         
         if let (identifier, sender) = self.initialSegue
         {
