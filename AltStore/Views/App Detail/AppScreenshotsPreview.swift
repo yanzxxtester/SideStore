@@ -28,18 +28,9 @@ struct AppScreenshotsPreview: View {
     var body: some View {
         TabView(selection: $index) {
             ForEach(Array(urls.enumerated()), id: \.offset) { (i, url) in
-                AsyncImage(url: url) { image in
-                    image
-                        .resizable()
-                } placeholder: {
-                    Rectangle()
-                        .foregroundColor(Color(.secondarySystemBackground))
-                        .aspectRatio(aspectRatio, contentMode: .fill)
-                }
-                .aspectRatio(aspectRatio, contentMode: .fit)
-                .cornerRadius(8)
-                .padding()
-                .tag(i)
+                AppScreenshot(url: url, aspectRatio: aspectRatio)
+                    .padding()
+                    .tag(i)
             }
         }
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
