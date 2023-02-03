@@ -39,8 +39,8 @@ final class AuthenticationOperation: ResultOperation<(ALTTeam, ALTCertificate, A
 {
     let context: AuthenticatedOperationContext
     
-//    private weak var presentingViewController: UIViewController?
-//
+    private weak var presentingViewController: UIViewController?
+
 //    private lazy var navigationController: UINavigationController = {
 //        let navigationController = self.storyboard.instantiateViewController(withIdentifier: "navigationController") as! UINavigationController
 //        if #available(iOS 13.0, *)
@@ -63,7 +63,7 @@ final class AuthenticationOperation: ResultOperation<(ALTTeam, ALTCertificate, A
     init(context: AuthenticatedOperationContext, presentingViewController: UIViewController?)
     {
         self.context = context
-//        self.presentingViewController = presentingViewController
+        self.presentingViewController = presentingViewController
         
         super.init()
         
@@ -312,7 +312,10 @@ private extension AuthenticationOperation
     }
     
     func dismiss() {
-        UIApplication.shared.keyWindow?.rootViewController?.presentedViewController?.dismiss(animated: true)
+        if let presentingViewController {
+            presentingViewController.dismiss(animated: true)
+        }
+//        UIApplication.shared.keyWindow?.rootViewController?.presentedViewController?.dismiss(animated: true)
     }
 }
 
