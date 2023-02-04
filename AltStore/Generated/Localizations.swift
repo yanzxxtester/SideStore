@@ -55,8 +55,8 @@ internal enum L10n {
     internal static let restoreBackup = L10n.tr("Localizable", "AppAction.restoreBackup", fallback: "Restore backup")
   }
   internal enum AppDetailView {
-    /// 
-    internal static let information = L10n.tr("Localizable", "AppDetailView.information", fallback: "")
+    /// Information
+    internal static let information = L10n.tr("Localizable", "AppDetailView.information", fallback: "Information")
     /// More...
     internal static let more = L10n.tr("Localizable", "AppDetailView.more", fallback: "More...")
     /// The app requires no permissions.
@@ -88,6 +88,8 @@ internal enum L10n {
       internal static func compatibilityAtLeast(_ p1: Any) -> String {
         return L10n.tr("Localizable", "AppDetailView.Information.compatibilityAtLeast", String(describing: p1), fallback: "Requires iOS %@ or higher")
       }
+      /// Unknown
+      internal static let compatibilityCompatible = L10n.tr("Localizable", "AppDetailView.Information.compatibilityCompatible", fallback: "Unknown")
       /// Requires iOS %@ or lower
       internal static func compatibilityOrLower(_ p1: Any) -> String {
         return L10n.tr("Localizable", "AppDetailView.Information.compatibilityOrLower", String(describing: p1), fallback: "Requires iOS %@ or lower")

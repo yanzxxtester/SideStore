@@ -371,8 +371,11 @@ struct AppDetailView: View {
                 (L10n.AppDetailView.Information.latestVersion, self.storeApp.latestVersion?.version ?? ""),
             ]
 
-            var compatibility: String = L10n.AppDetailView.Information.compatibilityUnknown
             let iOSVersion = ProcessInfo.processInfo.operatingSystemVersion
+            let hasCompatibilityInfo = [latestVersion.minOSVersion, latestVersion.maxOSVersion].compactMap({ $0 }).isEmpty == false
+            var compatibility: String = hasCompatibilityInfo ?
+                L10n.AppDetailView.Information.compatibilityCompatible :
+                L10n.AppDetailView.Information.compatibilityUnknown
 
             if let minOSVersion = latestVersion.minOSVersion, ProcessInfo.processInfo.isOperatingSystemAtLeast(minOSVersion) == false {
                 compatibility = L10n.AppDetailView.Information.compatibilityAtLeast(minOSVersion.stringValue)

@@ -138,6 +138,7 @@
 "AppDetailView.Information.size" = "Size";
 "AppDetailView.Information.latestVersion" = "Latest Version";
 "AppDetailView.Information.compatibility" = "Compatibility";
+"AppDetailView.Information.compatibilityCompatible" = "Unknown";
 "AppDetailView.Information.compatibilityUnknown" = "Unknown";
 "AppDetailView.Information.compatibilityAtLeast" = "Requires iOS %@ or higher";
 "AppDetailView.Information.compatibilityOrLower" = "Requires iOS %@ or lower";
