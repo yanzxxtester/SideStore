@@ -37,6 +37,9 @@
 		1F180F94298E7A2500D1C98B /* Source+Trusted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F180F93298E7A2500D1C98B /* Source+Trusted.swift */; };
 		1F2EF787297C4D40002FD839 /* LicensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2EF786297C4D40002FD839 /* LicensesView.swift */; };
 		1F44634529744E570070E514 /* HintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F44634429744E570070E514 /* HintView.swift */; };
+		1F545E83298D79E400589F68 /* ErrorLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F545E82298D79E400589F68 /* ErrorLogView.swift */; };
+		1F545E85298D84CF00589F68 /* FilePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F545E84298D84CF00589F68 /* FilePreviewView.swift */; };
+		1F545E87298D86D800589F68 /* ModalNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F545E86298D86D800589F68 /* ModalNavigationLink.swift */; };
 		1F5DF9D82974426300DDAA47 /* AppScreenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5DF9D72974426300DDAA47 /* AppScreenshot.swift */; };
 		1F6284D5295209DA0060AAD8 /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6284D4295209DA0060AAD8 /* AppAction.swift */; };
 		1F6284D7295218980060AAD8 /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6284D6295218980060AAD8 /* DocumentPicker.swift */; };
@@ -582,6 +585,9 @@
 		1F180F93298E7A2500D1C98B /* Source+Trusted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Source+Trusted.swift"; sourceTree = "<group>"; };
 		1F2EF786297C4D40002FD839 /* LicensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesView.swift; sourceTree = "<group>"; };
 		1F44634429744E570070E514 /* HintView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintView.swift; sourceTree = "<group>"; };
+		1F545E82298D79E400589F68 /* ErrorLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLogView.swift; sourceTree = "<group>"; };
+		1F545E84298D84CF00589F68 /* FilePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePreviewView.swift; sourceTree = "<group>"; };
+		1F545E86298D86D800589F68 /* ModalNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalNavigationLink.swift; sourceTree = "<group>"; };
 		1F5DF9D72974426300DDAA47 /* AppScreenshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppScreenshot.swift; sourceTree = "<group>"; };
 		1F6284D4295209DA0060AAD8 /* AppAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAction.swift; sourceTree = "<group>"; };
 		1F6284D6295218980060AAD8 /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
@@ -1109,6 +1115,7 @@
 				1FB96FCE292BBBC9007E68D1 /* SiriShortcutSetupView.swift */,
 				1F66F5B92938CA5700A910CA /* VisualEffectView.swift */,
 				1F6284D6295218980060AAD8 /* DocumentPicker.swift */,
+				1F545E84298D84CF00589F68 /* FilePreviewView.swift */,
 			);
 			path = "UIView Representables";
 			sourceTree = "<group>";
@@ -1193,6 +1200,7 @@
 				1FAFC5C02927E13C00B8D837 /* SettingsView.swift */,
 				1F0DD83E29367F6C007608A4 /* ConnectAppleIDView.swift */,
 				1F2EF786297C4D40002FD839 /* LicensesView.swift */,
+				1F545E82298D79E400589F68 /* ErrorLogView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1218,6 +1226,7 @@
 				1FB96FBD292A20E5007E68D1 /* ObservableScrollView.swift */,
 				1F6E08E529280F4B005059C0 /* RatingStars.swift */,
 				1F0DD8422936B0F9007608A4 /* RoundedTextField.swift */,
+				1F545E86298D86D800589F68 /* ModalNavigationLink.swift */,
 			);
 			path = "View Components";
 			sourceTree = "<group>";
@@ -2745,6 +2754,7 @@
 				BFC1F38D22AEE3A4003AC21A /* DownloadAppOperation.swift in Sources */,
 				1F6E08DA292806E0005059C0 /* AppRowView.swift in Sources */,
 				1FB96FC3292A6D7E007E68D1 /* DateFormatterHelper.swift in Sources */,
+				1F545E87298D86D800589F68 /* ModalNavigationLink.swift in Sources */,
 				1F943C6D2927F90400ABE095 /* NewsViewModel.swift in Sources */,
 				1FB96FF3292D0539007E68D1 /* PillButtonProgressViewStyle.swift in Sources */,
 				1F6E08E829282174005059C0 /* ConfirmAddSourceView.swift in Sources */,
@@ -2812,6 +2822,7 @@
 				D5F2F6A92720B7C20081CCF5 /* PatchViewController.swift in Sources */,
 				B39F16132918D7C5002E9404 /* Consts.swift in Sources */,
 				1F0DD8212933B749007608A4 /* AppPermissionsGrid.swift in Sources */,
+				1F545E83298D79E400589F68 /* ErrorLogView.swift in Sources */,
 				1F0DD8452936B3FE007608A4 /* FilledButtonStyle.swift in Sources */,
 				BF8F69C222E659F700049BA1 /* AppContentViewController.swift in Sources */,
 				BF08858522DE7EC800DE9F1E /* UpdateCollectionViewCell.swift in Sources */,
@@ -2848,6 +2859,7 @@
 				BFF00D342501BDCF00746320 /* IntentHandler.swift in Sources */,
 				1F0DD81C2932D2FF007608A4 /* AppScreenshotsScrollView.swift in Sources */,
 				BFDBBD80246CB84F004ED2F3 /* RemoveAppBackupOperation.swift in Sources */,
+				1F545E85298D84CF00589F68 /* FilePreviewView.swift in Sources */,
 				1FB96FCF292BBBCA007E68D1 /* SiriShortcutSetupView.swift in Sources */,
 				1F2EF787297C4D40002FD839 /* LicensesView.swift in Sources */,
 				BFF0B6942321CB85007A79E1 /* AuthenticationViewController.swift in Sources */,

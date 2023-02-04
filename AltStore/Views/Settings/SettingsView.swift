@@ -154,6 +154,12 @@ struct SettingsView: View {
                 SwiftUI.Button(action: resetImageCache) {
                     Text(L10n.SettingsView.resetImageCache)
                 }
+
+                NavigationLink {
+                    ErrorLogView()
+                } label: {
+                    Text("Show Error Log")
+                }
             } header: {
                 Text(L10n.SettingsView.debug)
             }
@@ -193,7 +199,11 @@ struct SettingsView: View {
     
     
     func connectAppleID() {
-        AppManager.shared.authenticate(presentingViewController: nil) { (result) in
+        guard let rootViewController = UIApplication.shared.keyWindow?.rootViewController else {
+            return
+        }
+
+        AppManager.shared.authenticate(presentingViewController: rootViewController) { (result) in
             DispatchQueue.main.async {
                 switch result
                 {

@@ -27,6 +27,14 @@ struct DateFormatterHelper {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
+        dateFormatter.doesRelativeDateFormatting = true
+        return dateFormatter
+    }()
+
+    private static let timeFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .none
+        dateFormatter.timeStyle = .short
         return dateFormatter
     }()
 
@@ -52,5 +60,13 @@ struct DateFormatterHelper {
 
     static func string(forRelativeDate date: Date, to referenceDate: Date = Date()) -> String {
         self.relativeDateFormatter.localizedString(for: date, relativeTo: referenceDate)
+    }
+
+    static func string(for date: Date) -> String {
+        self.mediumDateFormatter.string(from: date)
+    }
+
+    static func timeString(for date: Date) -> String {
+        self.timeFormatter.string(from: date)
     }
 }
