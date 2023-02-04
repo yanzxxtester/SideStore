@@ -27,6 +27,8 @@ struct SettingsView: View {
     
     @State var isShowingConnectAppleIDView = false
     @State var isShowingAddShortcutView = false
+    @State var isShowingFeedbackMailView = false
+    @State var isShowingResetPairingFileConfirmation = false
 
     @State var externalURLToShow: URL?
     
@@ -147,18 +149,45 @@ struct SettingsView: View {
             }
             
             Section {
-                SwiftUI.Button(action: switchToUIKit) {
-                    Text(L10n.SettingsView.switchToUIKit)
-                }
-
-                SwiftUI.Button(action: resetImageCache) {
-                    Text(L10n.SettingsView.resetImageCache)
-                }
-
-                NavigationLink {
+                NavigationLink("Show Error Log") {
                     ErrorLogView()
-                } label: {
-                    Text("Show Error Log")
+                }
+
+                NavigationLink("Show Refresh Attempts") {
+                    RefreshAttemptsView()
+                }
+
+                if MailComposeView.canSendMail {
+                    SwiftUI.Button("Send Feedback") {
+                        self.isShowingFeedbackMailView = true
+                    }
+                    .sheet(isPresented: self.$isShowingFeedbackMailView) {
+                        MailComposeView(recipients: ["support@sidestore.io"],
+                                        subject: "SideStore Beta \(appVersion) Feedback") {
+                            NotificationManager.shared.showNotification(title: "Thank you for your feedback!")
+                        } onError: { error in
+                            NotificationManager.shared.reportError(error: error)
+                        }
+                        .ignoresSafeArea()
+                    }
+                }
+
+                SwiftUI.Button(L10n.SettingsView.switchToUIKit, action: self.switchToUIKit)
+
+                SwiftUI.Button("Advanced Settings", action: self.showAdvancedSettings)
+
+                SwiftUI.Button(L10n.SettingsView.resetImageCache, action: self.resetImageCache)
+                    .foregroundColor(.red)
+
+                SwiftUI.Button("Reset Pairing File") {
+                    self.isShowingResetPairingFileConfirmation = true
+                }
+                .foregroundColor(.red)
+                .actionSheet(isPresented: self.$isShowingResetPairingFileConfirmation) {
+                    ActionSheet(title: Text("Are you sure to reset the pairing file?"), message: Text("You can reset the pairing file when you cannot sideload apps or enable JIT. SideStore will close when the file has been deleted."), buttons: [
+                        .destructive(Text("Delete and Reset"), action: self.resetPairingFile),
+                        .cancel()
+                    ])
                 }
             } header: {
                 Text(L10n.SettingsView.debug)
@@ -231,7 +260,6 @@ struct SettingsView: View {
         }
     }
     
-    
     func switchToUIKit() {
         let storyboard = UIStoryboard(name: "Main", bundle: .main)
         let rootVC = storyboard.instantiateViewController(withIdentifier: "tabBarController") as! TabBarController
@@ -250,6 +278,37 @@ struct SettingsView: View {
         } catch let error {
             fatalError("\(error)")
         }
+    }
+
+    func resetPairingFile() {
+        let filename = "ALTPairingFile.mobiledevicepairing"
+        let fileURL = FileManager.default.documentsDirectory.appendingPathComponent(filename)
+
+        // Delete the pairing file if it exists
+        if FileManager.default.fileExists(atPath: fileURL.path) {
+            do {
+                try FileManager.default.removeItem(at: fileURL)
+                print("Pairing file deleted successfully.")
+            } catch {
+                print("Failed to delete pairing file:", error)
+            }
+        }
+
+        // Close and exit SideStore
+        UIApplication.shared.perform(#selector(URLSessionTask.suspend))
+        DispatchQueue.main.asyncAfter(deadline: .now().advanced(by: .milliseconds(500))) {
+            exit(0)
+        }
+    }
+
+    func showAdvancedSettings() {
+        // Create the URL that deep links to our app's custom settings.
+        guard let url = URL(string: UIApplication.openSettingsURLString) else {
+            return
+        }
+
+        // Ask the system to open that URL.
+        UIApplication.shared.open(url)
     }
 }
 

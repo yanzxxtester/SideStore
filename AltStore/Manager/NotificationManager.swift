@@ -65,7 +65,7 @@ class NotificationManager: ObservableObject {
         self.showNotification(title: text, detailText: detailText)
     }
 
-    func showNotification(title: String, detailText: String?) {
+    func showNotification(title: String, detailText: String? = nil) {
         let notificationId = UUID()
         
         DispatchQueue.main.async {

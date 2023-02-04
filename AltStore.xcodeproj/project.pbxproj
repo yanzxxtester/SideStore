@@ -65,6 +65,8 @@
 		1F943C702927F90400ABE095 /* BrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAFC5BA2927E0F800B8D837 /* BrowseView.swift */; };
 		1F943C712927F90400ABE095 /* MyAppsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAFC5BD2927E10D00B8D837 /* MyAppsView.swift */; };
 		1FA1C8CA294906890083119D /* MyAppsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA1C8C9294906890083119D /* MyAppsViewModel.swift */; };
+		1FA5A6CA298E8B2F007BA946 /* RefreshAttemptsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA5A6C9298E8B2F007BA946 /* RefreshAttemptsView.swift */; };
+		1FA5A6CC298E8FE4007BA946 /* MailComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA5A6CB298E8FE4007BA946 /* MailComposeView.swift */; };
 		1FB84BA62928DE08006A5CF4 /* AppDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB84BA52928DE08006A5CF4 /* AppDetailView.swift */; };
 		1FB96FBE292A20E5007E68D1 /* ObservableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB96FBD292A20E5007E68D1 /* ObservableScrollView.swift */; };
 		1FB96FC0292A63F2007E68D1 /* AppPillButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB96FBF292A63F2007E68D1 /* AppPillButton.swift */; };
@@ -606,6 +608,8 @@
 		1F943C652927F36600ABE095 /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
 		1F943C672927F39400ABE095 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		1FA1C8C9294906890083119D /* MyAppsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAppsViewModel.swift; sourceTree = "<group>"; };
+		1FA5A6C9298E8B2F007BA946 /* RefreshAttemptsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshAttemptsView.swift; sourceTree = "<group>"; };
+		1FA5A6CB298E8FE4007BA946 /* MailComposeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailComposeView.swift; sourceTree = "<group>"; };
 		1FAFC5A42927E00000B8D837 /* SideStoreUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideStoreUIApp.swift; sourceTree = "<group>"; };
 		1FAFC5B52927E06300B8D837 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		1FAFC5B82927E0EE00B8D837 /* NewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsView.swift; sourceTree = "<group>"; };
@@ -1116,6 +1120,7 @@
 				1F66F5B92938CA5700A910CA /* VisualEffectView.swift */,
 				1F6284D6295218980060AAD8 /* DocumentPicker.swift */,
 				1F545E84298D84CF00589F68 /* FilePreviewView.swift */,
+				1FA5A6CB298E8FE4007BA946 /* MailComposeView.swift */,
 			);
 			path = "UIView Representables";
 			sourceTree = "<group>";
@@ -1201,6 +1206,7 @@
 				1F0DD83E29367F6C007608A4 /* ConnectAppleIDView.swift */,
 				1F2EF786297C4D40002FD839 /* LicensesView.swift */,
 				1F545E82298D79E400589F68 /* ErrorLogView.swift */,
+				1FA5A6C9298E8B2F007BA946 /* RefreshAttemptsView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -2851,6 +2857,7 @@
 				BF6C8FAC242935ED00125131 /* NSAttributedString+Markdown.m in Sources */,
 				BFF00D322501BDA100746320 /* BackgroundRefreshAppsOperation.swift in Sources */,
 				1F66F5BC2938F03700A910CA /* Modifiers.swift in Sources */,
+				1FA5A6CA298E8B2F007BA946 /* RefreshAttemptsView.swift in Sources */,
 				1F5DF9D82974426300DDAA47 /* AppScreenshot.swift in Sources */,
 				1F66F5BA2938CA5700A910CA /* VisualEffectView.swift in Sources */,
 				BF0C4EBD22A1BD8B009A2DD7 /* AppManager.swift in Sources */,
@@ -2877,6 +2884,7 @@
 				1FB84BA62928DE08006A5CF4 /* AppDetailView.swift in Sources */,
 				D57DF63F271E51E400677701 /* ALTAppPatcher.m in Sources */,
 				BFB6B220231870B00022A802 /* NewsCollectionViewCell.swift in Sources */,
+				1FA5A6CC298E8FE4007BA946 /* MailComposeView.swift in Sources */,
 				BF3BEFBF2408673400DE7D55 /* FetchProvisioningProfilesOperation.swift in Sources */,
 				BFF0B69023219C6D007A79E1 /* PatreonComponents.swift in Sources */,
 				1FB96FC5292A7251007E68D1 /* BrowseAppPreviewView.swift in Sources */,
