@@ -88,8 +88,10 @@ struct AppDetailView: View {
     var contentView: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading, spacing: 32) {
-                if storeApp.sourceIdentifier == Source.altStoreIdentifier {
+                if storeApp.isFromOfficialSource {
                     officialAppBadge
+                } else if storeApp.isFromTrustedSource {
+                    trustedAppBadge
                 }
 
                 if let subtitle = storeApp.subtitle {
@@ -159,6 +161,12 @@ struct AppDetailView: View {
                 Divider()
 
                 informationView
+
+                if !(storeApp.isFromOfficialSource || storeApp.isFromTrustedSource) {
+                    Divider()
+
+                    reportButton
+                }
             }
             .padding(.horizontal)
         }
@@ -396,6 +404,14 @@ struct AppDetailView: View {
                         .multilineTextAlignment(.trailing)
                 }
             }
+        }
+    }
+
+    var reportButton: some View {
+        SwiftUI.Button {
+
+        } label: {
+            Label("Report this App", systemSymbol: .exclamationmarkBubble)
         }
     }
 }

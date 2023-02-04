@@ -33,6 +33,8 @@
 		1F0DD8432936B0F9007608A4 /* RoundedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DD8422936B0F9007608A4 /* RoundedTextField.swift */; };
 		1F0DD8452936B3FE007608A4 /* FilledButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DD8442936B3FE007608A4 /* FilledButtonStyle.swift */; };
 		1F1295812989B51F0048FCB9 /* ExpandableText in Frameworks */ = {isa = PBXBuildFile; productRef = 1F1295802989B51F0048FCB9 /* ExpandableText */; };
+		1F180F92298E7A1B00D1C98B /* StoreApp+Trusted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F180F91298E7A1B00D1C98B /* StoreApp+Trusted.swift */; };
+		1F180F94298E7A2500D1C98B /* Source+Trusted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F180F93298E7A2500D1C98B /* Source+Trusted.swift */; };
 		1F2EF787297C4D40002FD839 /* LicensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2EF786297C4D40002FD839 /* LicensesView.swift */; };
 		1F44634529744E570070E514 /* HintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F44634429744E570070E514 /* HintView.swift */; };
 		1F5DF9D82974426300DDAA47 /* AppScreenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5DF9D72974426300DDAA47 /* AppScreenshot.swift */; };
@@ -576,6 +578,8 @@
 		1F0DD84029368056007608A4 /* EnvironmentValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentValues.swift; sourceTree = "<group>"; };
 		1F0DD8422936B0F9007608A4 /* RoundedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextField.swift; sourceTree = "<group>"; };
 		1F0DD8442936B3FE007608A4 /* FilledButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledButtonStyle.swift; sourceTree = "<group>"; };
+		1F180F91298E7A1B00D1C98B /* StoreApp+Trusted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoreApp+Trusted.swift"; sourceTree = "<group>"; };
+		1F180F93298E7A2500D1C98B /* Source+Trusted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Source+Trusted.swift"; sourceTree = "<group>"; };
 		1F2EF786297C4D40002FD839 /* LicensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesView.swift; sourceTree = "<group>"; };
 		1F44634429744E570070E514 /* HintView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintView.swift; sourceTree = "<group>"; };
 		1F5DF9D72974426300DDAA47 /* AppScreenshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppScreenshot.swift; sourceTree = "<group>"; };
@@ -1922,6 +1926,8 @@
 				D57F2C9326E01BC700B9FA39 /* UIDevice+Vibration.swift */,
 				B376FE3D29258C8900E18883 /* OSLog+SideStore.swift */,
 				1F66F5BD2938F06100A910CA /* StoreApp+Filterable.swift */,
+				1F180F91298E7A1B00D1C98B /* StoreApp+Trusted.swift */,
+				1F180F93298E7A2500D1C98B /* Source+Trusted.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2742,6 +2748,7 @@
 				1F943C6D2927F90400ABE095 /* NewsViewModel.swift in Sources */,
 				1FB96FF3292D0539007E68D1 /* PillButtonProgressViewStyle.swift in Sources */,
 				1F6E08E829282174005059C0 /* ConfirmAddSourceView.swift in Sources */,
+				1F180F92298E7A1B00D1C98B /* StoreApp+Trusted.swift in Sources */,
 				1F6284D929523D340060AAD8 /* SideloadingManager.swift in Sources */,
 				BFE6073A231ADF82002B0E8E /* SettingsViewController.swift in Sources */,
 				1F943C6A2927F8F700ABE095 /* ViewModel.swift in Sources */,
@@ -2836,6 +2843,7 @@
 				1F5DF9D82974426300DDAA47 /* AppScreenshot.swift in Sources */,
 				1F66F5BA2938CA5700A910CA /* VisualEffectView.swift in Sources */,
 				BF0C4EBD22A1BD8B009A2DD7 /* AppManager.swift in Sources */,
+				1F180F94298E7A2500D1C98B /* Source+Trusted.swift in Sources */,
 				BF2901312318F7A800D88A45 /* AppBannerView.swift in Sources */,
 				BFF00D342501BDCF00746320 /* IntentHandler.swift in Sources */,
 				1F0DD81C2932D2FF007608A4 /* AppScreenshotsScrollView.swift in Sources */,
