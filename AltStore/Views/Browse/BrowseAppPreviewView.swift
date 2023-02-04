@@ -19,6 +19,7 @@ struct BrowseAppPreviewView: View {
             
             if let subtitle = storeApp.subtitle {
                 Text(subtitle)
+                    .multilineTextAlignment(.center)
             }
             
             if !storeApp.screenshotURLs.isEmpty {
@@ -28,6 +29,7 @@ struct BrowseAppPreviewView: View {
                     }
                 }
                 .frame(height: 300)
+                .shadow(radius: 8)
             }
         }
     }

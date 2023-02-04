@@ -42,7 +42,7 @@ struct AppRowView: View {
         }
         .padding()
         .tintedBackground(Color(storeApp?.tintColor ?? UIColor(Color.accentColor)))
-        .clipShape(RoundedRectangle(cornerRadius: 30, style: .circular))
+        .clipShape(RoundedRectangle(cornerRadius: 24, style: .circular))
     }
 }
 

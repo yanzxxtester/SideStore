@@ -61,6 +61,7 @@ struct RootView: View {
                     }
                 }
                 .padding()
+                .frame(maxWidth: .infinity)
                 .foregroundColor(.white)
                 .background(Color.accentColor)
                 .clipShape(RoundedRectangle(cornerRadius: 16))

@@ -91,7 +91,7 @@ struct NewsItemView: View {
             alignment: .topLeading
         )
         .background(Color(newsItem.tintColor))
-        .clipShape(RoundedRectangle(cornerRadius: 30, style: .circular))
+        .clipShape(RoundedRectangle(cornerRadius: 24, style: .circular))
     }
     
     
