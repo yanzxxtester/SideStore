@@ -9,6 +9,7 @@
 import SwiftUI
 import AsyncImage
 import SFSafeSymbols
+import LocalConsole
 import AltStoreCore
 import Intents
 
@@ -155,6 +156,10 @@ struct SettingsView: View {
 
                 NavigationLink("Show Refresh Attempts") {
                     RefreshAttemptsView()
+                }
+
+                SwiftUI.Button("Toggle Console") {
+                    LCManager.shared.isVisible.toggle()
                 }
 
                 if MailComposeView.canSendMail {

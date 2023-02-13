@@ -58,6 +58,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
+        // Copy STDOUT and STDERR to the logging console
+        _ = OutputCapturer.shared
+
         // Register default settings before doing anything else.
         UserDefaults.registerDefaults()
         
