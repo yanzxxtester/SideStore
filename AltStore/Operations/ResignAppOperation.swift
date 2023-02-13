@@ -242,6 +242,9 @@ private extension ResignAppOperation
     func resignAppBundle(at fileURL: URL, team: ALTTeam, certificate: ALTCertificate, profiles: [ALTProvisioningProfile], completionHandler: @escaping (Result<URL, Error>) -> Void) -> Progress
     {
         let signer = ALTSigner(team: team, certificate: certificate)
+        for p in profiles {
+            print("resigning with this profile: \(p.bundleIdentifier) (\(p.uuid))")
+        }
         let progress = signer.signApp(at: fileURL, provisioningProfiles: profiles) { (success, error) in
             do
             {

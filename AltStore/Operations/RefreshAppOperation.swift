@@ -61,6 +61,7 @@ final class RefreshAppOperation: ResultOperation<InstalledApp>
                 print("Sending refresh app request...")
 
                 for p in profiles {
+                    print("refreshing with this profile: \(p.value.bundleIdentifier) (\(p.value.uuid))")
                     do {
                         let x = try install_provisioning_profile(plist: p.value.data)
                         if case .Bad(let code) = x {
