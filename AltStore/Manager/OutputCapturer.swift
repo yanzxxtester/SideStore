@@ -15,26 +15,30 @@ class OutputCapturer {
 
     private let consoleManager = LCManager.shared
 
-    private var inputPipe = Pipe()
-    private var errorPipe = Pipe()
+    private var stdoutPipe = Pipe()
+    private var stderrPipe = Pipe()
+    private var outputPipe = Pipe()
     
     private init() {
         // Setup pipe file handlers
-        self.inputPipe.fileHandleForReading.readabilityHandler = { [weak self] fileHandle in
+        self.stdoutPipe.fileHandleForReading.readabilityHandler = { [weak self] fileHandle in
             self?.handle(data: fileHandle.availableData)
         }
-        self.errorPipe.fileHandleForReading.readabilityHandler = { [weak self] fileHandle in
+        self.stderrPipe.fileHandleForReading.readabilityHandler = { [weak self] fileHandle in
             self?.handle(data: fileHandle.availableData, isError: true)
         }
+        
+        // Keep output in STDOUT without causing infinite loop
+        dup2(STDOUT_FILENO, self.outputPipe.fileHandleForWriting.fileDescriptor)
 
         // Intercept STDOUT and STDERR
-        dup2(self.inputPipe.fileHandleForWriting.fileDescriptor, STDOUT_FILENO)
-        dup2(self.errorPipe.fileHandleForWriting.fileDescriptor, STDERR_FILENO)
+        dup2(self.stdoutPipe.fileHandleForWriting.fileDescriptor, STDOUT_FILENO)
+        dup2(self.stderrPipe.fileHandleForWriting.fileDescriptor, STDERR_FILENO)
     }
 
     deinit {
-        try? self.inputPipe.fileHandleForReading.close()
-        try? self.errorPipe.fileHandleForReading.close()
+        try? self.stdoutPipe.fileHandleForReading.close()
+        try? self.stderrPipe.fileHandleForReading.close()
     }
 
     private func handle(data: Data, isError: Bool = false) {
@@ -44,6 +48,8 @@ class OutputCapturer {
 
         DispatchQueue.main.async {
             self.consoleManager.print(string)
+            // put data back into STDOUT so it appears in Xcode/idevicedebug run
+            self.outputPipe.fileHandleForWriting.write(data) // this might not need to be async
         }
     }
 }
