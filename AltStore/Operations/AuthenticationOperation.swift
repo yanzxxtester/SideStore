@@ -417,14 +417,15 @@ private extension AuthenticationOperation
                                 completionHandler(nil)
                             })
                             
-//                            if self.navigationController.presentingViewController != nil
-//                            {
-//                                self.navigationController.present(alertController, animated: true, completion: nil)
-//                            }
-//                            else
-//                            {
-//                                presentingViewController.present(alertController, animated: true, completion: nil)
-//                            }
+                            let keyWindow = UIApplication.shared.windows.filter { $0.isKeyWindow }.first
+
+                            if var topController = keyWindow?.rootViewController {
+                                while let presentedViewController = topController.presentedViewController {
+                                    topController = presentedViewController
+                                }
+
+                                topController.present(alertController, animated: true, completion: nil)
+                            }
                         }
                     }
 //                }
