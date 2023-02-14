@@ -19,6 +19,7 @@ struct RootView: View {
                 NavigationView {
                     content(for: tab)
                 }
+                .navigationViewStyle(StackNavigationViewStyle())
                 .tag(tab)
                 .tabItem {
                     tab.label
