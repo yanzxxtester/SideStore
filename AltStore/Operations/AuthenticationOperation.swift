@@ -346,7 +346,7 @@ private extension AuthenticationOperation
                             completionHandler(.failure(OperationError.cancelled))
                         }
                     }
-                })
+                }.navigationViewStyle(StackNavigationViewStyle()))
                 
                 if !self.present(viewController)
                 {
