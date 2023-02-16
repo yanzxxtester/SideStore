@@ -28,6 +28,7 @@ struct AppIconsView: View {
         SpecialIcon(assetName: "Steel", suffix: "(Nightly)", forceIndex: 2),
     ]
     private var icons: [Icon] = []
+    private var primaryIcon: Icon
     
     @State private var selectedIcon: String? = "" // this is just so the list row background changes when selecting a value, I couldn't get it to keep the selected icon name (for some reason it was always "", even when I set it to the selected icon asset name)
     @State private var selectedIconAssetName: String // FIXME: use selectedIcon instead
@@ -35,9 +36,10 @@ struct AppIconsView: View {
     init() {
         let bundleIcons = Bundle.main.object(forInfoDictionaryKey: "CFBundleIcons") as! [String: Any]
         
-        let primaryIcon = bundleIcons["CFBundlePrimaryIcon"] as! [String: Any]
-        let primaryIconName = primaryIcon["CFBundleIconName"] as! String
-        icons.append(Icon(displayName: primaryIconName, assetName: primaryIconName)) // ensure primary icon is first
+        let primaryIconData = bundleIcons["CFBundlePrimaryIcon"] as! [String: Any]
+        let primaryIconName = primaryIconData["CFBundleIconName"] as! String
+        primaryIcon = Icon(displayName: primaryIconName, assetName: primaryIconName)
+        icons.append(primaryIcon)
         
         for (key, _) in bundleIcons["CFBundleAlternateIcons"] as! [String: Any] {
             icons.append(Icon(displayName: key, assetName: key))
@@ -60,9 +62,9 @@ struct AppIconsView: View {
         }
         
         if let alternateIconName = UIApplication.shared.alternateIconName {
-            selectedIconAssetName = icons.first { $0.assetName == alternateIconName }?.assetName ?? icons[0].assetName
+            selectedIconAssetName = icons.first { $0.assetName == alternateIconName }?.assetName ?? primaryIcon.assetName
         } else {
-            selectedIconAssetName = icons[0].assetName
+            selectedIconAssetName = primaryIcon.assetName
         }
     }
     
@@ -71,8 +73,8 @@ struct AppIconsView: View {
             // FIXME: Button gives errors for some reason
             SwiftUI.Button(action: {
                 selectedIconAssetName = icon.assetName
-                // Pass nil for original icon
-                UIApplication.shared.setAlternateIconName(icon.assetName == icons[0].assetName ? nil : icon.assetName, completionHandler: { error in
+                // Pass nil for primary icon
+                UIApplication.shared.setAlternateIconName(icon.assetName == primaryIcon.assetName ? nil : icon.assetName, completionHandler: { error in
                     if let error = error {
                         print("error when setting alternate app icon to \(icon.assetName): \(error.localizedDescription)")
                     } else {
