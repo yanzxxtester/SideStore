@@ -32,8 +32,6 @@ internal enum Asset {
   internal static let settingsBackground = ColorAsset(name: "SettingsBackground")
   internal static let settingsHighlighted = ColorAsset(name: "SettingsHighlighted")
   internal static let next = ImageAsset(name: "Next")
-  internal static let riley = ImageAsset(name: "Riley")
-  internal static let shane = ImageAsset(name: "Shane")
   internal static let browse = ImageAsset(name: "Browse")
   internal static let myApps = ImageAsset(name: "MyApps")
   internal static let news = ImageAsset(name: "News")

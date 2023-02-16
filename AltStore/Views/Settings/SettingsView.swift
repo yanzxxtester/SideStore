@@ -33,7 +33,7 @@ struct SettingsView: View {
 
     @State var externalURLToShow: URL?
     
-    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
     
     var body: some View {
         List {
@@ -150,6 +150,10 @@ struct SettingsView: View {
             }
             
             Section {
+                NavigationLink(L10n.AppIconsView.title) {
+                    AppIconsView()
+                }
+                
                 NavigationLink("Show Error Log") {
                     ErrorLogView()
                 }

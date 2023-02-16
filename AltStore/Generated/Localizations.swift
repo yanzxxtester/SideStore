@@ -132,6 +132,10 @@ internal enum L10n {
     /// AppIDsView
     internal static let title = L10n.tr("Localizable", "AppIDsView.title", fallback: "App IDs")
   }
+  internal enum AppIconsView {
+    /// AppIconsView
+    internal static let title = L10n.tr("Localizable", "AppIconsView.title", fallback: "App Icon")
+  }
   internal enum AppPermissionGrid {
     /// AppPermissionGrid
     internal static let usageDescription = L10n.tr("Localizable", "AppPermissionGrid.usageDescription", fallback: "Usage Description")

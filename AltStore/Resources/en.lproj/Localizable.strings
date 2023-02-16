@@ -160,7 +160,9 @@
 "MyAppsView.Hints.NoUpdates.dismissForNow" = "Dismiss for now";
 "MyAppsView.Hints.NoUpdates.dontShowAgain" = "Don't show this again";
 
-
 /* AppIDsView */
 "AppIDsView.title" = "App IDs";
 "AppIDsView.description" = "Each app and app extension installed with SideStore must register an App ID with Apple.\n\nApp IDs for paid developer accounts never expire, and there is no limit to how many you can create.";
+
+/* AppIconsView */
+"AppIconsView.title" = "App Icon";
