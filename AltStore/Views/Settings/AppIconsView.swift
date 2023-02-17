@@ -27,6 +27,11 @@ struct AppIconsView: View {
         SpecialIcon(assetName: "Starburst", suffix: "(Beta)", forceIndex: 1),
         SpecialIcon(assetName: "Steel", suffix: "(Nightly)", forceIndex: 2),
     ]
+    private let artists = [
+        "Chris (LitRitt)": ["Neon", "Starburst", "Steel", "Storm"],
+        "naturecodevoid": ["Honeydew", "Midnight", "Sky"]
+    ]
+    
     private var icons: [Icon] = []
     private var primaryIcon: Icon
     
@@ -70,7 +75,6 @@ struct AppIconsView: View {
     
     var body: some View {
         List(icons, selection: $selectedIcon) { icon in
-            // FIXME: Button gives errors for some reason
             SwiftUI.Button(action: {
                 selectedIconAssetName = icon.assetName
                 // Pass nil for primary icon
@@ -89,14 +93,20 @@ struct AppIconsView: View {
                         .renderingMode(.original)
                         .cornerRadius(12.6) // https://stackoverflow.com/a/10239376
                         .frame(width: 72, height: 72)
-                    Text(icon.displayName)
+                    VStack(alignment: .leading) {
+                        Text(icon.displayName)
+                        if let artist = artists.first(where: { $0.value.contains(icon.assetName) }) {
+                            Text("By " + artist.key)
+                                .foregroundColor(.gray)
+                        }
+                    }
                     Spacer()
                     if selectedIconAssetName == icon.assetName {
                         Image(systemSymbol: .checkmark)
                             .foregroundColor(Color.blue)
                     }
                 }
-            }.foregroundColor(Color.white)
+            }.foregroundColor(.primary)
         }
         .navigationTitle(L10n.AppIconsView.title)
     }
