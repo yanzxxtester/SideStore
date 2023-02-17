@@ -38,7 +38,6 @@ struct SettingsView: View {
     var body: some View {
         List {
             Section {
-                
                 if let connectedAppleID = connectedTeams.first {
                     HStack {
                         Text(L10n.SettingsView.ConnectedAppleID.name)
@@ -86,6 +85,12 @@ struct SettingsView: View {
                     Text(L10n.SettingsView.ConnectedAppleID.Footer.p1)
                     
                     Text(L10n.SettingsView.ConnectedAppleID.Footer.p2)
+                }
+            }
+            
+            Section {
+                NavigationLink(L10n.AppIconsView.title) {
+                    AppIconsView()
                 }
             }
             
@@ -150,10 +155,6 @@ struct SettingsView: View {
             }
             
             Section {
-                NavigationLink(L10n.AppIconsView.title) {
-                    AppIconsView()
-                }
-                
                 NavigationLink("Show Error Log") {
                     ErrorLogView()
                 }
