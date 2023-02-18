@@ -83,6 +83,7 @@
 		4879A95F2861046500FC1BBD /* AltSign in Frameworks */ = {isa = PBXBuildFile; productRef = 4879A95E2861046500FC1BBD /* AltSign */; };
 		4879A9622861049C00FC1BBD /* OpenSSL in Frameworks */ = {isa = PBXBuildFile; productRef = 4879A9612861049C00FC1BBD /* OpenSSL */; };
 		99C4EF4D2979132100CB538D /* SemanticVersion in Frameworks */ = {isa = PBXBuildFile; productRef = 99C4EF4C2979132100CB538D /* SemanticVersion */; };
+		99D87A6529A04D5E00ED09A9 /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = 99D87A6429A04D5E00ED09A9 /* Inject */; };
 		99E59E1D299BFE5D00FAF33D /* AppIconsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E59E1C299BFE5D00FAF33D /* AppIconsView.swift */; };
 		B3146ED2284F581E00BBC3FD /* Roxas.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3146ECD284F580500BBC3FD /* Roxas.framework */; };
 		B3146ED3284F581E00BBC3FD /* Roxas.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3146ECD284F580500BBC3FD /* Roxas.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1036,6 +1037,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99D87A6529A04D5E00ED09A9 /* Inject in Frameworks */,
 				B33FFBA8295F8E98002259E6 /* libfragmentzip.a in Frameworks */,
 				191E6087290C7B50001A3B7C /* libminimuxer.a in Frameworks */,
 				191E5FB4290A5DA0001A3B7C /* libminimuxer.a in Frameworks */,
@@ -2309,6 +2311,7 @@
 				1F07F5662955D16A00F7BE95 /* SFSafeSymbols */,
 				1F1295802989B51F0048FCB9 /* ExpandableText */,
 				1FFA56C42999978C0011B6F5 /* LocalConsole */,
+				99D87A6429A04D5E00ED09A9 /* Inject */,
 			);
 			productName = AltStore;
 			productReference = BFD2476A2284B9A500981D42 /* SideStore.app */;
@@ -2385,6 +2388,7 @@
 				1F07F5652955D16A00F7BE95 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
 				1F12957F2989B51F0048FCB9 /* XCRemoteSwiftPackageReference "ExpandableText" */,
 				1FFA56C32999978C0011B6F5 /* XCRemoteSwiftPackageReference "LocalConsole" */,
+				99D87A6329A04D5E00ED09A9 /* XCRemoteSwiftPackageReference "Inject" */,
 			);
 			productRefGroup = BFD2476B2284B9A500981D42 /* Products */;
 			projectDirPath = "";
@@ -3598,6 +3602,10 @@
 					"$(PROJECT_DIR)/Dependencies/minimuxer/target/aarch64-apple-ios/release",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER)";
+				OTHER_LDFLAGS = (
+					"-Xlinker",
+					"-interposable",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
@@ -3637,6 +3645,10 @@
 					"$(PROJECT_DIR)/Dependencies/minimuxer/target/aarch64-apple-ios/release",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER)";
+				OTHER_LDFLAGS = (
+					"-Xlinker",
+					"-interposable",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
@@ -3789,6 +3801,14 @@
 				minimumVersion = 0.3.5;
 			};
 		};
+		99D87A6329A04D5E00ED09A9 /* XCRemoteSwiftPackageReference "Inject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzysztofzablocki/Inject.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		B3C395EF284F2DE700DA9E2F /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";
@@ -3894,6 +3914,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 99C4EF472978D52400CB538D /* XCRemoteSwiftPackageReference "SemanticVersion" */;
 			productName = SemanticVersion;
+		};
+		99D87A6429A04D5E00ED09A9 /* Inject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 99D87A6329A04D5E00ED09A9 /* XCRemoteSwiftPackageReference "Inject" */;
+			productName = Inject;
 		};
 		B3C395F0284F2DE700DA9E2F /* KeychainAccess */ = {
 			isa = XCSwiftPackageProductDependency;
