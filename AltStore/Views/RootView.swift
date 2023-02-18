@@ -8,11 +8,9 @@
 
 import SwiftUI
 import SFSafeSymbols
-import Inject
+@_exported import Inject
 
 struct RootView: View {
-    @ObservedObject private var iO = Inject.observer
-    
     @State var selectedTab: Tab = .defaultTab
     
     var body: some View {
@@ -29,7 +27,6 @@ struct RootView: View {
             }
         }
         .overlay(self.notificationsOverlay)
-        .enableInjection()
     }
     
     @ViewBuilder
