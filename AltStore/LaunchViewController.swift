@@ -45,8 +45,8 @@ final class LaunchViewController: RSTLaunchViewController, UIDocumentPickerDeleg
 //            self.destinationViewController = self.storyboard!.instantiateViewController(withIdentifier: "tabBarController") as! TabBarController
             let rootView = RootView()
                 .environment(\.managedObjectContext, DatabaseManager.shared.viewContext)
-            // NOTE: Injection/HMR can be done directly from the SwiftUI side of things, however, it crashes the app when editing a view inside another view (such as the dev mode menu)
-            // A major downside to doing it from UIKit is that if we do it this way, the whole UI will reload when you make a change. If we do it from SwiftUI, it won't reload the entire UI.
+            // NOTE: Injection/HMR can be done solely from the SwiftUI side of things, however, it crashes the app when editing a view inside another view (such as the dev mode menu). For some reason, injecting in UIKit *and* SwiftUI at the same time fixes this.
+            // However, it has one downside: if we inject in UIKit, the whole UI will reload whenever we save a change.
             self.destinationViewController = Inject.ViewControllerHost(UIHostingController(rootView: rootView))
         }
         super.viewDidLoad()
