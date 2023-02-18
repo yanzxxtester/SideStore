@@ -11,6 +11,7 @@ import SwiftUI
 import Roxas
 import EmotionalDamage
 import minimuxer
+import Inject
 
 import AltStoreCore
 import UniformTypeIdentifiers
@@ -44,7 +45,9 @@ final class LaunchViewController: RSTLaunchViewController, UIDocumentPickerDeleg
 //            self.destinationViewController = self.storyboard!.instantiateViewController(withIdentifier: "tabBarController") as! TabBarController
             let rootView = RootView()
                 .environment(\.managedObjectContext, DatabaseManager.shared.viewContext)
-            self.destinationViewController = UIHostingController(rootView: rootView)
+            // NOTE: Injection/HMR can be done directly from the SwiftUI side of things, however, it crashes the app when editing a view inside another view (such as the dev mode menu)
+            // A major downside to doing it from UIKit is that if we do it this way, the whole UI will reload when you make a change. If we do it from SwiftUI, it won't reload the entire UI.
+            self.destinationViewController = Inject.ViewControllerHost(UIHostingController(rootView: rootView))
         }
         super.viewDidLoad()
     }
