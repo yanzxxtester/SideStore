@@ -14,7 +14,7 @@ struct AppIconView: View {
     @ObservedObject private var sideStoreIconData = AppIconsData.shared
     
     let iconUrl: URL?
-    var isSideStore = false
+    var isSideStore: Bool
     var size: CGFloat = 64
     var cornerRadius: CGFloat {
         size * 0.234
