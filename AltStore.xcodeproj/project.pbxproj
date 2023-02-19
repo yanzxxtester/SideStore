@@ -83,6 +83,7 @@
 		1FFEF104298552DB0098374C /* AppVersionHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEF103298552DB0098374C /* AppVersionHistoryView.swift */; };
 		4879A95F2861046500FC1BBD /* AltSign in Frameworks */ = {isa = PBXBuildFile; productRef = 4879A95E2861046500FC1BBD /* AltSign */; };
 		4879A9622861049C00FC1BBD /* OpenSSL in Frameworks */ = {isa = PBXBuildFile; productRef = 4879A9612861049C00FC1BBD /* OpenSSL */; };
+		99BCB7DF29A2AC050041D1A7 /* AdvancedSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BCB7DE29A2AC050041D1A7 /* AdvancedSettingsView.swift */; };
 		99C4EF4D2979132100CB538D /* SemanticVersion in Frameworks */ = {isa = PBXBuildFile; productRef = 99C4EF4C2979132100CB538D /* SemanticVersion */; };
 		99D87A60299F1B1100ED09A9 /* DevModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D87A5F299F1B1100ED09A9 /* DevModeView.swift */; };
 		99D87A62299F3EC300ED09A9 /* FileExplorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D87A61299F3EC300ED09A9 /* FileExplorer.swift */; };
@@ -640,6 +641,7 @@
 		1FB96FF2292D0539007E68D1 /* PillButtonProgressViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillButtonProgressViewStyle.swift; sourceTree = "<group>"; };
 		1FFA56C1299994390011B6F5 /* OutputCapturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputCapturer.swift; sourceTree = "<group>"; };
 		1FFEF103298552DB0098374C /* AppVersionHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionHistoryView.swift; sourceTree = "<group>"; };
+		99BCB7DE29A2AC050041D1A7 /* AdvancedSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSettingsView.swift; sourceTree = "<group>"; };
 		99D87A5F299F1B1100ED09A9 /* DevModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevModeView.swift; sourceTree = "<group>"; };
 		99D87A61299F3EC300ED09A9 /* FileExplorer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExplorer.swift; sourceTree = "<group>"; };
 		99DE640029A1271100B920BF /* AsyncFallibleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncFallibleButton.swift; sourceTree = "<group>"; };
@@ -1229,6 +1231,7 @@
 				1FA5A6C9298E8B2F007BA946 /* RefreshAttemptsView.swift */,
 				99E59E1C299BFE5D00FAF33D /* AppIconsView.swift */,
 				99D87A5F299F1B1100ED09A9 /* DevModeView.swift */,
+				99BCB7DE29A2AC050041D1A7 /* AdvancedSettingsView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -2886,6 +2889,7 @@
 				99E59E1D299BFE5D00FAF33D /* AppIconsView.swift in Sources */,
 				1F0DD83F29367F6C007608A4 /* ConnectAppleIDView.swift in Sources */,
 				1F07F56F2955FB2000F7BE95 /* AppIDsView.swift in Sources */,
+				99BCB7DF29A2AC050041D1A7 /* AdvancedSettingsView.swift in Sources */,
 				BFDB6A0822AAED73007EA6D6 /* ResignAppOperation.swift in Sources */,
 				D593F1942717749A006E82DE /* PatchAppOperation.swift in Sources */,
 				BF770E5122BB1CF6002A40FE /* InstallAppOperation.swift in Sources */,

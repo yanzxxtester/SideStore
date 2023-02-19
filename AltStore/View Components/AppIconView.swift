@@ -11,6 +11,7 @@ import AsyncImage
 
 struct AppIconView: View {
     @ObservedObject private var iO = Inject.observer
+    
     @ObservedObject private var sideStoreIconData = AppIconsData.shared
     
     let iconUrl: URL?

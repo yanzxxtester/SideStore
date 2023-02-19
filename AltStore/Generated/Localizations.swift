@@ -30,6 +30,22 @@ internal enum L10n {
     /// Add Source
     internal static let title = L10n.tr("Localizable", "AddSourceView.title", fallback: "Add Source")
   }
+  internal enum AdvancedSettingsView {
+    /// Anisette Server
+    internal static let anisette = L10n.tr("Localizable", "AdvancedSettingsView.anisette", fallback: "Anisette Server")
+    /// Danger Zone
+    internal static let dangerZone = L10n.tr("Localizable", "AdvancedSettingsView.dangerZone", fallback: "Danger Zone")
+    /// If you disable "Use preferred servers" then SideStore will use the server you input into the "Anisette URL" box rather than one selected in "Anisette Server".
+    internal static let dangerZoneInfo = L10n.tr("Localizable", "AdvancedSettingsView.dangerZoneInfo", fallback: "If you disable \"Use preferred servers\" then SideStore will use the server you input into the \"Anisette URL\" box rather than one selected in \"Anisette Server\".")
+    /// AdvancedSettingsView
+    internal static let title = L10n.tr("Localizable", "AdvancedSettingsView.title", fallback: "Advanced Settings")
+    internal enum DangerZone {
+      /// Anisette URL
+      internal static let anisetteURL = L10n.tr("Localizable", "AdvancedSettingsView.DangerZone.anisetteURL", fallback: "Anisette URL")
+      /// Use preferred servers
+      internal static let usePreferred = L10n.tr("Localizable", "AdvancedSettingsView.DangerZone.usePreferred", fallback: "Use preferred servers")
+    }
+  }
   internal enum AppAction {
     /// Activate
     internal static let activate = L10n.tr("Localizable", "AppAction.activate", fallback: "Activate")

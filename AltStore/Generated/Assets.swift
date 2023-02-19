@@ -43,6 +43,7 @@ internal enum Asset {
   internal static let myApps = ImageAsset(name: "MyApps")
   internal static let news = ImageAsset(name: "News")
   internal static let settings = ImageAsset(name: "Settings")
+  internal static let vistaImage = ImageAsset(name: "Vista-image")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 

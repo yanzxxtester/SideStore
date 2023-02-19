@@ -72,6 +72,7 @@ class AppIconsData: ObservableObject {
 
 struct AppIconsView: View {
     @ObservedObject private var iO = Inject.observer
+    
     @ObservedObject private var data = AppIconsData.shared
     
     private let artists = [

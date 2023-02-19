@@ -189,3 +189,11 @@ You should only enable Developer Mode if you meet one of the following requireme
 
 /* AsyncFallibleButton */
 "AsyncFallibleButton.error" = "An error occurred";
+
+/* AdvancedSettingsView */
+"AdvancedSettingsView.title" = "Advanced Settings";
+"AdvancedSettingsView.anisette" = "Anisette Server";
+"AdvancedSettingsView.dangerZone" = "Danger Zone";
+"AdvancedSettingsView.dangerZoneInfo" = "If you disable \"Use preferred servers\" then SideStore will use the server you input into the \"Anisette URL\" box rather than one selected in \"Anisette Server\".";
+"AdvancedSettingsView.DangerZone.usePreferred" = "Use preferred servers";
+"AdvancedSettingsView.DangerZone.anisetteURL" = "Anisette URL";

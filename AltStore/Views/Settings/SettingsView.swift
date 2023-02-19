@@ -14,6 +14,7 @@ import AltStoreCore
 import Intents
 
 struct SettingsView: View {
+    @ObservedObject private var iO = Inject.observer
     
     var connectedAppleID: Team? {
         DatabaseManager.shared.activeTeam()
@@ -174,8 +175,10 @@ struct SettingsView: View {
                 }
 
                 SwiftUI.Button(L10n.SettingsView.switchToUIKit, action: self.switchToUIKit)
-
-                SwiftUI.Button("Advanced Settings", action: self.showAdvancedSettings)
+                
+                NavigationLink(L10n.AdvancedSettingsView.title) {
+                    AdvancedSettingsView()
+                }.foregroundColor(.accentColor)
 
                 SwiftUI.Button(L10n.SettingsView.resetImageCache, action: self.resetImageCache)
                     .foregroundColor(.red)
@@ -194,8 +197,7 @@ struct SettingsView: View {
                 if isDevModeEnabled {
                     NavigationLink(L10n.DevModeView.title, isActive: self.$isShowingDevModeMenu) {
                         DevModeMenu()
-                    }
-                    .foregroundColor(.red)
+                    }.foregroundColor(.red)
                 } else {
                     SwiftUI.Button(L10n.DevModeView.title) {
                         self.isShowingDevModePrompt = true
@@ -234,6 +236,7 @@ struct SettingsView: View {
         .sheet(item: $externalURLToShow) { url in
             SafariView(url: url)
         }
+        .enableInjection()
     }
     
     
@@ -315,16 +318,6 @@ struct SettingsView: View {
         DispatchQueue.main.asyncAfter(deadline: .now().advanced(by: .milliseconds(500))) {
             exit(0)
         }
-    }
-
-    func showAdvancedSettings() {
-        // Create the URL that deep links to our app's custom settings.
-        guard let url = URL(string: UIApplication.openSettingsURLString) else {
-            return
-        }
-
-        // Ask the system to open that URL.
-        UIApplication.shared.open(url)
     }
 }
 
