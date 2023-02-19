@@ -38,7 +38,7 @@ struct MyAppsView: View {
     var viewModel = MyAppsViewModel()
     
     // TODO: Refactor
-    @State var isShowingFilePicker: Bool = false
+    @State var isRefreshingAllApps: Bool = false
     @State var selectedSideloadingIpaURL: URL?
     
     @State var isShowingAppIDsView: Bool = false
@@ -89,11 +89,14 @@ struct MyAppsView: View {
                     Text(L10n.MyAppsView.active)
                         .font(.title2)
                         .bold()
+
                     Spacer()
-                    SwiftUI.Button {
                         
-                    } label: {
-                        Text(L10n.MyAppsView.refreshAll)
+                    if !self.isRefreshingAllApps {
+                        SwiftUI.Button(L10n.MyAppsView.refreshAll, action: self.refreshAllApps)
+                    } else {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle())
                     }
                 }
                 
@@ -206,7 +209,10 @@ struct MyAppsView: View {
     func refreshAllApps() {
         let installedApps = InstalledApp.fetchAppsForRefreshingAll(in: DatabaseManager.shared.viewContext)
         
-        self.refresh(installedApps) { result in }
+        self.isRefreshingAllApps = true
+        self.refresh(installedApps) { result in
+            self.isRefreshingAllApps = false
+        }
     }
     
     func dismissUpdatesHint(forever: Bool) {
@@ -218,7 +224,7 @@ struct MyAppsView: View {
 
 
 extension MyAppsView {
-    // TODO: Convert to async
+    // TODO: Convert to async?
     func refresh(_ apps: [InstalledApp], completionHandler: @escaping ([String : Result<InstalledApp, Error>]) -> Void) {
         let group = AppManager.shared.refresh(apps, presentingViewController: nil, group: self.viewModel.refreshGroup)
         
@@ -248,10 +254,10 @@ extension MyAppsView {
                     
                     NotificationManager.shared.showNotification(title: title, detailText: message)
                 }
-            }
             
             self.viewModel.refreshGroup = nil
             completionHandler(results)
+            }
         }
         
         self.viewModel.refreshGroup = group

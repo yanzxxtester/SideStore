@@ -75,7 +75,7 @@ struct AppPillButton: View {
     }
     
     func refreshApp(_ installedApp: InstalledApp) {
-        
+        AppManager.shared.refresh([installedApp], presentingViewController: nil)
     }
     
     func installApp(_ storeApp: StoreApp) {
