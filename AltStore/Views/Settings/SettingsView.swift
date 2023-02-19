@@ -161,6 +161,10 @@ struct SettingsView: View {
                 NavigationLink("Show Refresh Attempts") {
                     RefreshAttemptsView()
                 }
+                
+                NavigationLink(L10n.AdvancedSettingsView.title) {
+                    AdvancedSettingsView()
+                }
 
                 if MailComposeView.canSendMail {
                     ModalNavigationLink("Send Feedback") {
@@ -175,10 +179,6 @@ struct SettingsView: View {
                 }
 
                 SwiftUI.Button(L10n.SettingsView.switchToUIKit, action: self.switchToUIKit)
-                
-                NavigationLink(L10n.AdvancedSettingsView.title) {
-                    AdvancedSettingsView()
-                }.foregroundColor(.accentColor)
 
                 SwiftUI.Button(L10n.SettingsView.resetImageCache, action: self.resetImageCache)
                     .foregroundColor(.red)
