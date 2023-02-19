@@ -41,8 +41,6 @@ struct MyAppsView: View {
     @State var isRefreshingAllApps: Bool = false
     @State var selectedSideloadingIpaURL: URL?
     
-    @State var isShowingAppIDsView: Bool = false
-    
     var remainingAppIDs: Int {
         guard let team = DatabaseManager.shared.activeTeam() else {
             return 0
@@ -91,7 +89,7 @@ struct MyAppsView: View {
                         .bold()
 
                     Spacer()
-                        
+
                     if !self.isRefreshingAllApps {
                         SwiftUI.Button(L10n.MyAppsView.refreshAll, action: self.refreshAllApps)
                     } else {
@@ -121,12 +119,7 @@ struct MyAppsView: View {
                                 .foregroundColor(.secondary)
                         }
 
-                        SwiftUI.Button {
-                            self.isShowingAppIDsView = true
-                        } label: {
-                            Text(L10n.MyAppsView.viewAppIDs)
-                        }
-                        .sheet(isPresented: self.$isShowingAppIDsView) {
+                        ModalNavigationLink(L10n.MyAppsView.viewAppIDs) {
                             NavigationView {
                                 AppIDsView()
                             }
@@ -140,15 +133,12 @@ struct MyAppsView: View {
         .navigationTitle(L10n.MyAppsView.myApps)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                SwiftUI.Button {
-                    self.isShowingFilePicker = true
+                ModalNavigationLink {
+                    DocumentPicker(selectedUrl: $selectedSideloadingIpaURL, supportedTypes: sideloadFileTypes)
+                        .ignoresSafeArea()
                 } label: {
                     Image(systemSymbol: .plus)
                         .imageScale(.large)
-                }
-                .sheet(isPresented: self.$isShowingFilePicker) {
-                    DocumentPicker(selectedUrl: $selectedSideloadingIpaURL, supportedTypes: sideloadFileTypes)
-                        .ignoresSafeArea()
                 }
                 .onChange(of: self.selectedSideloadingIpaURL) { newValue in
                     guard let url = newValue else {
@@ -208,7 +198,7 @@ struct MyAppsView: View {
     
     func refreshAllApps() {
         let installedApps = InstalledApp.fetchAppsForRefreshingAll(in: DatabaseManager.shared.viewContext)
-        
+
         self.isRefreshingAllApps = true
         self.refresh(installedApps) { result in
             self.isRefreshingAllApps = false
@@ -254,9 +244,9 @@ extension MyAppsView {
                     
                     NotificationManager.shared.showNotification(title: title, detailText: message)
                 }
-            
-            self.viewModel.refreshGroup = nil
-            completionHandler(results)
+
+                self.viewModel.refreshGroup = nil
+                completionHandler(results)
             }
         }
         
@@ -435,6 +425,10 @@ extension MyAppsView {
 }
 
 struct MyAppsView_Previews: PreviewProvider {
+
+    static let context = DatabaseManager.shared.viewContext
+    static let app = StoreApp.makeAltStoreApp(in: context)
+
     static var previews: some View {
         NavigationView {
             MyAppsView()

@@ -42,8 +42,14 @@ struct AppVersionHistoryView: View {
     }
 }
 
-//struct AppVersionHistoryView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AppVersionHistoryView(storeApp: )
-//    }
-//}
+struct AppVersionHistoryView_Previews: PreviewProvider {
+
+    static let context = DatabaseManager.shared.viewContext
+    static let app = StoreApp.makeAltStoreApp(in: context)
+
+    static var previews: some View {
+        NavigationView {
+            AppVersionHistoryView(storeApp: app)
+        }
+    }
+}

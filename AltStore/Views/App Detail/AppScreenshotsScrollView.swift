@@ -56,3 +56,16 @@ extension Int: Identifiable {
         self
     }
 }
+
+
+import AltStoreCore
+
+struct AppScreenshotsScrollView_Previews: PreviewProvider {
+
+    static let context = DatabaseManager.shared.viewContext
+    static let app = StoreApp.makeAltStoreApp(in: context)
+
+    static var previews: some View {
+        AppScreenshotsScrollView(urls: app.screenshotURLs)
+    }
+}

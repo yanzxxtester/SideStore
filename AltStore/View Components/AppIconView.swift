@@ -36,3 +36,26 @@ extension AppIconView: Equatable {
         lhs.iconUrl == rhs.iconUrl && lhs.cornerRadius == rhs.cornerRadius
     }
 }
+
+
+import AltStoreCore
+
+struct AppIconView_Previews: PreviewProvider {
+
+    static let context = DatabaseManager.shared.viewContext
+    static let app = StoreApp.makeAltStoreApp(in: context)
+
+    static var previews: some View {
+        HStack {
+            AppIconView(iconUrl: app.iconURL)
+
+            VStack(alignment: .leading) {
+                Text(app.name)
+                    .bold()
+                Text(app.developerName)
+                    .font(.callout)
+                    .foregroundColor(.secondary)
+            }
+        }
+    }
+}

@@ -55,8 +55,17 @@ extension AppScreenshotsPreview: Equatable {
     }
 }
 
-//struct AppScreenshotsPreview_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AppScreenshotsPreview()
-//    }
-//}
+struct AppScreenshotsPreview_Previews: PreviewProvider {
+
+    static let context = DatabaseManager.shared.viewContext
+    static let app = StoreApp.makeAltStoreApp(in: context)
+
+    static var previews: some View {
+        Color.clear
+            .sheet(isPresented: .constant(true)) {
+                NavigationView {
+                    AppScreenshotsPreview(urls: app.screenshotURLs)
+                }
+            }
+    }
+}

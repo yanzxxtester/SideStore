@@ -418,3 +418,16 @@ struct AppDetailView: View {
         }
     }
 }
+
+
+struct AppDetailView_Previews: PreviewProvider {
+
+    static let context = DatabaseManager.shared.viewContext
+    static let app = StoreApp.makeAltStoreApp(in: context)
+
+    static var previews: some View {
+        NavigationView {
+            AppDetailView(storeApp: app)
+        }
+    }
+}

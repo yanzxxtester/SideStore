@@ -100,8 +100,45 @@ struct AppPillButton: View {
     }
 }
 
-//struct AppPillButton_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AppPillButton()
-//    }
-//}
+struct AppPillButton_Previews: PreviewProvider {
+
+    static let context = DatabaseManager.shared.viewContext
+    static let app = StoreApp.makeAltStoreApp(in: context)
+    static let installedApp = InstalledApp.fetchAltStore(in: context)
+
+    static var previews: some View {
+        VStack {
+            self.preview(for: app)
+
+            self.preview(for: installedApp!)
+
+            self.preview(for: installedApp!, showRemainingDays: true)
+        }
+        .padding()
+    }
+
+    @ViewBuilder
+    static func preview(for app: AppProtocol, showRemainingDays: Bool = false) -> some View {
+        HintView(backgroundColor: Color(UIColor.secondarySystemBackground)) {
+            HStack {
+                AppIconView(iconUrl: self.app.iconURL)
+
+                VStack(alignment: .leading) {
+                    Text(app is StoreApp ? "Store App" : "Installed App")
+                        .bold()
+                    Text(
+                        app is StoreApp ?
+                            "Can be installed" :
+                            showRemainingDays ? "Can be refreshed" : "Can be opened"
+                    )
+                    .font(.callout)
+                    .foregroundColor(.secondary)
+                }
+
+                Spacer()
+
+                AppPillButton(app: app, showRemainingDays: showRemainingDays)
+            }
+        }
+    }
+}
