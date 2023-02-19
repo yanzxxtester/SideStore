@@ -17,6 +17,7 @@ class OutputCapturer {
 
     private var inputPipe = Pipe()
     private var errorPipe = Pipe()
+    private var outputPipe = Pipe()
     
     private init() {
         // Setup pipe file handlers
@@ -26,6 +27,9 @@ class OutputCapturer {
         self.errorPipe.fileHandleForReading.readabilityHandler = { [weak self] fileHandle in
             self?.handle(data: fileHandle.availableData, isError: true)
         }
+
+        // Keep STDOUT
+        dup2(STDOUT_FILENO, self.outputPipe.fileHandleForWriting.fileDescriptor)
 
         // Intercept STDOUT and STDERR
         dup2(self.inputPipe.fileHandleForWriting.fileDescriptor, STDOUT_FILENO)
@@ -38,6 +42,9 @@ class OutputCapturer {
     }
 
     private func handle(data: Data, isError: Bool = false) {
+        // Write output to STDOUT
+        self.outputPipe.fileHandleForWriting.write(data)
+
         guard let string = String(data: data, encoding: .utf8) else {
             return
         }
