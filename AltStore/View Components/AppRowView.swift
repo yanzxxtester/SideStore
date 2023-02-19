@@ -30,9 +30,11 @@ struct AppRowView: View {
                     .font(.callout)
                     .foregroundColor(.secondary)
                 
-                RatingStars(rating: 4)
-                    .frame(height: 12)
-                    .foregroundColor(.secondary)
+                if false {
+                    RatingStars(rating: 4)
+                        .frame(height: 12)
+                        .foregroundColor(.secondary)
+                }
             }
             .lineLimit(1)
             
