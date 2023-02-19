@@ -250,10 +250,9 @@ struct SourcesView: View {
                 dispatchGroup.notify(queue: .main) {
                     if let (error, _) = errors.first {
                         NotificationManager.shared.reportError(error: error)
-                    } else {
-                        let sources = featuredSourceURLs.compactMap { sourcesByURL[$0] }
-                        self.trustedSources = sources
                     }
+                    let sources = featuredSourceURLs.compactMap { sourcesByURL[$0] }
+                    self.trustedSources = sources
 
                     self.isLoadingTrustedSources = false
                 }
