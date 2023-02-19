@@ -10,12 +10,11 @@
 /* General Actions */
 "Action.done" = "Done";
 "Action.close" = "Close";
-
+"Action.enable" = "Enable";
 
 /* NewsView */
 "NewsView.title" = "News";
 "NewsView.Section.FromSources.title" = "From your Sources";
-
 
 /* BrowseView */
 "BrowseView.title" = "Browse";
@@ -166,3 +165,27 @@
 
 /* AppIconsView */
 "AppIconsView.title" = "App Icon";
+
+/* DevModeView */
+"DevModeView.title" = "Developer Mode";
+"DevModeView.prompt" = "SideStore's Developer Mode gives access to a menu with some debugging actions commonly used by developers. **However, some of them can break SideStore if used in the wrong way.**
+
+You should only enable Developer Mode if you meet one of the following requirements:
+- You are a SideStore developer or contributor
+- When getting support, you were asked to do this by a helper
+- You were asked to do this when you reported a bug or helped a developer test a change
+
+**_We will not provide support if you break SideStore with Developer Mode._**";
+"DevModeView.read" = "Read the text!";
+"DevModeView.console" = "Console";
+"DevModeView.dataExplorer" = "Data File Explorer";
+"DevModeView.tmpExplorer" = "Temporary File Explorer";
+"DevModeView.skipResign" = "Skip Resign";
+"DevModeView.skipResignInfo" = "Skip Resign should only be used when you have an IPA that you have self signed. Otherwise, it will break things, and might make SideStore crash (there is absolutely no error handling and everything is expected to work). Useful for debugging ApplicationVerificationError";
+"DevModeView.minimuxer" = "minimuxer debug actions";
+"DevModeView.Minimuxer.stagingExplorer" = "PublicStaging File Explorer";
+"DevModeView.Minimuxer.viewProfiles" = "View provisioning profiles";
+"DevModeView.Minimuxer.dumpProfiles" = "Dump provisioning profiles to Documents directory";
+
+/* AsyncFallibleButton */
+"AsyncFallibleButton.error" = "An error occurred";

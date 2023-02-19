@@ -26,10 +26,15 @@ struct SettingsView: View {
     @AppStorage("isBackgroundRefreshEnabled")
     var isBackgroundRefreshEnabled: Bool = true
     
+    @AppStorage("isDevModeEnabled")
+    var isDevModeEnabled: Bool = false
+    
     @State var isShowingConnectAppleIDView = false
     @State var isShowingAddShortcutView = false
     @State var isShowingFeedbackMailView = false
     @State var isShowingResetPairingFileConfirmation = false
+    @State var isShowingDevModePrompt = false
+    @State var isShowingDevModeMenu = false
 
     @State var externalURLToShow: URL?
     
@@ -163,10 +168,6 @@ struct SettingsView: View {
                     RefreshAttemptsView()
                 }
 
-                SwiftUI.Button("Toggle Console") {
-                    LCManager.shared.isVisible.toggle()
-                }
-
                 if MailComposeView.canSendMail {
                     SwiftUI.Button("Send Feedback") {
                         self.isShowingFeedbackMailView = true
@@ -198,6 +199,21 @@ struct SettingsView: View {
                         .destructive(Text("Delete and Reset"), action: self.resetPairingFile),
                         .cancel()
                     ])
+                }
+                
+                if isDevModeEnabled {
+                    NavigationLink(L10n.DevModeView.title, isActive: self.$isShowingDevModeMenu) {
+                        DevModeMenu()
+                    }
+                    .foregroundColor(.red)
+                } else {
+                    SwiftUI.Button(L10n.DevModeView.title) {
+                        self.isShowingDevModePrompt = true
+                    }
+                    .foregroundColor(.red)
+                    .sheet(isPresented: self.$isShowingDevModePrompt) {
+                        DevModePrompt(isShowingDevModePrompt: self.$isShowingDevModePrompt, isShowingDevModeMenu: self.$isShowingDevModeMenu)
+                    }
                 }
             } header: {
                 Text(L10n.SettingsView.debug)

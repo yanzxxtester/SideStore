@@ -9,13 +9,13 @@
 import SwiftUI
 import SFSafeSymbols
 
-struct Icon: Identifiable {
+private struct Icon: Identifiable {
     var id: String { assetName }
     var displayName: String
     let assetName: String
 }
 
-struct SpecialIcon {
+private struct SpecialIcon {
     let assetName: String
     let suffix: String?
     let forceIndex: Int?

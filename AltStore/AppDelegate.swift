@@ -10,6 +10,7 @@ import UIKit
 import UserNotifications
 import AVFoundation
 import Intents
+import LocalConsole
 
 import AltStoreCore
 import AltSign
@@ -63,6 +64,8 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Register default settings before doing anything else.
         UserDefaults.registerDefaults()
+        
+        LCManager.shared.isVisible = UserDefaults.standard.isConsoleEnabled
         
         DatabaseManager.shared.start { (error) in
             if let error = error

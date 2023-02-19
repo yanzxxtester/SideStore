@@ -15,6 +15,8 @@ internal enum L10n {
     internal static let close = L10n.tr("Localizable", "Action.close", fallback: "Close")
     /// General Actions
     internal static let done = L10n.tr("Localizable", "Action.done", fallback: "Done")
+    /// Enable
+    internal static let enable = L10n.tr("Localizable", "Action.enable", fallback: "Enable")
   }
   internal enum AddSourceView {
     /// Continue
@@ -150,6 +152,10 @@ internal enum L10n {
     /// AppRowView
     internal static let sideloaded = L10n.tr("Localizable", "AppRowView.sideloaded", fallback: "Sideloaded")
   }
+  internal enum AsyncFallibleButton {
+    /// AsyncFallibleButton
+    internal static let error = L10n.tr("Localizable", "AsyncFallibleButton.error", fallback: "An error occurred")
+  }
   internal enum BrowseView {
     /// Search
     internal static let search = L10n.tr("Localizable", "BrowseView.search", fallback: "Search")
@@ -222,6 +228,41 @@ internal enum L10n {
     internal static let startWithSignIn = L10n.tr("Localizable", "ConnectAppleIDView.startWithSignIn", fallback: "Sign in with your Apple ID to get started.")
     /// Why do we need this?
     internal static let whyDoWeNeedThis = L10n.tr("Localizable", "ConnectAppleIDView.whyDoWeNeedThis", fallback: "Why do we need this?")
+  }
+  internal enum DevModeView {
+    /// Console
+    internal static let console = L10n.tr("Localizable", "DevModeView.console", fallback: "Console")
+    /// Data File Explorer
+    internal static let dataExplorer = L10n.tr("Localizable", "DevModeView.dataExplorer", fallback: "Data File Explorer")
+    /// minimuxer debug actions
+    internal static let minimuxer = L10n.tr("Localizable", "DevModeView.minimuxer", fallback: "minimuxer debug actions")
+    /// SideStore's Developer Mode gives access to a menu with some debugging actions commonly used by developers. **However, some of them can break SideStore if used in the wrong way.**
+    /// 
+    /// You should only enable Developer Mode if you meet one of the following requirements:
+    /// - You are a SideStore developer or contributor
+    /// - When getting support, you were asked to do this by a helper
+    /// - You were asked to do this when you reported a bug or helped a developer test a change
+    /// 
+    /// **_We will not provide support if you break SideStore with Developer Mode._**
+    internal static let prompt = L10n.tr("Localizable", "DevModeView.prompt", fallback: "SideStore's Developer Mode gives access to a menu with some debugging actions commonly used by developers. **However, some of them can break SideStore if used in the wrong way.**\n\nYou should only enable Developer Mode if you meet one of the following requirements:\n- You are a SideStore developer or contributor\n- When getting support, you were asked to do this by a helper\n- You were asked to do this when you reported a bug or helped a developer test a change\n\n**_We will not provide support if you break SideStore with Developer Mode._**")
+    /// Read the text!
+    internal static let read = L10n.tr("Localizable", "DevModeView.read", fallback: "Read the text!")
+    /// Skip Resign
+    internal static let skipResign = L10n.tr("Localizable", "DevModeView.skipResign", fallback: "Skip Resign")
+    /// Skip Resign should only be used when you have an IPA that you have self signed. Otherwise, it will break things, and might make SideStore crash (there is absolutely no error handling and everything is expected to work). Useful for debugging ApplicationVerificationError
+    internal static let skipResignInfo = L10n.tr("Localizable", "DevModeView.skipResignInfo", fallback: "Skip Resign should only be used when you have an IPA that you have self signed. Otherwise, it will break things, and might make SideStore crash (there is absolutely no error handling and everything is expected to work). Useful for debugging ApplicationVerificationError")
+    /// DevModeView
+    internal static let title = L10n.tr("Localizable", "DevModeView.title", fallback: "Developer Mode")
+    /// Temporary File Explorer
+    internal static let tmpExplorer = L10n.tr("Localizable", "DevModeView.tmpExplorer", fallback: "Temporary File Explorer")
+    internal enum Minimuxer {
+      /// Dump provisioning profiles to Documents directory
+      internal static let dumpProfiles = L10n.tr("Localizable", "DevModeView.Minimuxer.dumpProfiles", fallback: "Dump provisioning profiles to Documents directory")
+      /// PublicStaging File Explorer
+      internal static let stagingExplorer = L10n.tr("Localizable", "DevModeView.Minimuxer.stagingExplorer", fallback: "PublicStaging File Explorer")
+      /// View provisioning profiles
+      internal static let viewProfiles = L10n.tr("Localizable", "DevModeView.Minimuxer.viewProfiles", fallback: "View provisioning profiles")
+    }
   }
   internal enum MyAppsView {
     /// MyAppsView

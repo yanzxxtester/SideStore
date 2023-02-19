@@ -83,7 +83,12 @@
 		4879A95F2861046500FC1BBD /* AltSign in Frameworks */ = {isa = PBXBuildFile; productRef = 4879A95E2861046500FC1BBD /* AltSign */; };
 		4879A9622861049C00FC1BBD /* OpenSSL in Frameworks */ = {isa = PBXBuildFile; productRef = 4879A9612861049C00FC1BBD /* OpenSSL */; };
 		99C4EF4D2979132100CB538D /* SemanticVersion in Frameworks */ = {isa = PBXBuildFile; productRef = 99C4EF4C2979132100CB538D /* SemanticVersion */; };
+		99D87A60299F1B1100ED09A9 /* DevModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D87A5F299F1B1100ED09A9 /* DevModeView.swift */; };
+		99D87A62299F3EC300ED09A9 /* FileExplorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D87A61299F3EC300ED09A9 /* FileExplorer.swift */; };
 		99D87A6529A04D5E00ED09A9 /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = 99D87A6429A04D5E00ED09A9 /* Inject */; };
+		99DE640129A1271100B920BF /* AsyncFallibleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE640029A1271100B920BF /* AsyncFallibleButton.swift */; };
+		99DE640329A1624500B920BF /* View+SideStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE640229A1624500B920BF /* View+SideStore.swift */; };
+		99DE640629A1753800B920BF /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 99DE640529A1753800B920BF /* ZIPFoundation */; };
 		99E59E1D299BFE5D00FAF33D /* AppIconsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E59E1C299BFE5D00FAF33D /* AppIconsView.swift */; };
 		B3146ED2284F581E00BBC3FD /* Roxas.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3146ECD284F580500BBC3FD /* Roxas.framework */; };
 		B3146ED3284F581E00BBC3FD /* Roxas.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3146ECD284F580500BBC3FD /* Roxas.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -633,6 +638,10 @@
 		1FB96FF2292D0539007E68D1 /* PillButtonProgressViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillButtonProgressViewStyle.swift; sourceTree = "<group>"; };
 		1FFA56C1299994390011B6F5 /* OutputCapturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputCapturer.swift; sourceTree = "<group>"; };
 		1FFEF103298552DB0098374C /* AppVersionHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionHistoryView.swift; sourceTree = "<group>"; };
+		99D87A5F299F1B1100ED09A9 /* DevModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevModeView.swift; sourceTree = "<group>"; };
+		99D87A61299F3EC300ED09A9 /* FileExplorer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExplorer.swift; sourceTree = "<group>"; };
+		99DE640029A1271100B920BF /* AsyncFallibleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncFallibleButton.swift; sourceTree = "<group>"; };
+		99DE640229A1624500B920BF /* View+SideStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+SideStore.swift"; sourceTree = "<group>"; };
 		99E59E1C299BFE5D00FAF33D /* AppIconsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconsView.swift; sourceTree = "<group>"; };
 		B3146EC6284F580500BBC3FD /* Roxas.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Roxas.xcodeproj; path = Dependencies/Roxas/Roxas.xcodeproj; sourceTree = "<group>"; };
 		B33FFBA9295F8F78002259E6 /* preboard.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = preboard.c; path = src/preboard.c; sourceTree = "<group>"; };
@@ -1056,6 +1065,7 @@
 				1F07F5672955D16A00F7BE95 /* SFSafeSymbols in Frameworks */,
 				1FFA56C52999978C0011B6F5 /* LocalConsole in Frameworks */,
 				BF66EE852501AE50007EE018 /* AltStoreCore.framework in Frameworks */,
+				99DE640629A1753800B920BF /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1215,6 +1225,7 @@
 				1F545E82298D79E400589F68 /* ErrorLogView.swift */,
 				1FA5A6C9298E8B2F007BA946 /* RefreshAttemptsView.swift */,
 				99E59E1C299BFE5D00FAF33D /* AppIconsView.swift */,
+				99D87A5F299F1B1100ED09A9 /* DevModeView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1241,6 +1252,8 @@
 				1F6E08E529280F4B005059C0 /* RatingStars.swift */,
 				1F0DD8422936B0F9007608A4 /* RoundedTextField.swift */,
 				1F545E86298D86D800589F68 /* ModalNavigationLink.swift */,
+				99D87A61299F3EC300ED09A9 /* FileExplorer.swift */,
+				99DE640029A1271100B920BF /* AsyncFallibleButton.swift */,
 			);
 			path = "View Components";
 			sourceTree = "<group>";
@@ -1951,6 +1964,7 @@
 				1F66F5BD2938F06100A910CA /* StoreApp+Filterable.swift */,
 				1F180F91298E7A1B00D1C98B /* StoreApp+Trusted.swift */,
 				1F180F93298E7A2500D1C98B /* Source+Trusted.swift */,
+				99DE640229A1624500B920BF /* View+SideStore.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2312,6 +2326,7 @@
 				1F1295802989B51F0048FCB9 /* ExpandableText */,
 				1FFA56C42999978C0011B6F5 /* LocalConsole */,
 				99D87A6429A04D5E00ED09A9 /* Inject */,
+				99DE640529A1753800B920BF /* ZIPFoundation */,
 			);
 			productName = AltStore;
 			productReference = BFD2476A2284B9A500981D42 /* SideStore.app */;
@@ -2389,6 +2404,7 @@
 				1F12957F2989B51F0048FCB9 /* XCRemoteSwiftPackageReference "ExpandableText" */,
 				1FFA56C32999978C0011B6F5 /* XCRemoteSwiftPackageReference "LocalConsole" */,
 				99D87A6329A04D5E00ED09A9 /* XCRemoteSwiftPackageReference "Inject" */,
+				99DE640429A1753800B920BF /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 			);
 			productRefGroup = BFD2476B2284B9A500981D42 /* Products */;
 			projectDirPath = "";
@@ -2758,12 +2774,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFDB6A0F22AB2776007EA6D6 /* SendAppOperation.swift in Sources */,
+				99DE640129A1271100B920BF /* AsyncFallibleButton.swift in Sources */,
 				1F6E08E029280B12005059C0 /* SafariView.swift in Sources */,
 				1F943C6C2927F90400ABE095 /* SettingsView.swift in Sources */,
 				BFDB6A0D22AAFC1A007EA6D6 /* OperationError.swift in Sources */,
 				BF74989B23621C0700CED65F /* ForwardingNavigationController.swift in Sources */,
 				1F66F5C02938F07C00A910CA /* Filterable.swift in Sources */,
 				BF3D649D22E7AC1B00E9056B /* PermissionPopoverViewController.swift in Sources */,
+				99D87A60299F1B1100ED09A9 /* DevModeView.swift in Sources */,
 				D57F2C9426E01BC700B9FA39 /* UIDevice+Vibration.swift in Sources */,
 				1F07F556295458D800F7BE95 /* Assets.swift in Sources */,
 				BFD2478F2284C8F900981D42 /* Button.swift in Sources */,
@@ -2835,6 +2853,7 @@
 				BFE338E822F10E56002E24B9 /* LaunchViewController.swift in Sources */,
 				BFA8172B23C5633D001B5953 /* FetchAnisetteDataOperation.swift in Sources */,
 				BF9ABA4722DD0638008935CF /* BrowseCollectionViewCell.swift in Sources */,
+				99D87A62299F3EC300ED09A9 /* FileExplorer.swift in Sources */,
 				BFD6B03322DFF20800B86064 /* MyAppsComponents.swift in Sources */,
 				BF41B808233433C100C593A3 /* LoadingState.swift in Sources */,
 				BFF0B69A2322D7D0007A79E1 /* UIScreen+CompactHeight.swift in Sources */,
@@ -2871,6 +2890,7 @@
 				BF6C8FAC242935ED00125131 /* NSAttributedString+Markdown.m in Sources */,
 				BFF00D322501BDA100746320 /* BackgroundRefreshAppsOperation.swift in Sources */,
 				1F66F5BC2938F03700A910CA /* Modifiers.swift in Sources */,
+				99DE640329A1624500B920BF /* View+SideStore.swift in Sources */,
 				1FA5A6CA298E8B2F007BA946 /* RefreshAttemptsView.swift in Sources */,
 				1F5DF9D82974426300DDAA47 /* AppScreenshot.swift in Sources */,
 				1F66F5BA2938CA5700A910CA /* VisualEffectView.swift in Sources */,
@@ -3809,6 +3829,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		99DE640429A1753800B920BF /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/weichsel/ZIPFoundation.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.9;
+			};
+		};
 		B3C395EF284F2DE700DA9E2F /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";
@@ -3919,6 +3947,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 99D87A6329A04D5E00ED09A9 /* XCRemoteSwiftPackageReference "Inject" */;
 			productName = Inject;
+		};
+		99DE640529A1753800B920BF /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 99DE640429A1753800B920BF /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
 		};
 		B3C395F0284F2DE700DA9E2F /* KeychainAccess */ = {
 			isa = XCSwiftPackageProductDependency;
