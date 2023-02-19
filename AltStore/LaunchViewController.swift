@@ -11,7 +11,6 @@ import SwiftUI
 import Roxas
 import EmotionalDamage
 import minimuxer
-import Inject
 
 import AltStoreCore
 import UniformTypeIdentifiers
