@@ -35,6 +35,7 @@
 		1F1295812989B51F0048FCB9 /* ExpandableText in Frameworks */ = {isa = PBXBuildFile; productRef = 1F1295802989B51F0048FCB9 /* ExpandableText */; };
 		1F180F92298E7A1B00D1C98B /* StoreApp+Trusted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F180F91298E7A1B00D1C98B /* StoreApp+Trusted.swift */; };
 		1F180F94298E7A2500D1C98B /* Source+Trusted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F180F93298E7A2500D1C98B /* Source+Trusted.swift */; };
+		1F1D669E29A234CE0095BFCD /* WriteAppReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1D669D29A234CE0095BFCD /* WriteAppReviewView.swift */; };
 		1F2EF787297C4D40002FD839 /* LicensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2EF786297C4D40002FD839 /* LicensesView.swift */; };
 		1F44634529744E570070E514 /* HintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F44634429744E570070E514 /* HintView.swift */; };
 		1F545E83298D79E400589F68 /* ErrorLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F545E82298D79E400589F68 /* ErrorLogView.swift */; };
@@ -594,6 +595,7 @@
 		1F0DD8442936B3FE007608A4 /* FilledButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledButtonStyle.swift; sourceTree = "<group>"; };
 		1F180F91298E7A1B00D1C98B /* StoreApp+Trusted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoreApp+Trusted.swift"; sourceTree = "<group>"; };
 		1F180F93298E7A2500D1C98B /* Source+Trusted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Source+Trusted.swift"; sourceTree = "<group>"; };
+		1F1D669D29A234CE0095BFCD /* WriteAppReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteAppReviewView.swift; sourceTree = "<group>"; };
 		1F2EF786297C4D40002FD839 /* LicensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesView.swift; sourceTree = "<group>"; };
 		1F44634429744E570070E514 /* HintView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintView.swift; sourceTree = "<group>"; };
 		1F545E82298D79E400589F68 /* ErrorLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLogView.swift; sourceTree = "<group>"; };
@@ -1193,6 +1195,7 @@
 				1F0DD8202933B749007608A4 /* AppPermissionsGrid.swift */,
 				1F07F56A2955F11500F7BE95 /* AppScreenshotsPreview.swift */,
 				1FFEF103298552DB0098374C /* AppVersionHistoryView.swift */,
+				1F1D669D29A234CE0095BFCD /* WriteAppReviewView.swift */,
 			);
 			path = "App Detail";
 			sourceTree = "<group>";
@@ -2889,6 +2892,7 @@
 				BF9ABA4B22DD1380008935CF /* NavigationBar.swift in Sources */,
 				BF6C8FAC242935ED00125131 /* NSAttributedString+Markdown.m in Sources */,
 				BFF00D322501BDA100746320 /* BackgroundRefreshAppsOperation.swift in Sources */,
+				1F1D669E29A234CE0095BFCD /* WriteAppReviewView.swift in Sources */,
 				1F66F5BC2938F03700A910CA /* Modifiers.swift in Sources */,
 				99DE640329A1624500B920BF /* View+SideStore.swift in Sources */,
 				1FA5A6CA298E8B2F007BA946 /* RefreshAttemptsView.swift in Sources */,

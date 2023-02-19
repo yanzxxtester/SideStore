@@ -25,7 +25,7 @@ struct AppDetailView: View {
     let maxContentCornerRadius: CGFloat = 24
     let headerViewHeight: CGFloat = 140
     let permissionColumns = 4
-    
+
     var headerBlurRadius: CGFloat {
         min(20, max(0, 20 - (scrollOffset / -150) * 20))
     }
@@ -35,6 +35,11 @@ struct AppDetailView: View {
     var contentCornerRadius: CGFloat {
         max(CGFloat.zero, min(maxContentCornerRadius, maxContentCornerRadius * (1 - self.scrollOffset / self.headerViewHeight)))
     }
+
+    var canRateApp: Bool {
+        self.storeApp.installedApp != nil
+    }
+
     
     var body: some View {
         ObservableScrollView(scrollOffset: $scrollOffset) { proxy in
@@ -86,7 +91,7 @@ struct AppDetailView: View {
     }
     
     var contentView: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 24) {
             VStack(alignment: .leading, spacing: 32) {
                 if storeApp.isFromOfficialSource {
                     officialAppBadge
@@ -145,7 +150,7 @@ struct AppDetailView: View {
             }
 
 
-            VStack(spacing: 16) {
+            VStack(spacing: 24) {
                 Divider()
 
                 currentVersionView
@@ -179,23 +184,29 @@ struct AppDetailView: View {
     }
     
     var officialAppBadge: some View {
-        HStack {
-            Spacer()
-            Image(systemSymbol: .checkmarkSealFill)
-            Text(L10n.AppDetailView.Badge.official)
-            Spacer()
+        HintView(backgroundColor: Color(UIColor.secondarySystemBackground)) {
+            HStack {
+                Spacer()
+                Image(systemSymbol: .checkmarkSealFill)
+                Text(L10n.AppDetailView.Badge.official)
+                Spacer()
+            }
+            .foregroundColor(.accentColor)
         }
-        .foregroundColor(.accentColor)
+        .padding(.horizontal)
     }
     
     var trustedAppBadge: some View {
-        HStack {
-            Spacer()
-            Image(systemSymbol: .shieldLefthalfFill)
-            Text(L10n.AppDetailView.Badge.trusted)
-            Spacer()
+        HintView(backgroundColor: Color(UIColor.secondarySystemBackground)) {
+            HStack {
+                Spacer()
+                Image(systemSymbol: .shieldLefthalfFill)
+                Text(L10n.AppDetailView.Badge.trusted)
+                Spacer()
+            }
+            .foregroundColor(.accentColor)
         }
-        .foregroundColor(.accentColor)
+        .padding(.horizontal)
     }
     
     var currentVersionView: some View {
@@ -318,7 +329,7 @@ struct AppDetailView: View {
                                         .foregroundColor(.secondary)
                                 }
 
-                                RatingStars(rating: i + 1)
+                                RatingStars(rating: 5 - i)
                                     .frame(height: 12)
                                     .foregroundColor(.yellow)
                             }
@@ -337,6 +348,17 @@ struct AppDetailView: View {
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             .frame(height: 150)
             .padding(.horizontal, -16)
+
+            if self.canRateApp {
+                ModalNavigationLink {
+                    NavigationView {
+                        WriteAppReviewView(storeApp: self.storeApp)
+                    }
+                } label: {
+                    Label("Write a Review", systemSymbol: .squareAndPencil)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
         }
     }
     
@@ -353,9 +375,8 @@ struct AppDetailView: View {
             } else {
                 AppPermissionsGrid(permissions: storeApp.permissions)
             }
-            
-            Spacer()
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     var informationData: [(title: String, content: String)] {
@@ -415,6 +436,19 @@ struct AppDetailView: View {
 
         } label: {
             Label("Report this App", systemSymbol: .exclamationmarkBubble)
+        }
+    }
+}
+
+
+struct AppDetailView_Previews: PreviewProvider {
+
+    static let context = DatabaseManager.shared.viewContext
+    static let app = StoreApp.makeAltStoreApp(in: context)
+
+    static var previews: some View {
+        NavigationView {
+            AppDetailView(storeApp: app)
         }
     }
 }

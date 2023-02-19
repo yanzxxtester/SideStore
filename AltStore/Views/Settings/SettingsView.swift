@@ -30,15 +30,13 @@ struct SettingsView: View {
     var isDevModeEnabled: Bool = false
     
     @State var isShowingConnectAppleIDView = false
-    @State var isShowingAddShortcutView = false
-    @State var isShowingFeedbackMailView = false
     @State var isShowingResetPairingFileConfirmation = false
     @State var isShowingDevModePrompt = false
     @State var isShowingDevModeMenu = false
 
     @State var externalURLToShow: URL?
     
-    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
+    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown Version"
     
     var body: some View {
         List {
@@ -103,13 +101,8 @@ struct SettingsView: View {
                 Toggle(isOn: self.$isBackgroundRefreshEnabled, label: {
                     Text(L10n.SettingsView.backgroundRefresh)
                 })
-                
-                SwiftUI.Button {
-                    self.isShowingAddShortcutView = true
-                } label: {
-                    Text(L10n.SettingsView.addToSiri)
-                }
-                .sheet(isPresented: self.$isShowingAddShortcutView) {
+
+                ModalNavigationLink(L10n.SettingsView.addToSiri) {
                     if let shortcut = INShortcut(intent: INInteraction.refreshAllApps().intent) {
                         SiriShortcutSetupView(shortcut: shortcut)
                     }
@@ -169,10 +162,7 @@ struct SettingsView: View {
                 }
 
                 if MailComposeView.canSendMail {
-                    SwiftUI.Button("Send Feedback") {
-                        self.isShowingFeedbackMailView = true
-                    }
-                    .sheet(isPresented: self.$isShowingFeedbackMailView) {
+                    ModalNavigationLink("Send Feedback") {
                         MailComposeView(recipients: ["support@sidestore.io"],
                                         subject: "SideStore Beta \(appVersion) Feedback") {
                             NotificationManager.shared.showNotification(title: "Thank you for your feedback!")

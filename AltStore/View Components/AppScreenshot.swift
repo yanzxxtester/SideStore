@@ -41,9 +41,15 @@ extension AppScreenshot {
 }
 
 
+import AltStoreCore
+
 struct AppScreenshot_Previews: PreviewProvider {
 
+    static let context = DatabaseManager.shared.viewContext
+    static let app = StoreApp.makeAltStoreApp(in: context)
+
     static var previews: some View {
-        AppScreenshot(url: URL(string: "https://apps.sidestore.io/apps/sidestore/v0.1.1/browse-dark.png")!)
+        AppScreenshot(url: app.screenshotURLs[0])
+            .padding()
     }
 }
