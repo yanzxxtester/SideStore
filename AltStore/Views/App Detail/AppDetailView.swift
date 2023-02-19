@@ -58,7 +58,7 @@ struct AppDetailView: View {
             ToolbarItemGroup(placement: .principal) {
                 HStack {
                     Spacer()
-                    AppIconView(iconUrl: storeApp.iconURL, size: 24)
+                    AppIconView(iconUrl: storeApp.iconURL, isSideStore: storeApp.bundleIdentifier == Bundle.Info.appbundleIdentifier, size: 24)
                     Text(storeApp.name)
                         .bold()
                     Spacer()
@@ -74,7 +74,7 @@ struct AppDetailView: View {
     var headerView: some View {
         ZStack(alignment: .center) {
             GeometryReader { proxy in
-                AppIconView(iconUrl: storeApp.iconURL, size: proxy.frame(in: .global).width)
+                AppIconView(iconUrl: storeApp.iconURL, isSideStore: storeApp.bundleIdentifier == Bundle.Info.appbundleIdentifier, size: proxy.frame(in: .global).width)
                     .blur(radius: headerBlurRadius)
                     .offset(y: min(0, scrollOffset))
             }

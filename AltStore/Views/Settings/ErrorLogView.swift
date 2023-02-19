@@ -37,7 +37,7 @@ struct ErrorLogView: View {
                             HStack(alignment: .top) {
                                 Group {
                                     if let storeApp = error.storeApp {
-                                        AppIconView(iconUrl: storeApp.iconURL, size: 50)
+                                        AppIconView(iconUrl: storeApp.iconURL, isSideStore: storeApp.bundleIdentifier == Bundle.Info.appbundleIdentifier, size: 50)
                                     } else {
                                         ZStack {
                                             RoundedRectangle(cornerRadius: 50*0.234, style: .continuous)

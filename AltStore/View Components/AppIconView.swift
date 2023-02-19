@@ -10,23 +10,42 @@ import SwiftUI
 import AsyncImage
 
 struct AppIconView: View {
+    @ObservedObject private var iO = Inject.observer
+    @ObservedObject private var sideStoreIconData = AppIconsData.shared
+    
     let iconUrl: URL?
+    var isSideStore = false
     var size: CGFloat = 64
     var cornerRadius: CGFloat {
         size * 0.234
     }
     
-    var body: some View {
-        if let iconUrl {
-            AsyncImage(url: iconUrl) { image in
-                image
+    var image: some View {
+        if isSideStore {
+            return AnyView(
+                Image(uiImage: UIImage(named: sideStoreIconData.selectedIconName! + "-image") ?? UIImage())
                     .resizable()
-            } placeholder: {
-                Color(UIColor.secondarySystemBackground)
-            }
+                    .renderingMode(.original)
+            )
+        }
+        if let iconUrl {
+            return AnyView(
+                AsyncImage(url: iconUrl) { image in
+                    image
+                        .resizable()
+                } placeholder: {
+                    Color(UIColor.secondarySystemBackground)
+                }
+            )
+        }
+        return AnyView(Color(UIColor.secondarySystemBackground))
+    }
+    
+    var body: some View {
+        image
             .frame(width: size, height: size)
             .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
-        }
+            .enableInjection()
     }
 }
 
