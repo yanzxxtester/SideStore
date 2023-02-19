@@ -66,7 +66,7 @@ struct AppIconView_Previews: PreviewProvider {
 
     static var previews: some View {
         HStack {
-            AppIconView(iconUrl: app.iconURL)
+            AppIconView(iconUrl: app.iconURL, isSideStore: true)
 
             VStack(alignment: .leading) {
                 Text(app.name)

@@ -121,7 +121,7 @@ struct AppPillButton_Previews: PreviewProvider {
     static func preview(for app: AppProtocol, showRemainingDays: Bool = false) -> some View {
         HintView(backgroundColor: Color(UIColor.secondarySystemBackground)) {
             HStack {
-                AppIconView(iconUrl: self.app.iconURL)
+                AppIconView(iconUrl: self.app.iconURL, isSideStore: true)
 
                 VStack(alignment: .leading) {
                     Text(app is StoreApp ? "Store App" : "Installed App")

@@ -22,7 +22,7 @@ private struct SpecialIcon {
 }
 
 class AppIconsData: ObservableObject {
-    static let shared: AppIconsData = AppIconsData()
+    static let shared = AppIconsData()
     
     private static let specialIcons = [
         SpecialIcon(assetName: "Neon", suffix: "(Stable)", forceIndex: 0),
@@ -34,7 +34,7 @@ class AppIconsData: ObservableObject {
     @Published var primaryIcon: Icon?
     @Published var selectedIconName: String?
     
-    init() {
+    private init() {
         let bundleIcons = Bundle.main.object(forInfoDictionaryKey: "CFBundleIcons") as! [String: Any]
         
         let primaryIconData = bundleIcons["CFBundlePrimaryIcon"] as! [String: Any]

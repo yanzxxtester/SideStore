@@ -29,7 +29,7 @@ struct WriteAppReviewView: View {
         List {
             // App Information
             HStack {
-                AppIconView(iconUrl: storeApp.iconURL, size: 50)
+                AppIconView(iconUrl: storeApp.iconURL, isSideStore: storeApp.bundleIdentifier == Bundle.Info.appbundleIdentifier, size: 50)
                 VStack(alignment: .leading) {
                     Text(storeApp.name)
                         .bold()
