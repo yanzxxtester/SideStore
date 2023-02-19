@@ -53,6 +53,8 @@ struct AdvancedSettingsView: View {
                 Toggle(L10n.AdvancedSettingsView.DangerZone.usePreferred, isOn: $usePreferred)
                 
                 TextField(L10n.AdvancedSettingsView.DangerZone.anisetteURL, text: $anisetteURL)
+                    .autocapitalization(.none)
+                    .autocorrectionDisabled(true)
             } header: {
                 Text(L10n.AdvancedSettingsView.dangerZone)
             } footer: {
