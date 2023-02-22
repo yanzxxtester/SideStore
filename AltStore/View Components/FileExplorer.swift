@@ -222,7 +222,7 @@ private struct File: View {
             case .insert:
                 print("inserting \(selectedFile!.description) to \(item.path.description)")
 
-                try FileManager.default.copyItem(at: selectedFile!, to: item.path.appendingPathComponent(selectedFile!.pathComponents.last!))
+                try FileManager.default.copyItem(at: selectedFile!, to: item.path.appendingPathComponent(selectedFile!.pathComponents.last!), shouldReplace: true)
                 explorerHidden = true
                 explorerHidden = false
                 
