@@ -176,6 +176,8 @@ You should only enable Developer Mode if you meet one of the following requireme
 - You were asked to do this when you reported a bug or helped a developer test a change
 
 **_We will not provide support if you break SideStore with Developer Mode._**";
+"DevModeView.password" = "Password";
+"DevModeView.incorrectPassword" = "Incorrect password.";
 "DevModeView.read" = "Read the text!";
 "DevModeView.console" = "Console";
 "DevModeView.dataExplorer" = "Data File Explorer";

@@ -9,18 +9,25 @@
 import SwiftUI
 import LocalConsole
 
+// Yes, we know the password is right here. It's also in CONTRIBUTING.md. It's not supposed to be a secret, just something to hopefully prevent people breaking SideStore with dev mode and then complaining to us.
+let DEV_MODE_PASSWORD = "devmode"
+
 struct DevModePrompt: View {
     @Binding var isShowingDevModePrompt: Bool
     @Binding var isShowingDevModeMenu: Bool
     
     @State var countdown = 0
+    @State var isShowingPasswordAlert = false
+    @State var isShowingIncorrectPasswordAlert = false
+    @State var password = ""
     
     var button: some View {
         SwiftUI.Button(action: {
-            UserDefaults.standard.isDevModeEnabled = true
-            isShowingDevModePrompt = false
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-                isShowingDevModeMenu = true
+            if #available(iOS 15.0, *) {
+                isShowingPasswordAlert = true
+            } else {
+                // iOS 14 doesn't support .alert, so just go straight to dev mode without asking for a password
+                enableDevMode()
             }
         }) {
             Text(countdown <= 0 ? L10n.Action.enable + " " + L10n.DevModeView.title : L10n.DevModeView.read + " (\(countdown))")
@@ -41,36 +48,72 @@ struct DevModePrompt: View {
         }
     }
     
-    var body: some View {
-        NavigationView {
-            ScrollView {
-                VStack {
-                    text
-                        .foregroundColor(.primary)
-                        .padding(.bottom)
-                    
-                    if #available(iOS 15.0, *) {
-                        button.buttonStyle(.bordered)
-                    } else {
-                        button
-                    }
-                }
-                .padding(.horizontal)
-            }
-            .frame(maxWidth: .infinity)
-            .navigationTitle(L10n.DevModeView.title)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    SwiftUI.Button(action: { isShowingDevModePrompt = false }) {
-                        Text(L10n.Action.close)
-                    }
+    var view: some View {
+        ScrollView {
+            VStack {
+                text
+                    .foregroundColor(.primary)
+                    .padding(.bottom)
+                
+                if #available(iOS 15.0, *) {
+                    button.buttonStyle(.bordered)
+                } else {
+                    button
                 }
             }
-            .onAppear {
-                countdown = 20
-                tickCountdown()
+            .padding(.horizontal)
+        }
+        .frame(maxWidth: .infinity)
+        .navigationTitle(L10n.DevModeView.title)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                SwiftUI.Button(action: { isShowingDevModePrompt = false }) {
+                    Text(L10n.Action.close)
+                }
             }
         }
+        .onAppear {
+            countdown = 20
+            tickCountdown()
+        }
+    }
+    
+    var body: some View {
+        NavigationView {
+            if #available(iOS 15.0, *) {
+                view
+                    .alert(L10n.DevModeView.password, isPresented: $isShowingPasswordAlert) {
+                        TextField("Password", text: $password)
+                            .autocapitalization(.none)
+                            .autocorrectionDisabled(true)
+                        SwiftUI.Button("Submit", action: {
+                            if password == DEV_MODE_PASSWORD {
+                                enableDevMode()
+                            } else {
+                                isShowingIncorrectPasswordAlert = true
+                            }
+                        })
+                    }
+                    .alert(L10n.DevModeView.incorrectPassword, isPresented: $isShowingIncorrectPasswordAlert) {
+                        SwiftUI.Button("Try again", action: {
+                            isShowingIncorrectPasswordAlert = false
+                            isShowingPasswordAlert = true
+                        })
+                        SwiftUI.Button("Cancel", action: {
+                            isShowingIncorrectPasswordAlert = false
+                            isShowingDevModePrompt = false
+                        })
+                    }
+            } else {
+                view
+            }
+        }
+    }
+    
+    func enableDevMode() {
+        UserDefaults.standard.isDevModeEnabled = true
+        isShowingDevModePrompt = false
+        isShowingDevModeMenu = true
     }
     
     func tickCountdown() {

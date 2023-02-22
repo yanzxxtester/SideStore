@@ -250,8 +250,12 @@ internal enum L10n {
     internal static let console = L10n.tr("Localizable", "DevModeView.console", fallback: "Console")
     /// Data File Explorer
     internal static let dataExplorer = L10n.tr("Localizable", "DevModeView.dataExplorer", fallback: "Data File Explorer")
+    /// Incorrect password.
+    internal static let incorrectPassword = L10n.tr("Localizable", "DevModeView.incorrectPassword", fallback: "Incorrect password.")
     /// minimuxer debug actions
     internal static let minimuxer = L10n.tr("Localizable", "DevModeView.minimuxer", fallback: "minimuxer debug actions")
+    /// Password
+    internal static let password = L10n.tr("Localizable", "DevModeView.password", fallback: "Password")
     /// SideStore's Developer Mode gives access to a menu with some debugging actions commonly used by developers. **However, some of them can break SideStore if used in the wrong way.**
     /// 
     /// You should only enable Developer Mode if you meet one of the following requirements:
