@@ -3673,11 +3673,8 @@
 					"$(PROJECT_DIR)/Dependencies/minimuxer/target/aarch64-apple-ios/debug",
 					"$(PROJECT_DIR)/Dependencies/minimuxer/target/aarch64-apple-ios/release",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER)";
-				OTHER_LDFLAGS = (
-					"-Xlinker",
-					"-interposable",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_STYLE = debugging;
