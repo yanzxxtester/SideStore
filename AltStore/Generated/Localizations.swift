@@ -345,6 +345,8 @@ internal enum L10n {
     internal static let credits = L10n.tr("Localizable", "SettingsView.credits", fallback: "Credits")
     /// Debug
     internal static let debug = L10n.tr("Localizable", "SettingsView.debug", fallback: "Debug")
+    /// Export Logs
+    internal static let exportLogs = L10n.tr("Localizable", "SettingsView.exportLogs", fallback: "Export Logs")
     /// Refreshing Apps
     internal static let refreshingApps = L10n.tr("Localizable", "SettingsView.refreshingApps", fallback: "Refreshing Apps")
     /// Enable Background Refresh to automatically refresh apps in the background when connected to WiFi and with Wireguard active.

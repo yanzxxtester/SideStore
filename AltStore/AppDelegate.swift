@@ -66,6 +66,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.registerDefaults()
         
         LCManager.shared.isVisible = UserDefaults.standard.isConsoleEnabled
+        LCManager.shared.isCharacterLimitDisabled = false // we want all logs exported
         
         DatabaseManager.shared.start { (error) in
             if let error = error

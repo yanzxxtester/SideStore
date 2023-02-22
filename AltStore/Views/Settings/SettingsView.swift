@@ -36,6 +36,7 @@ struct SettingsView: View {
     @State var isShowingDevModeMenu = false
 
     @State var externalURLToShow: URL?
+    @State var quickLookURL: URL?
     
     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown Version"
     
@@ -165,6 +166,8 @@ struct SettingsView: View {
                 NavigationLink(L10n.AdvancedSettingsView.title) {
                     AdvancedSettingsView()
                 }
+                
+                AsyncFallibleButton(action: self.exportLogs, label: { execute in Text(L10n.SettingsView.exportLogs) })
 
                 if MailComposeView.canSendMail {
                     ModalNavigationLink("Send Feedback") {
@@ -236,6 +239,7 @@ struct SettingsView: View {
         .sheet(item: $externalURLToShow) { url in
             SafariView(url: url)
         }
+        .quickLookPreview($quickLookURL)
         .enableInjection()
     }
     
@@ -318,6 +322,31 @@ struct SettingsView: View {
         DispatchQueue.main.asyncAfter(deadline: .now().advanced(by: .milliseconds(500))) {
             exit(0)
         }
+    }
+    
+    func exportLogs() throws {
+        guard let path = FileManager.default.altstoreSharedDirectory?.appendingPathComponent("logs.txt") else { throw NSError(domain: "Failed to get path.", code: 1) }
+        var text = LCManager.shared.currentText
+        
+        // TODO: add more potentially sensitive info to this array like UDID
+        var remove = [String]()
+        if let connectedAppleID = connectedTeams.first {
+            remove.append(connectedAppleID.name)
+            remove.append(connectedAppleID.account.appleID)
+            remove.append(connectedAppleID.account.firstName)
+            remove.append(connectedAppleID.account.lastName)
+            remove.append(connectedAppleID.account.localizedName)
+            remove.append(connectedAppleID.account.identifier)
+            remove.append(connectedAppleID.identifier)
+        }
+        
+        for toRemove in remove {
+            text = text.replacingOccurrences(of: toRemove, with: "[removed]")
+        }
+        
+        guard let data = text.data(using: .utf8) else { throw NSError(domain: "Failed to get data.", code: 2) }
+        try data.write(to: path)
+        quickLookURL = path
     }
 }
 

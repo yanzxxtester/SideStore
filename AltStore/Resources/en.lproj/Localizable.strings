@@ -61,6 +61,7 @@
 "SettingsView.credits" = "Credits";
 "SettingsView.title" = "Settings";
 "SettingsView.refreshingAppsFooter" = "Enable Background Refresh to automatically refresh apps in the background when connected to WiFi and with Wireguard active.";
+"SettingsView.exportLogs" = "Export Logs";
 
 /* ConnectAppleIDView */
 "ConnectAppleIDView.startWithSignIn" = "Sign in with your Apple ID to get started.";
