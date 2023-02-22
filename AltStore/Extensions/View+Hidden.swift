@@ -1,5 +1,5 @@
 //
-//  View+SideStore.swift
+//  View+Hidden.swift
 //  SideStore
 //
 //  Created by naturecodevoid on 2/18/23.
