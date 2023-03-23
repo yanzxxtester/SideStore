@@ -39,7 +39,7 @@ check_for_update() {
                 echo "Unzipping generated.zip"
                 cd "$1"
                 unzip ./generated.zip
-                mv generated/* .
+                mv -v generated/* .
                 rm generated.zip
                 rmdir generated/
                 cd ..

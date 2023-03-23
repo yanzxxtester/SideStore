@@ -15,7 +15,6 @@
 		191E5FDC290AFA5C001A3B7C /* OpenSSL in Frameworks */ = {isa = PBXBuildFile; productRef = 191E5FDB290AFA5C001A3B7C /* OpenSSL */; };
 		191E607D290B2EA5001A3B7C /* jsmn.c in Sources */ = {isa = PBXBuildFile; fileRef = 191E5FD0290A651D001A3B7C /* jsmn.c */; };
 		191E607E290B2EA7001A3B7C /* jplist.c in Sources */ = {isa = PBXBuildFile; fileRef = 191E5FCF290A651D001A3B7C /* jplist.c */; };
-		191E6087290C7B50001A3B7C /* libminimuxer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 191E5FB5290A5E1F001A3B7C /* libminimuxer.a */; };
 		1920B04F2924AC8300744F60 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1920B04E2924AC8300744F60 /* Settings.bundle */; };
 		19B9B7452845E6DF0076EF69 /* SelectTeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B9B7442845E6DF0076EF69 /* SelectTeamViewController.swift */; };
 		4879A95F2861046500FC1BBD /* AltSign in Frameworks */ = {isa = PBXBuildFile; productRef = 4879A95E2861046500FC1BBD /* AltSign */; };
@@ -506,7 +505,6 @@
 		19104DB22909C06C00C49C7B /* libEmotionalDamage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libEmotionalDamage.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		19104DB42909C06D00C49C7B /* EmotionalDamage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionalDamage.swift; sourceTree = "<group>"; };
 		191E5FAB290A5D92001A3B7C /* libminimuxer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libminimuxer.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		191E5FB5290A5E1F001A3B7C /* libminimuxer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libminimuxer.a; path = "Dependencies/minimuxer/target/aarch64-apple-ios/debug/libminimuxer.a"; sourceTree = "<group>"; };
 		191E5FCF290A651D001A3B7C /* jplist.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = jplist.c; path = Dependencies/libplist/src/jplist.c; sourceTree = SOURCE_ROOT; };
 		191E5FD0290A651D001A3B7C /* jsmn.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = jsmn.c; path = Dependencies/libplist/src/jsmn.c; sourceTree = SOURCE_ROOT; };
 		191E5FD1290A651D001A3B7C /* jsmn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = jsmn.h; path = Dependencies/libplist/src/jsmn.h; sourceTree = SOURCE_ROOT; };
@@ -918,7 +916,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B33FFBA8295F8E98002259E6 /* libfragmentzip.a in Frameworks */,
-				191E6087290C7B50001A3B7C /* libminimuxer.a in Frameworks */,
 				191E5FB4290A5DA0001A3B7C /* libminimuxer.a in Frameworks */,
 				19104DBC2909C4E500C49C7B /* libEmotionalDamage.a in Frameworks */,
 				19104D952909BAEA00C49C7B /* libimobiledevice.a in Frameworks */,
@@ -1573,7 +1570,6 @@
 			isa = PBXGroup;
 			children = (
 				B343F86C295F759E002B1159 /* libresolv.tbd */,
-				191E5FB5290A5E1F001A3B7C /* libminimuxer.a */,
 				B39575F4284F29E20080B4FF /* Roxas.framework */,
 				D533E8B62727841800A9B5DD /* libAppleArchive.tbd */,
 				BF580497246A3D19008AE704 /* UIKit.framework */,
