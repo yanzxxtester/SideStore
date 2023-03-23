@@ -275,14 +275,12 @@ public extension InstalledApp
         
         do { try FileManager.default.createDirectory(at: appsDirectoryURL, withIntermediateDirectories: true, attributes: nil) }
         catch { print("Creating App Directory Error: \(error)") }
-        print("`appsDirectoryURL` is set to: \(appsDirectoryURL.absoluteString)")
         return appsDirectoryURL
     }
     
     class var legacyAppsDirectoryURL: URL {
         let baseDirectory = FileManager.default.applicationSupportDirectory
         let appsDirectoryURL = baseDirectory.appendingPathComponent("Apps")
-        print("legacy `appsDirectoryURL` is set to: \(appsDirectoryURL.absoluteString)")
         return appsDirectoryURL
     }
     
@@ -295,7 +293,6 @@ public extension InstalledApp
     class func refreshedIPAURL(for app: AppProtocol) -> URL
     {
         let ipaURL = self.directoryURL(for: app).appendingPathComponent("Refreshed.ipa")
-        print("`ipaURL`: \(ipaURL.absoluteString)")
         return ipaURL
     }
     

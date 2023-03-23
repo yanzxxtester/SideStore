@@ -10,11 +10,7 @@ import Foundation
 
 private extension URL
 {
-    #if STAGING
     static let trustedSources = URL(string: "https://raw.githubusercontent.com/SideStore/SideStore/develop/trustedapps.json")!
-    #else
-    static let trustedSources = URL(string: "https://raw.githubusercontent.com/SideStore/SideStore/develop/trustedapps.json")!
-    #endif
 }
 
 extension FetchTrustedSourcesOperation
@@ -37,6 +33,8 @@ final class FetchTrustedSourcesOperation: ResultOperation<[FetchTrustedSourcesOp
     override func main()
     {
         super.main()
+        
+        print("Fetching trusted sources from \(URL.trustedSources.absoluteString)")
         
         let dataTask = URLSession.shared.dataTask(with: .trustedSources) { (data, response, error) in
             do
