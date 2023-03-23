@@ -24,6 +24,7 @@
 		9961EC2C29BE9C5000AF2C6F /* minimuxer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9961EC2A29BE9C5000AF2C6F /* minimuxer.swift */; };
 		9961EC2E29BE9F2E00AF2C6F /* minimuxer-helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9961EC2D29BE9F2E00AF2C6F /* minimuxer-helpers.swift */; };
 		99C4EF4D2979132100CB538D /* SemanticVersion in Frameworks */ = {isa = PBXBuildFile; productRef = 99C4EF4C2979132100CB538D /* SemanticVersion */; };
+		99EC8A6629CBEF1700D4A69F /* OutputCapturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EC8A6529CBEF1700D4A69F /* OutputCapturer.swift */; };
 		B3146ED2284F581E00BBC3FD /* Roxas.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3146ECD284F580500BBC3FD /* Roxas.framework */; };
 		B3146ED3284F581E00BBC3FD /* Roxas.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3146ECD284F580500BBC3FD /* Roxas.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B33FFBA8295F8E98002259E6 /* libfragmentzip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B343F894295F7F9B002B1159 /* libfragmentzip.a */; };
@@ -515,6 +516,7 @@
 		9961EC2929BE9C5000AF2C6F /* SwiftBridgeCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftBridgeCore.swift; path = Dependencies/minimuxer/SwiftBridgeCore.swift; sourceTree = SOURCE_ROOT; };
 		9961EC2A29BE9C5000AF2C6F /* minimuxer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = minimuxer.swift; path = Dependencies/minimuxer/minimuxer.swift; sourceTree = SOURCE_ROOT; };
 		9961EC2D29BE9F2E00AF2C6F /* minimuxer-helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "minimuxer-helpers.swift"; path = "Dependencies/minimuxer/minimuxer-helpers.swift"; sourceTree = SOURCE_ROOT; };
+		99EC8A6529CBEF1700D4A69F /* OutputCapturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputCapturer.swift; sourceTree = "<group>"; };
 		B3146EC6284F580500BBC3FD /* Roxas.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Roxas.xcodeproj; path = Dependencies/Roxas/Roxas.xcodeproj; sourceTree = "<group>"; };
 		B33FFBA9295F8F78002259E6 /* preboard.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = preboard.c; path = src/preboard.c; sourceTree = "<group>"; };
 		B33FFBAB295F8F98002259E6 /* companion_proxy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = companion_proxy.c; path = src/companion_proxy.c; sourceTree = "<group>"; };
@@ -1546,6 +1548,7 @@
 				BFD247732284B9A500981D42 /* Main.storyboard */,
 				BFE338E722F10E56002E24B9 /* LaunchViewController.swift */,
 				BF41B805233423AE00C593A3 /* TabBarController.swift */,
+				99EC8A6529CBEF1700D4A69F /* OutputCapturer.swift */,
 				BFE6325822A83BA800F30809 /* Authentication */,
 				BFB6B21C2318700D0022A802 /* News */,
 				BF9ABA4322DCFF33008935CF /* Browse */,
@@ -2458,6 +2461,7 @@
 				BF6C336224197D700034FD24 /* NSError+AltStore.swift in Sources */,
 				D5DAE0942804B0B80034D8D4 /* ScreenshotProcessor.swift in Sources */,
 				BFD2476E2284B9A500981D42 /* AppDelegate.swift in Sources */,
+				99EC8A6629CBEF1700D4A69F /* OutputCapturer.swift in Sources */,
 				BF41B806233423AE00C593A3 /* TabBarController.swift in Sources */,
 				BFE00A202503097F00EB4D0C /* INInteraction+AltStore.swift in Sources */,
 				BFDB6A0B22AAEDB7007EA6D6 /* Operation.swift in Sources */,

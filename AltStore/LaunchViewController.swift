@@ -14,10 +14,10 @@ import minimuxer
 import AltStoreCore
 import UniformTypeIdentifiers
 
-let pairingFileName = "ALTPairingFile.mobiledevicepairing"
-
 final class LaunchViewController: RSTLaunchViewController, UIDocumentPickerDelegate
 {
+    public static let pairingFileName = "ALTPairingFile.mobiledevicepairing"
+    
     private var didFinishLaunching = false
     
     private var destinationViewController: UIViewController!
@@ -61,16 +61,14 @@ final class LaunchViewController: RSTLaunchViewController, UIDocumentPickerDeleg
     }
     
     func fetchPairingFile() -> String? {
-        let filename = "ALTPairingFile.mobiledevicepairing"
-        let fm = FileManager.default
-        let documentsPath = fm.documentsDirectory.appendingPathComponent("/\(filename)")
-        if fm.fileExists(atPath: documentsPath.path), let contents = try? String(contentsOf: documentsPath), !contents.isEmpty {
-            print("Loaded ALTPairingFile from \(documentsPath.path)")
+        let pairingFile = FileManager.default.documentsDirectory.appendingPathComponent("\(LaunchViewController.pairingFileName)")
+        if FileManager.default.fileExists(atPath: pairingFile.path), let contents = try? String(contentsOf: pairingFile), !contents.isEmpty {
+            print("Loaded ALTPairingFile from \(pairingFile.path)")
             return contents
         } else if
             let appResourcePath = Bundle.main.url(forResource: "ALTPairingFile", withExtension: "mobiledevicepairing"),
-            fm.fileExists(atPath: appResourcePath.path),
-            let data = fm.contents(atPath: appResourcePath.path),
+            FileManager.default.fileExists(atPath: appResourcePath.path),
+            let data = FileManager.default.contents(atPath: appResourcePath.path),
             let contents = String(data: data, encoding: .utf8),
             !contents.isEmpty  {
             print("Loaded ALTPairingFile from \(appResourcePath.path)")
@@ -127,7 +125,7 @@ final class LaunchViewController: RSTLaunchViewController, UIDocumentPickerDeleg
             }
             
             // Save to a file for next launch
-            let pairingFile = FileManager.default.documentsDirectory.appendingPathComponent("\(pairingFileName)")
+            let pairingFile = FileManager.default.documentsDirectory.appendingPathComponent("\(LaunchViewController.pairingFileName)")
             try pairing_string?.write(to: pairingFile, atomically: true, encoding: String.Encoding.utf8)
             
             // Start minimuxer now that we have a file
@@ -153,7 +151,7 @@ final class LaunchViewController: RSTLaunchViewController, UIDocumentPickerDeleg
         do {
             try start(pairing_file, documentsDirectory)
         } catch {
-            try! FileManager.default.removeItem(at: FileManager.default.documentsDirectory.appendingPathComponent("\(pairingFileName)"))
+            try! FileManager.default.removeItem(at: FileManager.default.documentsDirectory.appendingPathComponent("\(LaunchViewController.pairingFileName)"))
             displayError("minimuxer failed to start, please restart SideStore. \(minimuxerToOperationError(error).failureReason ?? "UNKNOWN ERROR!!!!!! REPORT TO GITHUB ISSUES!")")
         }
         start_auto_mounter(documentsDirectory)

@@ -55,6 +55,7 @@ extension SettingsViewController
         case errorLog
         case resetPairingFile
         case advancedSettings
+        case exportLogs
     }
 }
 
@@ -507,25 +508,23 @@ extension SettingsViewController
                     toastView.show(in: self)
                 }
             case .resetPairingFile:
-                let filename = "ALTPairingFile.mobiledevicepairing"
-                let fm = FileManager.default
-                let documentsPath = fm.documentsDirectory.appendingPathComponent("/\(filename)")
+                let pairingFile = FileManager.default.documentsDirectory.appendingPathComponent("\(LaunchViewController.pairingFileName)")
                 let alertController = UIAlertController(
-                    title: NSLocalizedString("Are you sure to reset the pairing file?", comment: ""),
-                    message: NSLocalizedString("You can reset the pairing file when you cannot sideload apps or enable JIT. You need to restart SideStore.", comment: ""),
+                    title: NSLocalizedString("Are you sure you want to reset the pairing file?", comment: ""),
+                    message: NSLocalizedString("You can reset the pairing file when you cannot sideload apps or enable JIT. It can also help when you get connection issues. You will need to regenerate your pairing file.", comment: ""),
                     preferredStyle: UIAlertController.Style.actionSheet)
                 
                 alertController.addAction(UIAlertAction(title: NSLocalizedString("Delete and Reset", comment: ""), style: .destructive){ _ in
-                    if fm.fileExists(atPath: documentsPath.path), let contents = try? String(contentsOf: documentsPath), !contents.isEmpty {
-                        try? fm.removeItem(atPath: documentsPath.path)
-                        NSLog("Pairing File Reseted")
+                    if FileManager.default.fileExists(atPath: pairingFile.path) {
+                        try? FileManager.default.removeItem(atPath: pairingFile.path)
+                        print("Reset pairing file")
                     }
                     self.tableView.deselectRow(at: indexPath, animated: true)
-                    let dialogMessage = UIAlertController(title: NSLocalizedString("Pairing File Reseted", comment: ""), message: NSLocalizedString("Please restart SideStore", comment: ""), preferredStyle: .alert)
+                    let dialogMessage = UIAlertController(title: NSLocalizedString("Pairing File Reset", comment: ""), message: NSLocalizedString("Please restart SideStore", comment: ""), preferredStyle: .alert)
                     self.present(dialogMessage, animated: true, completion: nil)
                 })
                 alertController.addAction(.cancel)
-                //Fix crash on iPad
+                // Fix crash on iPad
                 alertController.popoverPresentationController?.sourceView = self.tableView
                 alertController.popoverPresentationController?.sourceRect = self.tableView.rectForRow(at: indexPath)
                 self.present(alertController, animated: true)
@@ -538,6 +537,13 @@ extension SettingsViewController
                 } else {
                     ELOG("UIApplication.openSettingsURLString invalid")
                 }
+            case .exportLogs:
+                let activityViewController = UIActivityViewController(activityItems: [OutputCapturer.logPath], applicationActivities: nil)
+                // Fix crash on iPad
+                activityViewController.popoverPresentationController?.sourceView = self.tableView
+                activityViewController.popoverPresentationController?.sourceRect = self.tableView.rectForRow(at: indexPath)
+                self.present(activityViewController, animated: true, completion: nil)
+                self.tableView.deselectRow(at: indexPath, animated: true)
             case .refreshAttempts, .errorLog: break
             }
             
