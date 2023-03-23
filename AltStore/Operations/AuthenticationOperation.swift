@@ -258,6 +258,8 @@ final class AuthenticationOperation: ResultOperation<(ALTTeam, ALTCertificate, A
                 Keychain.shared.signingCertificate = altCertificate.p12Data()
                 Keychain.shared.signingCertificatePassword = altCertificate.machineIdentifier
                 
+                OutputCapturer.addRemoves()
+                
                 self.showInstructionsIfNecessary() { (didShowInstructions) in
                     
                     let signer = ALTSigner(team: altTeam, certificate: altCertificate)

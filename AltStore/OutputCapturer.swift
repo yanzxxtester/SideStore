@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AltStoreCore
 //import LocalConsole
 
 class OutputCapturer {
@@ -21,8 +22,38 @@ class OutputCapturer {
     public static var logPath: URL {
         return FileManager.default.documentsDirectory.appendingPathComponent("sidestore.log")
     }
+    
+    /// if a message contains a string in this array it will not be printed
+    private static let ignore = [
+        " internal_ssl_write(): ",
+        " internal_ssl_read(): ",
+        " idevice_connection_receive_timeout(): ",
+        " internal_plist_receive_timeout(): ",
+        "pre-send length = ",
+        "pre-send length = ",
+        "post-send sent ",
+        "service_send(): sending "
+    ]
+    
+    /// any occurences of the strings in this array are replaced with `[removed]`
+    private static var remove = [String]()
+    
+    public static func addRemoves() {
+        let maybeRemove = [
+            Keychain.shared.appleIDEmailAddress,
+            Keychain.shared.appleIDPassword,
+            Keychain.shared.signingCertificateSerialNumber,
+            Keychain.shared.signingCertificatePassword,
+        ]
+        
+        for item in maybeRemove {
+            if item != nil && !item!.isEmpty && !remove.contains(item!) { OutputCapturer.remove.append(item!) }
+        }
+    }
 
     private init() {
+        OutputCapturer.addRemoves()
+        
         // Setup pipe file handlers
         self.inputPipe.fileHandleForReading.readabilityHandler = { [weak self] fileHandle in
             self?.handle(data: fileHandle.availableData)
@@ -45,12 +76,20 @@ class OutputCapturer {
     }
 
     private func handle(data: Data, isError: Bool = false) {
+        guard var string = String(data: data, encoding: .utf8) else {
+            return
+        }
+        
+        for item in OutputCapturer.ignore {
+            if string.contains(item) { return }
+        }
+        
+        for item in OutputCapturer.remove {
+            string = string.replacingOccurrences(of: item, with: "[removed]")
+        }
+        
         // Write output to STDOUT
         self.outputPipe.fileHandleForWriting.write(data)
-
-//        guard let string = String(data: data, encoding: .utf8) else {
-//            return
-//        }
 
         DispatchQueue.main.async {
             //self.consoleManager.print(string)
@@ -59,10 +98,10 @@ class OutputCapturer {
                     fileHandle.closeFile()
                 }
                 fileHandle.seekToEndOfFile()
-                fileHandle.write(data)
+                fileHandle.write(string.data(using: .utf8)!)
             }
             else {
-                try? data.write(to: OutputCapturer.logPath, options: .atomic)
+                try? string.data(using: .utf8)!.write(to: OutputCapturer.logPath, options: .atomic)
             }
         }
     }

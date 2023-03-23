@@ -63,14 +63,14 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         
         print("\n\nNew session\n\n")
         
-        // trim sidestore.log in the background so loading doesn't take a long time
-        DispatchQueue.main.async {
-            if FileManager.default.fileExists(atPath: OutputCapturer.logPath.path) {
-                if let fileAttributes = try? FileManager.default.attributesOfItem(atPath: OutputCapturer.logPath.path),
-                   let bytes = fileAttributes[.size] as? Int64 {
-                    let LOG_CAP = 3_000_000 // 3 MB
-                    if bytes > LOG_CAP {
-                        print("sidestore.log size is bigger than \(LOG_CAP) bytes (currently at \(bytes) bytes), clearing lines until we are under \(LOG_CAP) bytes")
+        if FileManager.default.fileExists(atPath: OutputCapturer.logPath.path) {
+            if let fileAttributes = try? FileManager.default.attributesOfItem(atPath: OutputCapturer.logPath.path),
+               let bytes = fileAttributes[.size] as? Int64 {
+                let LOG_CAP = 3_000_000 // 3 MB
+                if bytes > LOG_CAP {
+                    print("sidestore.log size is bigger than \(LOG_CAP) bytes (currently at \(bytes) bytes), clearing lines until we are under \(LOG_CAP) bytes")
+                    // trim sidestore.log in the background so loading doesn't take a long time
+                    DispatchQueue.global(qos: .background).async {
                         var fileContents = try! String(contentsOf: OutputCapturer.logPath)
                         
                         while (fileContents.data(using: .utf8)!.count > LOG_CAP) {
