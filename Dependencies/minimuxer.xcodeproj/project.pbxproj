@@ -139,6 +139,9 @@
 			outputPaths = (
 				./minimuxer/minimuxer.h,
 				./minimuxer/SwiftBridgeCore.h,
+				./minimuxer/minimuxer.swift,
+				"./minimuxer/minimuxer-helpers.swift",
+				./minimuxer/SwiftBridgeCore.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
