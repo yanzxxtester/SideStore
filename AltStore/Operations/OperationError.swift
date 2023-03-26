@@ -34,6 +34,10 @@ enum OperationError: LocalizedError
     case openAppFailed(name: String)
     case missingAppGroup
     
+    case invalidAnisette
+    case provisioningError
+    case anisetteError
+    
     var failureReason: String? {
         switch self {
         case .unknown: return NSLocalizedString("An unknown error occured.", comment: "")
@@ -49,6 +53,9 @@ enum OperationError: LocalizedError
         case .openAppFailed(let name): return String(format: NSLocalizedString("SideStore was denied permission to launch %@.", comment: ""), name)
         case .missingAppGroup: return NSLocalizedString("SideStore's shared app group could not be found.", comment: "")
         case .maximumAppIDLimitReached: return NSLocalizedString("Cannot register more than 10 App IDs.", comment: "")
+        case .invalidAnisette: return NSLocalizedString("Anisette server returned invalid data. Try using another anisette server.", comment: "")
+        case .provisioningError: return NSLocalizedString("An error occurred when provisioning. Please try again. If the issue persists, report it on GitHub Issues!", comment: "")
+        case .anisetteError: return NSLocalizedString("An error occurred when getting anisette data. Please try again. If the issue persists, report it on GitHub Issues!", comment: "")
         }
     }
     
