@@ -109,6 +109,11 @@ final class FetchAnisetteDataOperation: ResultOperation<ALTAnisetteData>, WebSoc
                     if let locale = json["X-Apple-Locale"] { formattedJSON["locale"] = locale }
                     if let timeZone = json["X-Apple-I-TimeZone"] { formattedJSON["timeZone"] = timeZone }
                     
+                    if let response = response as? HTTPURLResponse,
+                       let version = response.value(forHTTPHeaderField: "Implementation-Version") {
+                        print("Implementation-Version: \(version)")
+                    } else { print("No Implementation-Version header") }
+                    
                     print("Anisette used: \(formattedJSON)")
                     print("Original JSON: \(json)")
                     if let anisette = ALTAnisetteData(json: formattedJSON) {
@@ -128,7 +133,7 @@ final class FetchAnisetteDataOperation: ResultOperation<ALTAnisetteData>, WebSoc
     
     func provision() {
         print("Trying to get client_info")
-        let clientInfoURL = self.url!.appendingPathComponent("client_info")
+        let clientInfoURL = self.url!.appendingPathComponent("v3").appendingPathComponent("client_info")
         URLSession.shared.dataTask(with: clientInfoURL) { data, response, error in
             do {
                 guard let data = data, error == nil else { throw OperationError.anisetteError }
@@ -184,7 +189,7 @@ final class FetchAnisetteDataOperation: ResultOperation<ALTAnisetteData>, WebSoc
     }
     
     func startProvisioningSession() {
-        let provisioningSessionURL = self.url!.appendingPathComponent("provisioning_session")
+        let provisioningSessionURL = self.url!.appendingPathComponent("v3").appendingPathComponent("provisioning_session")
         var wsRequest = URLRequest(url: provisioningSessionURL)
         wsRequest.timeoutInterval = 5
         self.socket = WebSocket(request: wsRequest)
@@ -282,7 +287,7 @@ final class FetchAnisetteDataOperation: ResultOperation<ALTAnisetteData>, WebSoc
     
     func fetchAnisetteV3(_ identifier: String, _ adiPb: String) {
         print("Fetching anisette V3")
-        var request = URLRequest(url: self.url!.appendingPathComponent("get_headers"))
+        var request = URLRequest(url: self.url!.appendingPathComponent("v3").appendingPathComponent("get_headers"))
         request.httpMethod = "POST"
         request.httpBody = try! JSONSerialization.data(withJSONObject: [
             "identifier": identifier,
@@ -321,6 +326,11 @@ final class FetchAnisetteDataOperation: ResultOperation<ALTAnisetteData>, WebSoc
                     formattedJSON["date"] = dateString
                     formattedJSON["locale"] = Locale.current.identifier
                     formattedJSON["timeZone"] = TimeZone.current.abbreviation()
+                    
+                    if let response = response as? HTTPURLResponse,
+                       let version = response.value(forHTTPHeaderField: "Implementation-Version") {
+                        print("Implementation-Version: \(version)")
+                    } else { print("No Implementation-Version header") }
                     
                     print("Anisette used: \(formattedJSON)")
                     print("Original JSON: \(json)")
