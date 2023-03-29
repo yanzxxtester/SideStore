@@ -1,4 +1,4 @@
-All//
+//
 //  ALTApplication+AltStoreApp.swift
 //  AltStore
 //
