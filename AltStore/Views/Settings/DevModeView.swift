@@ -36,15 +36,13 @@ struct DevModePrompt: View {
         .disabled(countdown > 0)
     }
     
+    @ViewBuilder
     var text: some View {
-        if #available(iOS 15.0, *) {
-            do {
-                return Text(try AttributedString(markdown: L10n.DevModeView.prompt, options: AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace)))
-            } catch {
-                return Text(L10n.DevModeView.prompt)
-            }
+        if #available(iOS 15.0, *),
+           let string = try? AttributedString(markdown: L10n.DevModeView.prompt, options: AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace)) {
+            Text(string)
         } else {
-            return Text(L10n.DevModeView.prompt)
+            Text(L10n.DevModeView.prompt)
         }
     }
     
