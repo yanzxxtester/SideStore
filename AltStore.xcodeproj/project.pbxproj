@@ -1268,6 +1268,8 @@
 				1F0DD8442936B3FE007608A4 /* FilledButtonStyle.swift */,
 			);
 			path = Styles;
+			sourceTree = "<group>";
+		};
 		99F87D1429D8E3F100B40039 /* Generated */ = {
 			isa = PBXGroup;
 			children = (
