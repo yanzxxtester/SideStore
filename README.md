@@ -4,14 +4,16 @@
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://makeapullrequest.com)
-[![Build and Upload SideStore](https://github.com/SideStore/SideStore/actions/workflows/build.yml/badge.svg)](https://github.com/SideStore/SideStore/actions/workflows/build.yml)
+[![Nightly SideStore build](https://github.com/SideStore/SideStore/actions/workflows/nightly.yml/badge.svg)](https://github.com/SideStore/SideStore/actions/workflows/nightly.yml)
+[![.github/workflows/beta.yml](https://github.com/SideStore/SideStore/actions/workflows/beta.yml/badge.svg)](https://github.com/SideStore/SideStore/actions/workflows/beta.yml)
+
+![Alt](https://repobeats.axiom.co/api/embed/3a329ce95955690b9a9366f8d5598626a847d96c.svg "Repobeats analytics image")
 
 SideStore is an iOS application that allows you to sideload apps onto your iOS device with just your Apple ID. SideStore resigns apps with your personal development certificate, and then uses a [specially designed VPN](https://github.com/jkcoxson/Secret-Tunnel) in order to trick iOS into installing them. SideStore will periodically "refresh" your apps in the background, to keep their normal 7-day development period from expiring.
 
 SideStore's goal is to provide an untethered sideloading experience. It's a community driven fork of [AltStore](https://github.com/rileytestut/AltStore), and has already implemented some of the community's most-requested features.
 
 (Contributions are welcome! 🙂)
-
 
 ## Requirements
 - Xcode 14
@@ -35,21 +37,9 @@ SideStore is a just regular, sandboxed iOS application. The AltStore app target 
 
 We're hoping to eventually eliminate our dependency on it, as it increases the amount of unnecessary Objective-C in the project.
 
-## Compilation Instructions
-SideStore is fairly straightforward to compile and run if you're already an iOS or macOS developer. Here are some basic instructions to get you started:
+## Contributing/Compilation Instructions
 
-1. Clone the repository 
-	```
-	git clone https://github.com/SideStore/SideStore.git --recurse-submodules
-	```
-2. After installing Rustup, run `rustup target add aarch64-apple-ios`
-12. Within the Dependencies/em_proxy and Dependencies/minimuxer directories, run `cargo build --release --target aarch64-apple-ios`
-2. Open `AltStore.xcodeproj` and select the AltStore project in the project navigator. On the `Signing & Capabilities` tab, change the team from to your own account.
-3. **(Development only)** Change the value for `ALTDeviceID` in the Info.plist to your device's UDID. Normally, SideServer embeds the device's UDID in SideStore's Info.plist during installation. When running through Xcode you'll need to set the value yourself or else SideStore won't resign (or even install) apps for the proper device. You can achieve this by changing a few things to be able to build and use SideStore.
-5. Copy `CodeSigning.xcconfig.sample` to `CodeSigning.xcconfig`
-6. Fill out all of the properties in `CodeSigning.xcconfig` to match your account.
-7. In `Shared/Extensions/Bundle+AltStore.swift`, replace "group.com.rileytestut.AltStore" with your own App Group ID. 
-8. Build + run app! 🎉
+Please see [CONTRIBUTING.md](./CONTRIBUTING.md)
 
 ## Licensing
 

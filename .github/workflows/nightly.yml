@@ -24,66 +24,27 @@ jobs:
         with:
           submodules: recursive
 
-      # - name: Cache rust cargo
-      #   id: cache-rust-cargo
-      #   uses: actions/cache@v3
-      #   env:
-      #     cache-name: cache-rust-cargo
-      #   with:
-      #     path: ~/.cargo
-      #     key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-build-${{ env.cache-name }}-
-      #       ${{ runner.os }}-build-
-      #       ${{ runner.os }}-
-
-      # - name: Cache rust minimuxer
-      #   id: cache-rust-minimuxer
-      #   uses: actions/cache@v3
-      #   env:
-      #     cache-name: cache-rust-minimuxer
-      #   with:
-      #     path: ./Dependencies/minimuxer/target
-      #     key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-build-${{ env.cache-name }}-
-      #       ${{ runner.os }}-build-
-      #       ${{ runner.os }}-
-
-      # - name: Cache rust em_proxy
-      #   id: cache-rust-em_proxy
-      #   uses: actions/cache@v3
-      #   env:
-      #     cache-name: cache-rust-em_proxy
-      #   with:
-      #     path: ./Dependencies/em_proxy/target
-      #     key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-build-${{ env.cache-name }}-
-      #       ${{ runner.os }}-build-
-      #       ${{ runner.os }}-
-
       - name: Install dependencies
         run: brew install ldid
 
-      - name: Install rustup
-        uses: actions-rs/toolchain@v1
+      - name: Cache .nightly-build-num
+        uses: actions/cache@v3
         with:
-          toolchain: stable
-          override: true
-          target: aarch64-apple-ios
+          path: .nightly-build-num
+          key: nightly-build-num
 
-      # - name: Create emotional damage
-      #   run: cd Dependencies/em_proxy && cargo build --release --target aarch64-apple-ios
-
-      # - name: Build minimuxer
-      #   run: cd Dependencies/minimuxer && cargo build --release --target aarch64-apple-ios
+      - name: Increase nightly build number and set as version
+        run: bash .github/workflows/increase-nightly-build-num.sh
 
       - name: Change default icon to nightly icon
         run: sed -e 's/= Neon/= Steel/' -i '' ./AltStore.xcodeproj/project.pbxproj
 
-      - name: Add nightly suffix to version
-        run: sed -e '/MARKETING_VERSION = .*/s/$/-nightly.${{ github.run_number }}/' -i '' Build.xcconfig
+      - name: Get version
+        id: version
+        run: echo "version=$(grep MARKETING_VERSION Build.xcconfig | sed -e "s/MARKETING_VERSION = //g")" >> $GITHUB_OUTPUT
+
+      - name: Echo version
+        run: echo "${{ steps.version.outputs.version }}"
 
       - name: Setup Xcode
         uses: maxim-lobanov/setup-xcode@v1.4.1
@@ -91,39 +52,25 @@ jobs:
           xcode-version: ${{ matrix.version }}
 
       - name: Build SideStore
-        run: |
-          xcodebuild -project AltStore.xcodeproj \
-          -scheme AltStore \
-          -sdk iphoneos \
-          archive -archivePath ./archive \
-          CODE_SIGNING_REQUIRED=NO \
-          AD_HOC_CODE_SIGNING_ALLOWED=YES \
-          CODE_SIGNING_ALLOWED=NO \
-          DEVELOPMENT_TEAM=XYZ0123456 \
-          ORG_IDENTIFIER=com.SideStore \
-          | xcpretty && exit ${PIPESTATUS[0]}
+        run: make build | xcpretty && exit ${PIPESTATUS[0]}
 
       - name: Fakesign app
-        run: |
-          rm -rf archive.xcarchive/Products/Applications/SideStore.app/Frameworks/AltStoreCore.framework/Frameworks/
-          ldid -SAltStore/Resources/tempEnt.plist archive.xcarchive/Products/Applications/SideStore.app/SideStore
+        run: make fakesign
 
       - name: Convert to IPA
-        run: |
-          mkdir Payload
-          mkdir Payload/SideStore.app
-          cp -R archive.xcarchive/Products/Applications/SideStore.app/ Payload/SideStore.app/
-          zip -r SideStore.ipa Payload
+        run: make ipa
 
-      - name: Upload Artifact
+      - name: Upload SideStore.ipa Artifact
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: SideStore.ipa
+          name: SideStore-${{ steps.version.outputs.version }}.ipa
           path: SideStore.ipa
 
-      - name: Get version
-        id: version
-        run: echo "version=$(grep MARKETING_VERSION Build.xcconfig | sed -e "s/MARKETING_VERSION = //g")" >> $GITHUB_OUTPUT
+      - name: Upload *.dSYM Artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: SideStore-dSYM
+          path: ./*.dSYM/
 
       - name: Get current date
         id: date
@@ -144,11 +91,9 @@ jobs:
           body: |
             This is an ⚠️ **EXPERIMENTAL** ⚠️ nightly build for commit [${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }}).
             
-            Nightly builds are built from the most recent commit which means you'll be able to try out new features very early. However, since these changes are much newer and less tested, they have a much higher chance of bugs, so **use at your own risk**.
+            Nightly builds are **extremely experimental builds only meant to be used by developers and alpha testers. They often contain bugs and experimental features. Use at your own risk!**
             
-            If you want to try out new features early but want a lower chance of bugs, you can look at [SideStore Beta](https://github.com/${{ github.repository }}/releases/tag/beta).
-            
-            If you use the `SideStore (Nightly)` app, it will use the latest nightly build (make sure to update it in "My Apps").
+            If you want to try out new features early but want a lower chance of bugs, you can look at [SideStore Beta](https://github.com/${{ github.repository }}/releases?q=beta).
             
             ## Build Info
             
@@ -156,3 +101,6 @@ jobs:
             Built at (UTC date): `${{ steps.date_altstore.outputs.date }}`
             Commit SHA: `${{ github.sha }}`
             Version: `${{ steps.version.outputs.version }}`
+
+      - name: Reset cache for apps.sidestore.io/nightly
+        run: sleep 10 && curl https://apps.sidestore.io/reset-cache/nightly/${{ secrets.SIDESOURCE_KEY }}

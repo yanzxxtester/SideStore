@@ -34,3 +34,13 @@ xcuserdata
 
 ## AppCode specific
 .idea/
+
+Payload/
+SideStore.ipa
+*.dSYM
+
+Dependencies/.*-prebuilt-fetch-*
+Dependencies/minimuxer/*
+Dependencies/em_proxy/*
+!Dependencies/**/.gitkeep
+.nightly-build-num
