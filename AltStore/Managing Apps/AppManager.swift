@@ -392,7 +392,8 @@ extension AppManager
     func fetchAppIDs(completionHandler: @escaping (Result<([AppID], NSManagedObjectContext), Error>) -> Void)
     {
         let authenticationOperation = self.authenticate(presentingViewController: nil) { (result) in
-            print("Authenticated for fetching App IDs with result:", result)
+            // result contains name, email, auth token, OTP and other possibly personal/account specific info. we don't want this logged
+            //print("Authenticated for fetching App IDs with result:", result)
         }
         
         let fetchAppIDsOperation = FetchAppIDsOperation(context: authenticationOperation.context)
@@ -873,7 +874,11 @@ private extension AppManager
                     // Check if backup app is installed in place of real app.
                     let uti = UTTypeCopyDeclaration(app.installedBackupAppUTI as CFString)?.takeRetainedValue() as NSDictionary?
 
-                    if app.certificateSerialNumber != group.context.certificate?.serialNumber ||
+                    // for some reason, `app.certificateSerialNumber != group.context.certificate?.serialNumber` is true on first SideStore refresh
+                    // in most cases, the first refresh gets stuck since it is a full reinstall, and to fix it you must exit to home screen
+                    // which finishes it but removes all app data
+                    // so we want to ensure we don't reinstall for SideStore if it's true (it will still reinstall if needsResign is true)
+                    if (app.certificateSerialNumber != group.context.certificate?.serialNumber && app.bundleIdentifier != StoreApp.altstoreAppID) ||
                         uti != nil ||
                         app.needsResign
                     {

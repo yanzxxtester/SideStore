@@ -16,15 +16,13 @@
 			<key>Key</key>
 			<string>customAnisetteURL</string>
 			<key>DefaultValue</key>
-			<string>http://ani.sidestore.io</string>
+			<string>https://ani.sidestore.io</string>
 			<key>Titles</key>
 			<array>
 				<string>SideStore</string>
 				<string>Macley (US)</string>
 				<string>Macley (DE)</string>
 				<string>DrPudding</string>
-				<string>jkcoxson (AltServer)</string>
-				<string>jkcoxson (Provision)</string>
 				<string>Sideloadly</string>
 				<string>Nick</string>
 				<string>Jawshoeadan</string>
@@ -32,12 +30,10 @@
 			</array>
 			<key>Values</key>
 			<array>
-				<string>http://ani.sidestore.io</string>
+				<string>https://ani.sidestore.io</string>
 				<string>http://us1.sternserv.tech</string>
 				<string>http://de1.sternserv.tech</string>
 				<string>https://sign.rheaa.xyz</string>
-				<string>http://jkcoxson.com:2095</string>
-				<string>http://jkcoxson.com:2052</string>
 				<string>https://sideloadly.io/anisette/irGb3Quww8zrhgqnzmrx</string>
 				<string>http://45.33.29.114</string>
 				<string>https://anisette.jawshoeadan.me</string>
