@@ -82,6 +82,7 @@
 		4879A9622861049C00FC1BBD /* OpenSSL in Frameworks */ = {isa = PBXBuildFile; productRef = 4879A9612861049C00FC1BBD /* OpenSSL */; };
 		992C896029A6A56500FB3501 /* LocalConsole in Frameworks */ = {isa = PBXBuildFile; productRef = 992C895F29A6A56500FB3501 /* LocalConsole */; };
 		994D6E9B29E326080045B3F7 /* minimuxer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F87D1729D8E4C900B40039 /* minimuxer.swift */; };
+		994D6EB529E35C130045B3F7 /* StoreApp+SideStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994D6EB429E35C130045B3F7 /* StoreApp+SideStore.swift */; };
 		99BCB7DF29A2AC050041D1A7 /* AdvancedSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BCB7DE29A2AC050041D1A7 /* AdvancedSettingsView.swift */; };
 		99C4EF4D2979132100CB538D /* SemanticVersion in Frameworks */ = {isa = PBXBuildFile; productRef = 99C4EF4C2979132100CB538D /* SemanticVersion */; };
 		99D87A60299F1B1100ED09A9 /* DevModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D87A5F299F1B1100ED09A9 /* DevModeView.swift */; };
@@ -638,6 +639,7 @@
 		1FB96FF2292D0539007E68D1 /* PillButtonProgressViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillButtonProgressViewStyle.swift; sourceTree = "<group>"; };
 		1FFA56C1299994390011B6F5 /* OutputCapturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputCapturer.swift; sourceTree = "<group>"; };
 		1FFEF103298552DB0098374C /* AppVersionHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionHistoryView.swift; sourceTree = "<group>"; };
+		994D6EB429E35C130045B3F7 /* StoreApp+SideStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoreApp+SideStore.swift"; sourceTree = "<group>"; };
 		9961EC2D29BE9F2E00AF2C6F /* minimuxer-helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "minimuxer-helpers.swift"; path = "Dependencies/minimuxer/minimuxer-helpers.swift"; sourceTree = SOURCE_ROOT; };
 		99BCB7DE29A2AC050041D1A7 /* AdvancedSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSettingsView.swift; sourceTree = "<group>"; };
 		99D87A5F299F1B1100ED09A9 /* DevModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevModeView.swift; sourceTree = "<group>"; };
@@ -1977,6 +1979,7 @@
 				1F180F91298E7A1B00D1C98B /* StoreApp+Trusted.swift */,
 				1F180F93298E7A2500D1C98B /* Source+Trusted.swift */,
 				99DE640229A1624500B920BF /* View+Hidden.swift */,
+				994D6EB429E35C130045B3F7 /* StoreApp+SideStore.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2920,6 +2923,7 @@
 				BFF00D322501BDA100746320 /* BackgroundRefreshAppsOperation.swift in Sources */,
 				1F1D669E29A234CE0095BFCD /* WriteAppReviewView.swift in Sources */,
 				1F66F5BC2938F03700A910CA /* Modifiers.swift in Sources */,
+				994D6EB529E35C130045B3F7 /* StoreApp+SideStore.swift in Sources */,
 				99DE640329A1624500B920BF /* View+Hidden.swift in Sources */,
 				1FA5A6CA298E8B2F007BA946 /* RefreshAttemptsView.swift in Sources */,
 				1F5DF9D82974426300DDAA47 /* AppScreenshot.swift in Sources */,

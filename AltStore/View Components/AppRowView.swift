@@ -20,7 +20,7 @@ struct AppRowView: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
-            AppIconView(iconUrl: storeApp?.iconURL, isSideStore: storeApp?.bundleIdentifier == Bundle.Info.appbundleIdentifier)
+            AppIconView(iconUrl: storeApp?.iconURL, isSideStore: storeApp?.isSideStore)
             
             VStack(alignment: .leading, spacing: 2) {
                 Text(app.name)
