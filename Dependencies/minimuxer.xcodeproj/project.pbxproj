@@ -152,6 +152,8 @@
 				./minimuxer/minimuxer.swift,
 				./minimuxer/SwiftBridgeCore.swift,
 				"./minimuxer/minimuxer-Bridging-Header.h",
+				"./minimuxer/libminimuxer-ios.a",
+				"./minimuxer/libminimuxer-sim.a",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
