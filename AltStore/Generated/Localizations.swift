@@ -11,12 +11,18 @@ import Foundation
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
   internal enum Action {
+    /// Cancel
+    internal static let cancel = L10n.tr("Localizable", "Action.cancel", fallback: "Cancel")
     /// Close
     internal static let close = L10n.tr("Localizable", "Action.close", fallback: "Close")
     /// General Actions
     internal static let done = L10n.tr("Localizable", "Action.done", fallback: "Done")
     /// Enable
     internal static let enable = L10n.tr("Localizable", "Action.enable", fallback: "Enable")
+    /// Submit
+    internal static let submit = L10n.tr("Localizable", "Action.submit", fallback: "Submit")
+    /// Try Again
+    internal static let tryAgain = L10n.tr("Localizable", "Action.tryAgain", fallback: "Try Again")
   }
   internal enum AddSourceView {
     /// Continue
@@ -250,6 +256,8 @@ internal enum L10n {
     internal static let console = L10n.tr("Localizable", "DevModeView.console", fallback: "Console")
     /// Data File Explorer
     internal static let dataExplorer = L10n.tr("Localizable", "DevModeView.dataExplorer", fallback: "Data File Explorer")
+    /// Skip Resign should only be used when you have an IPA that you have self signed. Otherwise, it will break things, and might make SideStore crash (there is absolutely no error handling and everything is expected to work).
+    internal static let footer = L10n.tr("Localizable", "DevModeView.footer", fallback: "Skip Resign should only be used when you have an IPA that you have self signed. Otherwise, it will break things, and might make SideStore crash (there is absolutely no error handling and everything is expected to work).")
     /// Incorrect password.
     internal static let incorrectPassword = L10n.tr("Localizable", "DevModeView.incorrectPassword", fallback: "Incorrect password.")
     /// minimuxer debug actions
@@ -260,28 +268,31 @@ internal enum L10n {
     /// 
     /// You should only enable Developer Mode if you meet one of the following requirements:
     /// - You are a SideStore developer or contributor
-    /// - When getting support, you were asked to do this by a helper
+    /// - You were asked to do this by a helper when getting support
     /// - You were asked to do this when you reported a bug or helped a developer test a change
     /// 
     /// **_We will not provide support if you break SideStore with Developer Mode._**
-    internal static let prompt = L10n.tr("Localizable", "DevModeView.prompt", fallback: "SideStore's Developer Mode gives access to a menu with some debugging actions commonly used by developers. **However, some of them can break SideStore if used in the wrong way.**\n\nYou should only enable Developer Mode if you meet one of the following requirements:\n- You are a SideStore developer or contributor\n- When getting support, you were asked to do this by a helper\n- You were asked to do this when you reported a bug or helped a developer test a change\n\n**_We will not provide support if you break SideStore with Developer Mode._**")
+    internal static let prompt = L10n.tr("Localizable", "DevModeView.prompt", fallback: "SideStore's Developer Mode gives access to a menu with some debugging actions commonly used by developers. **However, some of them can break SideStore if used in the wrong way.**\n\nYou should only enable Developer Mode if you meet one of the following requirements:\n- You are a SideStore developer or contributor\n- You were asked to do this by a helper when getting support\n- You were asked to do this when you reported a bug or helped a developer test a change\n\n**_We will not provide support if you break SideStore with Developer Mode._**")
     /// Read the text!
     internal static let read = L10n.tr("Localizable", "DevModeView.read", fallback: "Read the text!")
     /// Skip Resign
     internal static let skipResign = L10n.tr("Localizable", "DevModeView.skipResign", fallback: "Skip Resign")
-    /// Skip Resign should only be used when you have an IPA that you have self signed. Otherwise, it will break things, and might make SideStore crash (there is absolutely no error handling and everything is expected to work). Useful for debugging ApplicationVerificationError
-    internal static let skipResignInfo = L10n.tr("Localizable", "DevModeView.skipResignInfo", fallback: "Skip Resign should only be used when you have an IPA that you have self signed. Otherwise, it will break things, and might make SideStore crash (there is absolutely no error handling and everything is expected to work). Useful for debugging ApplicationVerificationError")
     /// DevModeView
     internal static let title = L10n.tr("Localizable", "DevModeView.title", fallback: "Developer Mode")
     /// Temporary File Explorer
     internal static let tmpExplorer = L10n.tr("Localizable", "DevModeView.tmpExplorer", fallback: "Temporary File Explorer")
     internal enum Minimuxer {
+      /// AFC File Explorer (check footer for notes)
+      internal static let afcExplorer = L10n.tr("Localizable", "DevModeView.Minimuxer.afcExplorer", fallback: "AFC File Explorer (check footer for notes)")
       /// Dump provisioning profiles to Documents directory
       internal static let dumpProfiles = L10n.tr("Localizable", "DevModeView.Minimuxer.dumpProfiles", fallback: "Dump provisioning profiles to Documents directory")
-      /// PublicStaging File Explorer
-      internal static let stagingExplorer = L10n.tr("Localizable", "DevModeView.Minimuxer.stagingExplorer", fallback: "PublicStaging File Explorer")
-      /// View provisioning profiles
-      internal static let viewProfiles = L10n.tr("Localizable", "DevModeView.Minimuxer.viewProfiles", fallback: "View provisioning profiles")
+      /// Notes on AFC File Explorer:
+      /// - If nothing shows up, check minimuxer logs for error
+      /// - It is currently extremely very unoptimized and may be very slow; a new AFC client is created for every action
+      /// - It is currently limited to a maximum depth of 3 to ensure it doesn't take too long to iterate over everything when you open it
+      /// - Very buggy
+      /// - There are multiple unimplemented actions
+      internal static let footer = L10n.tr("Localizable", "DevModeView.Minimuxer.footer", fallback: "Notes on AFC File Explorer:\n- If nothing shows up, check minimuxer logs for error\n- It is currently extremely very unoptimized and may be very slow; a new AFC client is created for every action\n- It is currently limited to a maximum depth of 3 to ensure it doesn't take too long to iterate over everything when you open it\n- Very buggy\n- There are multiple unimplemented actions")
     }
   }
   internal enum MyAppsView {

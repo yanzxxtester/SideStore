@@ -8,8 +8,9 @@
 
 import SwiftUI
 import LocalConsole
+import minimuxer
 
-// Yes, we know the password is right here. It's also in CONTRIBUTING.md. It's not supposed to be a secret, just something to hopefully prevent people breaking SideStore with dev mode and then complaining to us.
+// Yes, we know the password is right here. It's not supposed to be a secret, just something to hopefully prevent people breaking SideStore with dev mode and then complaining to us.
 let DEV_MODE_PASSWORD = "devmode"
 
 struct DevModePrompt: View {
@@ -23,16 +24,18 @@ struct DevModePrompt: View {
     
     var button: some View {
         SwiftUI.Button(action: {
-            if #available(iOS 15.0, *) {
+            if #available(iOS 16.0, *) {
                 isShowingPasswordAlert = true
             } else {
                 // iOS 14 doesn't support .alert, so just go straight to dev mode without asking for a password
+                // iOS 15 also doesn't seem to support TextField in an alert (the text field was nonexistent)
                 enableDevMode()
             }
         }) {
             Text(countdown <= 0 ? L10n.Action.enable + " " + L10n.DevModeView.title : L10n.DevModeView.read + " (\(countdown))")
                 .foregroundColor(.red)
         }
+        .buttonStyle(FilledButtonStyle()) // TODO: set tintColor so text is more readable
         .disabled(countdown > 0)
     }
     
@@ -53,11 +56,7 @@ struct DevModePrompt: View {
                     .foregroundColor(.primary)
                     .padding(.bottom)
                 
-                if #available(iOS 15.0, *) {
-                    button.buttonStyle(.bordered)
-                } else {
-                    button
-                }
+                button
             }
             .padding(.horizontal)
         }
@@ -81,10 +80,10 @@ struct DevModePrompt: View {
             if #available(iOS 15.0, *) {
                 view
                     .alert(L10n.DevModeView.password, isPresented: $isShowingPasswordAlert) {
-                        TextField("Password", text: $password)
+                        TextField(L10n.DevModeView.password, text: $password)
                             .autocapitalization(.none)
                             .autocorrectionDisabled(true)
-                        SwiftUI.Button("Submit", action: {
+                        SwiftUI.Button(L10n.Action.submit, action: {
                             if password == DEV_MODE_PASSWORD {
                                 enableDevMode()
                             } else {
@@ -93,11 +92,11 @@ struct DevModePrompt: View {
                         })
                     }
                     .alert(L10n.DevModeView.incorrectPassword, isPresented: $isShowingIncorrectPasswordAlert) {
-                        SwiftUI.Button("Try again", action: {
+                        SwiftUI.Button(L10n.Action.tryAgain, action: {
                             isShowingIncorrectPasswordAlert = false
                             isShowingPasswordAlert = true
                         })
-                        SwiftUI.Button("Cancel", action: {
+                        SwiftUI.Button(L10n.Action.cancel, action: {
                             isShowingIncorrectPasswordAlert = false
                             isShowingDevModePrompt = false
                         })
@@ -138,36 +137,39 @@ struct DevModeMenu: View {
                     }
                 
                 NavigationLink(L10n.DevModeView.dataExplorer) {
-                    FileExplorer(url: FileManager.default.altstoreSharedDirectory)
+                    FileExplorer.normal(url: FileManager.default.altstoreSharedDirectory)
                         .navigationTitle(L10n.DevModeView.dataExplorer)
                 }.foregroundColor(.red)
                 
                 NavigationLink(L10n.DevModeView.tmpExplorer) {
-                    FileExplorer(url: FileManager.default.temporaryDirectory)
+                    FileExplorer.normal(url: FileManager.default.temporaryDirectory)
                         .navigationTitle(L10n.DevModeView.tmpExplorer)
                 }.foregroundColor(.red)
                 
                 Toggle(L10n.DevModeView.skipResign, isOn: ResignAppOperation.skipResignBinding)
                     .foregroundColor(.red)
             } footer: {
-                Text(L10n.DevModeView.skipResignInfo)
+                Text(L10n.DevModeView.footer)
             }
             
             Section {
-                NavigationLink(L10n.DevModeView.Minimuxer.stagingExplorer + " (Coming soon, needs minimuxer additions)") {
-                    FileExplorer(url: FileManager.default.altstoreSharedDirectory)
-                        .navigationTitle(L10n.DevModeView.Minimuxer.stagingExplorer)
-                }.foregroundColor(.red).disabled(true)
+                AsyncFallibleButton(action: {
+                    let dir = try dump_profiles(FileManager.default.documentsDirectory.absoluteString)
+                    DispatchQueue.main.async {
+                        UIApplication.shared.open(URL(string: "shareddocuments://" + dir.toString())!, options: [:], completionHandler: nil)
+                    }
+                }) { execute in
+                    Text(L10n.DevModeView.Minimuxer.dumpProfiles)
+                }
                 
-                NavigationLink(L10n.DevModeView.Minimuxer.viewProfiles + " (Coming soon, needs minimuxer additions)") {
-                    
-                }.disabled(true)
-                
-                SwiftUI.Button(L10n.DevModeView.Minimuxer.dumpProfiles + " (Coming soon, needs minimuxer additions)", action: {
-                    // TODO: dump profiles to Documents/ProfileDump/[current time]
-                }).disabled(true)
+                NavigationLink(L10n.DevModeView.Minimuxer.afcExplorer) {
+                    FileExplorer.afc()
+                        .navigationTitle(L10n.DevModeView.Minimuxer.afcExplorer)
+                }.foregroundColor(.red)
             } header: {
                 Text(L10n.DevModeView.minimuxer)
+            } footer: {
+                Text(L10n.DevModeView.Minimuxer.footer)
             }
         }
         .navigationTitle(L10n.DevModeView.title)

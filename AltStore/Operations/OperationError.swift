@@ -123,50 +123,53 @@ enum OperationError: LocalizedError
     }
 }
 
-/// crashes if error is not a MinimuxerError
+/// crashes if error is not a MinimuxerError or OperationError
 func minimuxerToOperationError(_ error: Error) -> OperationError {
-    switch error as! MinimuxerError {
-    case .NoDevice:
-        return OperationError.noDevice
-    case .NoConnection:
-        return OperationError.noConnection
-    case .PairingFile:
-        return OperationError.invalidPairingFile
-    case .CreateDebug:
-        return OperationError.createService(name: "debug")
-    case .CreateInstproxy:
-        return OperationError.createService(name: "instproxy")
-    case .LookupApps:
-        return OperationError.getFromDevice(name: "installed apps")
-    case .FindApp:
-        return OperationError.getFromDevice(name: "path to the app")
-    case .BundlePath:
-        return OperationError.getFromDevice(name: "bundle path")
-    case .MaxPacket:
-        return OperationError.setArgument(name: "max packet")
-    case .WorkingDirectory:
-        return OperationError.setArgument(name: "working directory")
-    case .Argv:
-        return OperationError.setArgument(name: "argv")
-    case .LaunchSuccess:
-        return OperationError.getFromDevice(name: "launch success")
-    case .Detach:
-        return OperationError.detach
-    case .Attach:
-        return OperationError.attach
-    case .CreateAfc:
-        return OperationError.createService(name: "AFC")
-    case .RwAfc:
-        return OperationError.afc
-    case .InstallApp:
-        return OperationError.install
-    case .UninstallApp:
-        return OperationError.uninstall
-    case .CreateMisagent:
-        return OperationError.createService(name: "misagent")
-    case .ProfileInstall:
-        return OperationError.profileManage
-    case .ProfileRemove:
-        return OperationError.profileManage
+    if let error = error as? MinimuxerError {
+        switch error {
+        case .NoDevice:
+            return OperationError.noDevice
+        case .NoConnection:
+            return OperationError.noConnection
+        case .PairingFile:
+            return OperationError.invalidPairingFile
+        case .CreateDebug:
+            return OperationError.createService(name: "debug")
+        case .CreateInstproxy:
+            return OperationError.createService(name: "instproxy")
+        case .LookupApps:
+            return OperationError.getFromDevice(name: "installed apps")
+        case .FindApp:
+            return OperationError.getFromDevice(name: "path to the app")
+        case .BundlePath:
+            return OperationError.getFromDevice(name: "bundle path")
+        case .MaxPacket:
+            return OperationError.setArgument(name: "max packet")
+        case .WorkingDirectory:
+            return OperationError.setArgument(name: "working directory")
+        case .Argv:
+            return OperationError.setArgument(name: "argv")
+        case .LaunchSuccess:
+            return OperationError.getFromDevice(name: "launch success")
+        case .Detach:
+            return OperationError.detach
+        case .Attach:
+            return OperationError.attach
+        case .CreateAfc:
+            return OperationError.createService(name: "AFC")
+        case .RwAfc:
+            return OperationError.afc
+        case .InstallApp:
+            return OperationError.install
+        case .UninstallApp:
+            return OperationError.uninstall
+        case .CreateMisagent:
+            return OperationError.createService(name: "misagent")
+        case .ProfileInstall:
+            return OperationError.profileManage
+        case .ProfileRemove:
+            return OperationError.profileManage
+        }
     }
+    return error as! OperationError
 }
