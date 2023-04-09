@@ -81,6 +81,7 @@
 		4879A95F2861046500FC1BBD /* AltSign in Frameworks */ = {isa = PBXBuildFile; productRef = 4879A95E2861046500FC1BBD /* AltSign */; };
 		4879A9622861049C00FC1BBD /* OpenSSL in Frameworks */ = {isa = PBXBuildFile; productRef = 4879A9612861049C00FC1BBD /* OpenSSL */; };
 		992C896029A6A56500FB3501 /* LocalConsole in Frameworks */ = {isa = PBXBuildFile; productRef = 992C895F29A6A56500FB3501 /* LocalConsole */; };
+		994D6E9B29E326080045B3F7 /* minimuxer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F87D1729D8E4C900B40039 /* minimuxer.swift */; };
 		99BCB7DF29A2AC050041D1A7 /* AdvancedSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BCB7DE29A2AC050041D1A7 /* AdvancedSettingsView.swift */; };
 		99C4EF4D2979132100CB538D /* SemanticVersion in Frameworks */ = {isa = PBXBuildFile; productRef = 99C4EF4C2979132100CB538D /* SemanticVersion */; };
 		99D87A60299F1B1100ED09A9 /* DevModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D87A5F299F1B1100ED09A9 /* DevModeView.swift */; };
@@ -92,7 +93,6 @@
 		99E59E1D299BFE5D00FAF33D /* AppIconsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E59E1C299BFE5D00FAF33D /* AppIconsView.swift */; };
 		99F87D0529D8B4E200B40039 /* minimuxer-helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9961EC2D29BE9F2E00AF2C6F /* minimuxer-helpers.swift */; };
 		99F87D1829D8E4C900B40039 /* SwiftBridgeCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F87D1629D8E4C900B40039 /* SwiftBridgeCore.swift */; };
-		99F87D1929D8E4C900B40039 /* minimuxer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F87D1729D8E4C900B40039 /* minimuxer.swift */; };
 		B3146ED2284F581E00BBC3FD /* Roxas.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3146ECD284F580500BBC3FD /* Roxas.framework */; };
 		B3146ED3284F581E00BBC3FD /* Roxas.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3146ECD284F580500BBC3FD /* Roxas.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B33FFBA8295F8E98002259E6 /* libfragmentzip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B343F894295F7F9B002B1159 /* libfragmentzip.a */; };
@@ -638,13 +638,13 @@
 		1FB96FF2292D0539007E68D1 /* PillButtonProgressViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillButtonProgressViewStyle.swift; sourceTree = "<group>"; };
 		1FFA56C1299994390011B6F5 /* OutputCapturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputCapturer.swift; sourceTree = "<group>"; };
 		1FFEF103298552DB0098374C /* AppVersionHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionHistoryView.swift; sourceTree = "<group>"; };
+		9961EC2D29BE9F2E00AF2C6F /* minimuxer-helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "minimuxer-helpers.swift"; path = "Dependencies/minimuxer/minimuxer-helpers.swift"; sourceTree = SOURCE_ROOT; };
 		99BCB7DE29A2AC050041D1A7 /* AdvancedSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSettingsView.swift; sourceTree = "<group>"; };
 		99D87A5F299F1B1100ED09A9 /* DevModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevModeView.swift; sourceTree = "<group>"; };
 		99D87A61299F3EC300ED09A9 /* FileExplorer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExplorer.swift; sourceTree = "<group>"; };
 		99DE640029A1271100B920BF /* AsyncFallibleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncFallibleButton.swift; sourceTree = "<group>"; };
 		99DE640229A1624500B920BF /* View+Hidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Hidden.swift"; sourceTree = "<group>"; };
 		99E59E1C299BFE5D00FAF33D /* AppIconsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconsView.swift; sourceTree = "<group>"; };
-		9961EC2D29BE9F2E00AF2C6F /* minimuxer-helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "minimuxer-helpers.swift"; path = "Dependencies/minimuxer/minimuxer-helpers.swift"; sourceTree = SOURCE_ROOT; };
 		99F87D1629D8E4C900B40039 /* SwiftBridgeCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftBridgeCore.swift; path = Dependencies/minimuxer/SwiftBridgeCore.swift; sourceTree = SOURCE_ROOT; };
 		99F87D1729D8E4C900B40039 /* minimuxer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = minimuxer.swift; path = Dependencies/minimuxer/minimuxer.swift; sourceTree = SOURCE_ROOT; };
 		B3146EC6284F580500BBC3FD /* Roxas.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Roxas.xcodeproj; path = Dependencies/Roxas/Roxas.xcodeproj; sourceTree = "<group>"; };
@@ -2604,7 +2604,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				99F87D1929D8E4C900B40039 /* minimuxer.swift in Sources */,
+				994D6E9B29E326080045B3F7 /* minimuxer.swift in Sources */,
 				99F87D1829D8E4C900B40039 /* SwiftBridgeCore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
