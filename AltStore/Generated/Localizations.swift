@@ -345,6 +345,8 @@ internal enum L10n {
     internal static let credits = L10n.tr("Localizable", "SettingsView.credits", fallback: "Credits")
     /// Debug
     internal static let debug = L10n.tr("Localizable", "SettingsView.debug", fallback: "Debug")
+    /// Debug Logging
+    internal static let debugLogging = L10n.tr("Localizable", "SettingsView.debugLogging", fallback: "Debug Logging")
     /// Export Logs
     internal static let exportLogs = L10n.tr("Localizable", "SettingsView.exportLogs", fallback: "Export Logs")
     /// Refreshing Apps

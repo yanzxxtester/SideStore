@@ -12,6 +12,7 @@ import SFSafeSymbols
 import LocalConsole
 import AltStoreCore
 import Intents
+import minimuxer
 
 struct SettingsView: View {
     @ObservedObject private var iO = Inject.observer
@@ -29,6 +30,9 @@ struct SettingsView: View {
     
     @AppStorage("isDevModeEnabled")
     var isDevModeEnabled: Bool = false
+    
+    @AppStorage("isDebugLoggingEnabled")
+    var isDebugLoggingEnabled: Bool = false
     
     @State var isShowingConnectAppleIDView = false
     @State var isShowingResetPairingFileConfirmation = false
@@ -166,6 +170,12 @@ struct SettingsView: View {
                 NavigationLink(L10n.AdvancedSettingsView.title) {
                     AdvancedSettingsView()
                 }
+                
+                Toggle(L10n.SettingsView.debugLogging, isOn: self.$isDebugLoggingEnabled)
+                    .onChange(of: self.isDebugLoggingEnabled) { value in
+                        UserDefaults.shared.isDebugLoggingEnabled = value
+                        set_debug(value)
+                    }
                 
                 AsyncFallibleButton(action: self.exportLogs, label: { execute in Text(L10n.SettingsView.exportLogs) })
 
@@ -325,10 +335,10 @@ struct SettingsView: View {
     }
     
     func exportLogs() throws {
-        guard let path = FileManager.default.altstoreSharedDirectory?.appendingPathComponent("logs.txt") else { throw NSError(domain: "Failed to get path.", code: 1) }
+        let path = FileManager.default.documentsDirectory.appendingPathComponent("sidestore.log")
         var text = LCManager.shared.currentText
         
-        // TODO: add more potentially sensitive info to this array like UDID
+        // TODO: add more potentially sensitive info to this array
         var remove = [String]()
         if let connectedAppleID = connectedTeams.first {
             remove.append(connectedAppleID.name)
@@ -338,6 +348,9 @@ struct SettingsView: View {
             remove.append(connectedAppleID.account.localizedName)
             remove.append(connectedAppleID.account.identifier)
             remove.append(connectedAppleID.identifier)
+        }
+        if let udid = fetch_udid() {
+            remove.append(udid.toString())
         }
         
         for toRemove in remove {

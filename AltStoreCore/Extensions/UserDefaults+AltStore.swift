@@ -28,6 +28,7 @@ public extension UserDefaults
     
     @NSManaged var isDevModeEnabled: Bool
     @NSManaged var isConsoleEnabled: Bool
+    @NSManaged var isDebugLoggingEnabled: Bool
     
     @NSManaged var isBackgroundRefreshEnabled: Bool
     @NSManaged var isDebugModeEnabled: Bool
@@ -75,6 +76,7 @@ public extension UserDefaults
         let defaults = [
             #keyPath(UserDefaults.isDevModeEnabled): false,
             #keyPath(UserDefaults.isConsoleEnabled): false,
+            #keyPath(UserDefaults.isDebugLoggingEnabled): false,
             #keyPath(UserDefaults.isBackgroundRefreshEnabled): true,
             #keyPath(UserDefaults.isLegacyDeactivationSupported): isLegacyDeactivationSupported,
             #keyPath(UserDefaults.activeAppLimitIncludesExtensions): activeAppLimitIncludesExtensions,
