@@ -56,6 +56,76 @@ final class FetchAnisetteDataOperation: ResultOperation<ALTAnisetteData>, WebSoc
         }
     }
     
+    func extractAnisetteData(_ data: Data, _ response: HTTPURLResponse?, v3: Bool) throws {
+        // make sure this JSON is in the format we expect
+        // convert data to json
+        if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: String] {
+            if v3 {
+                if json["result"] == "GetHeadersError" {
+                    print("Error getting V3 headers: \(json["message"]!)")
+                    throw OperationError.anisetteV3Error(message: json["message"]!)
+                }
+            }
+            
+            // try to read out a dictionary
+            // for some reason serial number isn't needed but it doesn't work unless it has a value
+            var formattedJSON: [String: String] = ["deviceSerialNumber": "0"]
+            if let machineID = json["X-Apple-I-MD-M"] { formattedJSON["machineID"] = machineID }
+            if let oneTimePassword = json["X-Apple-I-MD"] { formattedJSON["oneTimePassword"] = oneTimePassword }
+            if let routingInfo = json["X-Apple-I-MD-RINFO"] { formattedJSON["routingInfo"] = routingInfo }
+            
+            if v3 {
+                formattedJSON["deviceDescription"] = self.clientInfo!
+                formattedJSON["localUserID"] = self.mdLu!
+                formattedJSON["deviceUniqueIdentifier"] = self.deviceId!
+                
+                // Generate date stuff on client
+                let formatter = DateFormatter()
+                formatter.locale = Locale(identifier: "en_US_POSIX")
+                formatter.calendar = Calendar(identifier: .gregorian)
+                formatter.timeZone = TimeZone.current
+                formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+                let dateString = formatter.string(from: Date())
+                formattedJSON["date"] = dateString
+                formattedJSON["locale"] = Locale.current.identifier
+                formattedJSON["timeZone"] = TimeZone.current.abbreviation()
+            } else {
+                if let deviceDescription = json["X-MMe-Client-Info"] { formattedJSON["deviceDescription"] = deviceDescription }
+                if let localUserID = json["X-Apple-I-MD-LU"] { formattedJSON["localUserID"] = localUserID }
+                if let deviceUniqueIdentifier = json["X-Mme-Device-Id"] { formattedJSON["deviceUniqueIdentifier"] = deviceUniqueIdentifier }
+                
+                if let date = json["X-Apple-I-Client-Time"] { formattedJSON["date"] = date }
+                if let locale = json["X-Apple-Locale"] { formattedJSON["locale"] = locale }
+                if let timeZone = json["X-Apple-I-TimeZone"] { formattedJSON["timeZone"] = timeZone }
+            }
+            
+            if let response = response,
+               let version = response.value(forHTTPHeaderField: "Implementation-Version") {
+                print("Implementation-Version: \(version)")
+            } else { print("No Implementation-Version header") }
+            
+            print("Anisette used: \(formattedJSON)")
+            print("Original JSON: \(json)")
+            if let anisette = ALTAnisetteData(json: formattedJSON) {
+                print("Anisette is valid!")
+                self.finish(.success(anisette))
+            } else {
+                print("Anisette is invalid!!!!")
+                if v3 {
+                    throw OperationError.anisetteV3Error(message: "Invalid anisette")
+                } else {
+                    throw OperationError.anisetteV1Error
+                }
+            }
+        } else {
+            if v3 {
+                throw OperationError.anisetteV3Error(message: "Invalid anisette format")
+            } else {
+                throw OperationError.anisetteV1Error
+            }
+        }
+    }
+    
     func handleV1() {
         print("Server is V1")
         
@@ -93,37 +163,7 @@ final class FetchAnisetteDataOperation: ResultOperation<ALTAnisetteData>, WebSoc
             do {
                 guard let data = data, error == nil else { throw OperationError.anisetteV1Error }
                 
-                // make sure this JSON is in the format we expect
-                // convert data to json
-                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: String] {
-                    // try to read out a dictionary
-                    // for some reason serial number isn't needed but it doesn't work unless it has a value
-                    var formattedJSON: [String: String] = ["deviceSerialNumber": "0"]
-                    if let machineID = json["X-Apple-I-MD-M"] { formattedJSON["machineID"] = machineID }
-                    if let oneTimePassword = json["X-Apple-I-MD"] { formattedJSON["oneTimePassword"] = oneTimePassword }
-                    if let localUserID = json["X-Apple-I-MD-LU"] { formattedJSON["localUserID"] = localUserID }
-                    if let routingInfo = json["X-Apple-I-MD-RINFO"] { formattedJSON["routingInfo"] = routingInfo }
-                    if let deviceUniqueIdentifier = json["X-Mme-Device-Id"] { formattedJSON["deviceUniqueIdentifier"] = deviceUniqueIdentifier }
-                    if let deviceDescription = json["X-MMe-Client-Info"] { formattedJSON["deviceDescription"] = deviceDescription }
-                    if let date = json["X-Apple-I-Client-Time"] { formattedJSON["date"] = date }
-                    if let locale = json["X-Apple-Locale"] { formattedJSON["locale"] = locale }
-                    if let timeZone = json["X-Apple-I-TimeZone"] { formattedJSON["timeZone"] = timeZone }
-                    
-                    if let response = response as? HTTPURLResponse,
-                       let version = response.value(forHTTPHeaderField: "Implementation-Version") {
-                        print("Implementation-Version: \(version)")
-                    } else { print("No Implementation-Version header") }
-                    
-                    print("Anisette used: \(formattedJSON)")
-                    print("Original JSON: \(json)")
-                    if let anisette = ALTAnisetteData(json: formattedJSON) {
-                        print("Anisette is valid!")
-                        self.finish(.success(anisette))
-                    } else {
-                        print("Anisette is invalid!!!!")
-                        throw OperationError.anisetteV1Error
-                    }
-                }
+                try self.extractAnisetteData(data, response as? HTTPURLResponse, v3: false)
             } catch let error as NSError {
                 print("Failed to load: \(error.localizedDescription)")
                 self.finish(.failure(error))
@@ -291,72 +331,6 @@ final class FetchAnisetteDataOperation: ResultOperation<ALTAnisetteData>, WebSoc
         }
     }
     
-    func fetchAnisetteV3(_ identifier: String, _ adiPb: String) {
-        fetchClientInfo {
-            print("Fetching anisette V3")
-            var request = URLRequest(url: self.url!.appendingPathComponent("v3").appendingPathComponent("get_headers"))
-            request.httpMethod = "POST"
-            request.httpBody = try! JSONSerialization.data(withJSONObject: [
-                "identifier": identifier,
-                "adi_pb": adiPb
-            ], options: [])
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                do {
-                    guard let data = data, error == nil else { throw OperationError.anisetteV3Error(message: "Couldn't fetch anisette") }
-                    
-                    // make sure this JSON is in the format we expect
-                    // convert data to json
-                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: String] {
-                        if json["result"] == "GetHeadersError" {
-                            print("Error getting V3 headers: \(json["message"]!)")
-                            throw OperationError.anisetteV3Error(message: json["message"]!)
-                        }
-                        
-                        // try to read out a dictionary
-                        // for some reason serial number isn't needed but it doesn't work unless it has a value
-                        var formattedJSON: [String: String] = ["deviceSerialNumber": "0"]
-                        if let machineID = json["X-Apple-I-MD-M"] { formattedJSON["machineID"] = machineID }
-                        if let oneTimePassword = json["X-Apple-I-MD"] { formattedJSON["oneTimePassword"] = oneTimePassword }
-                        if let routingInfo = json["X-Apple-I-MD-RINFO"] { formattedJSON["routingInfo"] = routingInfo }
-                        formattedJSON["deviceDescription"] = self.clientInfo!
-                        formattedJSON["localUserID"] = self.mdLu!
-                        formattedJSON["deviceUniqueIdentifier"] = self.deviceId!
-                        
-                        // Generate date stuff on client
-                        let formatter = DateFormatter()
-                        formatter.locale = Locale(identifier: "en_US_POSIX")
-                        formatter.calendar = Calendar(identifier: .gregorian)
-                        formatter.timeZone = TimeZone.current
-                        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-                        let dateString = formatter.string(from: Date())
-                        formattedJSON["date"] = dateString
-                        formattedJSON["locale"] = Locale.current.identifier
-                        formattedJSON["timeZone"] = TimeZone.current.abbreviation()
-                        
-                        if let response = response as? HTTPURLResponse,
-                           let version = response.value(forHTTPHeaderField: "Implementation-Version") {
-                            print("Implementation-Version: \(version)")
-                        } else { print("No Implementation-Version header") }
-                        
-                        print("Anisette used: \(formattedJSON)")
-                        print("Original JSON: \(json)")
-                        if let anisette = ALTAnisetteData(json: formattedJSON) {
-                            print("Anisette is valid!")
-                            self.finish(.success(anisette))
-                        } else {
-                            print("Anisette is invalid!!!!")
-                            throw OperationError.anisetteV3Error(message: "Invalid anisette")
-                        }
-                    }
-                } catch let error as NSError {
-                    print("Failed to load: \(error.localizedDescription)")
-                    self.finish(.failure(error))
-                }
-            }.resume()
-        }
-    }
-    
     func buildAppleRequest(url: URL) -> URLRequest {
         var request = URLRequest(url: url)
         request.setValue(self.clientInfo!, forHTTPHeaderField: "X-Mme-Client-Info")
@@ -377,6 +351,29 @@ final class FetchAnisetteDataOperation: ResultOperation<ALTAnisetteData>, WebSoc
         request.setValue(Locale.current.identifier, forHTTPHeaderField: "X-Apple-Locale")
         request.setValue(TimeZone.current.abbreviation(), forHTTPHeaderField: "X-Apple-I-TimeZone")
         return request
+    }
+    
+    func fetchAnisetteV3(_ identifier: String, _ adiPb: String) {
+        fetchClientInfo {
+            print("Fetching anisette V3")
+            var request = URLRequest(url: self.url!.appendingPathComponent("v3").appendingPathComponent("get_headers"))
+            request.httpMethod = "POST"
+            request.httpBody = try! JSONSerialization.data(withJSONObject: [
+                "identifier": identifier,
+                "adi_pb": adiPb
+            ], options: [])
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                do {
+                    guard let data = data, error == nil else { throw OperationError.anisetteV3Error(message: "Couldn't fetch anisette") }
+                    
+                    try self.extractAnisetteData(data, response as? HTTPURLResponse, v3: true)
+                } catch let error as NSError {
+                    print("Failed to load: \(error.localizedDescription)")
+                    self.finish(.failure(error))
+                }
+            }.resume()
+        }
     }
 }
 
